@@ -1,0 +1,1 @@
+// # t('key'), setLang(), toggles dir="rtl"
