@@ -1,1 +1,0 @@
-// one state object + save to localStorage

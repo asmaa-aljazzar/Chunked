@@ -1,1 +1,7 @@
-/* # imports everything below */
+/* Single entry point: order matters (tokens > base > components > layout > pages) */
+@import "tokens.css";
+@import "base.css";
+@import "components.css";
+@import "layout.css";
+@import "onboarding.css";
+@import "dashboard.css";

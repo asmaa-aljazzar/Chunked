@@ -1,0 +1,1 @@
+//  # sendMessage(), getSuggestions(); mock now, Laravel endpoint later

@@ -1,1 +1,48 @@
-<!-- # app shell (sidebar + top bar + router outlet) -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chunked | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@600;800&family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Start sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="brand"><span class="brand__logo" aria-hidden="true">C</span><span data-i18n="brand">Chunked</span></a>
+      <section id="prayer-box" class="prayer-box" aria-live="polite"></section>
+      <nav class="nav" aria-label="App">
+        <a href="app.html" aria-current="page" data-i18n="nav.dashboard">Dashboard</a>
+        <a href="#day" data-module="day" data-i18n="nav.day">Day</a>
+        <a href="#grow" data-module="grow" data-i18n="nav.grow">Grow</a>
+        <a href="#focus" data-module="focus" data-i18n="nav.focus">Focus</a>
+        <a href="#ai" data-module="ai" data-i18n="nav.ai">AI</a>
+        <a href="#insights" data-i18n="nav.insights">Insights</a>
+        <a href="#settings" data-i18n="nav.settings">Settings</a>
+      </nav>
+    </aside>
+    <!-- End sidebar -->
+
+    <div>
+      <!-- Start top bar -->
+      <header class="topbar">
+        <input class="topbar__search" type="search" data-i18n-placeholder="search" aria-label="Search">
+        <button class="btn btn--primary" type="button" data-i18n="quickAdd">Quick add</button>
+        <label class="visually-hidden" for="theme-select">Theme</label>
+        <select id="theme-select" class="select">
+          <option value="light">Light</option><option value="dark">Dark</option>
+          <option value="gothic">Gothic</option><option value="ramadan">Ramadan</option>
+        </select>
+        <button id="lang-toggle" class="btn" type="button">العربية</button>
+      </header>
+      <!-- End top bar -->
+
+      <!-- Start main content (dashboard renders here) -->
+      <main id="main-content" class="content"></main>
+      <!-- End main content -->
+    </div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

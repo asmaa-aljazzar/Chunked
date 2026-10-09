@@ -1,1 +1,38 @@
-/* # spacing, radius, shadows, type scale, shared vars */
+/* # spacing, radius, shadows, type scale, shared vars *//* ===== Start design tokens (shared) ===== */
+:root{
+  --space-1:8px;--space-2:16px;--space-3:24px;--space-4:32px;--space-5:40px;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
+  --shadow:0 2px 14px rgba(0,0,0,.07);
+  --font-head:"Nunito","IBM Plex Sans Arabic",sans-serif;
+  --font-body:"Inter","IBM Plex Sans Arabic",sans-serif;
+  --success:#4F8A68;--warning:#C58A3B;--focus:#5A72A5;--danger:#B4483C;
+}
+/* ===== End design tokens ===== */
+
+/* ===== Start theme: light (default) ===== */
+:root,[data-theme="light"]{
+  --bg:#F6F7F4;--surface:#FFFFFF;--surface-2:#EEF0EB;--text:#1C2924;--muted:#5C6B64;
+  --border:#E2E6E0;--accent:#527D68;--accent-soft:#E1ECE6;--on-accent:#FFFFFF;
+}
+/* ===== End theme: light ===== */
+/* ===== Start theme: dark ===== */
+[data-theme="dark"]{
+  --bg:#111815;--surface:#1A231F;--surface-2:#232E29;--text:#E8EEEA;--muted:#A3B2AA;
+  --border:#2E3A35;--accent:#7FB59B;--accent-soft:#25382F;--on-accent:#0E1512;
+  --shadow:0 2px 14px rgba(0,0,0,.4);
+}
+/* ===== End theme: dark ===== */
+/* ===== Start theme: gothic ===== */
+/* [data-theme="gothic"]{
+  --bg:#0D0B0D;--surface:#1A1418;--surface-2:#241B21;--text:#EDE6E8;--muted:#B5A5AB;
+  --border:#3A2A32;--accent:#C8A45C;--accent-soft:#3A2230;--on-accent:#0D0B0D;
+  --font-head:"Playfair Display","IBM Plex Sans Arabic",serif;--shadow:0 2px 14px rgba(0,0,0,.6);
+} */
+/* ===== End theme: gothic ===== */
+/* ===== Start theme: ramadan ===== */
+/* [data-theme="ramadan"]{
+  --bg:#0B1A33;--surface:#12274A;--surface-2:#1A3560;--text:#F3EFE2;--muted:#B8C4DA;
+  --border:#27427A;--accent:#E0B84F;--accent-soft:#2A3F6B;--on-accent:#0B1A33;
+  --shadow:0 2px 14px rgba(0,0,0,.45);
+} */
+/* ===== End theme: ramadan ===== */

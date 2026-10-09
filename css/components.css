@@ -1,1 +1,26 @@
-/* # buttons, cards, chips, badges, modal, drawer */
+/* ===== Start buttons ===== */
+.btn{display:inline-flex;align-items:center;gap:var(--space-1);min-height:44px;padding-inline:var(--space-3);border-radius:var(--radius-md);border:1px solid var(--border);background:var(--surface);font-weight:600;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn--primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn--ghost{background:transparent;border-color:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* ===== End buttons ===== */
+/* ===== Start cards, chips, selects ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-3);box-shadow:var(--shadow)}
+.card__title{display:flex;align-items:center;justify-content:space-between;gap:var(--space-1);font-size:16px;margin-block-end:var(--space-2)}
+.chip{display:inline-block;padding:2px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600}
+.select{min-height:44px;padding-inline:var(--space-2);border-radius:var(--radius-md);border:1px solid var(--border);background:var(--surface)}
+/* ===== End cards, chips, selects ===== */
+/* ===== Start progress ===== */
+.bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar__fill{height:100%;background:var(--accent);border-radius:99px}
+.ring{position:relative;width:96px;height:96px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring .track{stroke:var(--surface-2)}.ring .value{stroke:var(--accent);stroke-linecap:round}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-weight:700}
+/* ===== End progress ===== */
+/* ===== Start readiness badge (icon + label, never color alone) ===== */
+.readiness{display:inline-flex;align-items:center;gap:var(--space-1);padding:var(--space-1) var(--space-2);border-radius:99px;font-weight:700;border:2px solid currentColor}
+.readiness--ready{color:var(--success)}.readiness--wait{color:var(--warning)}.readiness--stay{color:var(--danger)}
+/* ===== End readiness badge ===== */

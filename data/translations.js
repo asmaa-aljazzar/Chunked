@@ -1,0 +1,45 @@
+// All UI strings. Add a key in BOTH languages. Change "brand" to rename the app.
+export const translations = {
+  en: {
+    brand:'Chunked', 'nav.features':'Features','nav.themes':'Themes','nav.pricing':'Pricing','cta.start':'Get started free','cta.demo':'Open dashboard',
+    'hero.l1':'Your day.','hero.l2':'Your growth.','hero.l3':'Your focus.',
+    'hero.sub':'Daily planning, goal tracking and focus in one calm space, built around your rhythm.',
+    'mod.title':'Three tools, one home.','mod.sub':'Use one, two or all three. You decide.',
+    'mod.day':'Day','mod.dayD':'Plan by prayer times. No overdue, just gentle guidance.',
+    'mod.grow':'Grow','mod.growD':'One main goal, small milestones, gentle habit streaks.',
+    'mod.focus':'Focus','mod.focusD':'Save your interests, pick one, and see when you are ready to switch.',
+    'themes.title':'Your space, your look.','themes.sub':'Pick a theme. It applies everywhere, instantly.',
+    'theme.light':'Light','theme.dark':'Dark','theme.gothic':'Gothic','theme.ramadan':'Ramadan',
+    'price.title':'Simple, honest pricing.','price.free':'Free','price.premium':'Premium','price.freeD':'2 modules, Light and Dark themes, 5 habits','price.premD':'All modules, all themes, AI and insights',
+    'price.freeCta':'Start for free','price.premCta':'Try Premium','footer':'Built for your journey.',
+    'nav.dashboard':'Dashboard','nav.day':'Day','nav.grow':'Grow','nav.focus':'Focus','nav.ai':'AI','nav.insights':'Insights','nav.settings':'Settings',
+    'search':'Search everything...','quickAdd':'Quick add','next.prayer':'Next prayer','in':'in',
+    'greet.morning':'Good morning','greet.afternoon':'Good afternoon','greet.evening':'Good evening','greet.sub':'A gentle look at your day. Nothing is overdue.',
+    'w.chunks':"Today's chunks",'w.tasks':'Current chunk tasks','w.goal':'Main goal','w.readiness':'Focus readiness','w.habits':'Habits today','w.workload':'Workload','w.ai':'AI suggestion',
+    'tasks':'tasks','next':'Next','accept':'Accept','dismiss':'Dismiss','addTask':'+ Add task','balanced':'Balanced',
+    'ready':'Ready','wait':'Not yet','stay':'Stay focused','readyWhy':'You have been focused for 3+ weeks. Ready to review interests.',
+    'aiText':'Your energy is high in the Duha chunk. A good time for deep work on your proposal.','workloadText':'11 tasks across 4 chunks. Realistic and manageable.',
+    'p.fajr':'Fajr','p.duha':'Duha','p.dhuhr':'Dhuhr','p.asr':'Asr','p.maghrib':'Maghrib','p.isha':'Isha'
+  },
+  ar: {
+    brand:'Chunked','nav.features':'المميزات','nav.themes':'السمات','nav.pricing':'الأسعار','cta.start':'ابدأ مجاناً','cta.demo':'افتح لوحة التحكم',
+    'hero.l1':'يومك.','hero.l2':'نموك.','hero.l3':'تركيزك.',
+    'hero.sub':'تخطيط يومي وتتبع الأهداف والتركيز في مساحة هادئة واحدة، مبنية على إيقاعك.',
+    'mod.title':'ثلاث أدوات، بيت واحد.','mod.sub':'استخدم واحدة أو اثنتين أو الثلاث. القرار لك.',
+    'mod.day':'اليوم','mod.dayD':'خطط حسب أوقات الصلاة. لا تأخير ولا ضغط.',
+    'mod.grow':'النمو','mod.growD':'هدف رئيسي واحد، محطات صغيرة، وعادات بسلاسل لطيفة.',
+    'mod.focus':'التركيز','mod.focusD':'احفظ اهتماماتك، اختر واحداً، واعرف متى تكون جاهزاً للتغيير.',
+    'themes.title':'مساحتك، مظهرك.','themes.sub':'اختر سمة وتُطبَّق فوراً في كل مكان.',
+    'theme.light':'فاتح','theme.dark':'داكن','theme.gothic':'قوطي','theme.ramadan':'رمضان',
+    'price.title':'أسعار بسيطة وواضحة.','price.free':'مجاني','price.premium':'مميز','price.freeD':'وحدتان، سمتا فاتح وداكن، 5 عادات','price.premD':'كل الوحدات والسمات والذكاء الاصطناعي',
+    'price.freeCta':'ابدأ مجاناً','price.premCta':'جرّب المميز','footer':'صُنع لرحلتك.',
+    'nav.dashboard':'لوحة التحكم','nav.day':'اليوم','nav.grow':'النمو','nav.focus':'التركيز','nav.ai':'الذكاء الاصطناعي','nav.insights':'الرؤى','nav.settings':'الإعدادات',
+    'search':'ابحث عن أي شيء...','quickAdd':'إضافة سريعة','next.prayer':'الصلاة القادمة','in':'بعد',
+    'greet.morning':'صباح الخير','greet.afternoon':'مساء الخير','greet.evening':'مساء الخير','greet.sub':'نظرة هادئة على يومك. لا شيء متأخر.',
+    'w.chunks':'فترات اليوم','w.tasks':'مهام الفترة الحالية','w.goal':'الهدف الرئيسي','w.readiness':'جاهزية التركيز','w.habits':'عادات اليوم','w.workload':'حجم العمل','w.ai':'اقتراح الذكاء الاصطناعي',
+    'tasks':'مهام','next':'التالي','accept':'قبول','dismiss':'تجاهل','addTask':'+ إضافة مهمة','balanced':'متوازن',
+    'ready':'جاهز','wait':'ليس بعد','stay':'ابقَ مركّزاً','readyWhy':'أنت مركّز منذ أكثر من 3 أسابيع. حان وقت مراجعة اهتماماتك.',
+    'aiText':'طاقتك عالية في فترة الضحى. وقت مناسب للعمل العميق على مقترحك.','workloadText':'11 مهمة في 4 فترات. واقعي ويمكن إنجازه.',
+    'p.fajr':'الفجر','p.duha':'الضحى','p.dhuhr':'الظهر','p.asr':'العصر','p.maghrib':'المغرب','p.isha':'العشاء'
+  }
+};
