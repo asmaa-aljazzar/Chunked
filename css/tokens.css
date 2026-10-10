@@ -1,38 +1,229 @@
-/* # spacing, radius, shadows, type scale, shared vars *//* ===== Start design tokens (shared) ===== */
-:root{
-  --space-1:8px;--space-2:16px;--space-3:24px;--space-4:32px;--space-5:40px;
-  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
-  --shadow:0 2px 14px rgba(0,0,0,.07);
-  --font-head:"Nunito","IBM Plex Sans Arabic",sans-serif;
-  --font-body:"Inter","IBM Plex Sans Arabic",sans-serif;
-  --success:#4F8A68;--warning:#C58A3B;--focus:#5A72A5;--danger:#B4483C;
-}
-/* ===== End design tokens ===== */
+/* ==========================================================================
+   tokens.css — ALL design decisions live here. Components never hard-code colors.
+   Switch a theme by setting <html data-theme="..." data-mode="light|dark">.
+   ========================================================================== */
 
-/* ===== Start theme: light (default) ===== */
-:root,[data-theme="light"]{
-  --bg:#F6F7F4;--surface:#FFFFFF;--surface-2:#EEF0EB;--text:#1C2924;--muted:#5C6B64;
-  --border:#E2E6E0;--accent:#527D68;--accent-soft:#E1ECE6;--on-accent:#FFFFFF;
+/* ---------- Non-color tokens (shared by every theme) ---------- */
+:root {
+  /* Fonts */
+  --font-latin: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Cairo", system-ui, sans-serif;
+  --font-body: var(--font-latin);
+  --font-heading: var(--font-latin);
+
+  /* Type scale */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.625rem;
+  --fs-2xl: 2.125rem;
+
+  /* 8px spacing grid (4px half-step) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+  --sp-6: 48px;
+
+  /* Density (data-density="compact" lowers this) */
+  --density: 1;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --sidebar-w: 260px;
+  --topbar-h: 64px;
+  --content-max: 1280px;
+  --tap: 44px; /* minimum touch target */
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
 }
-/* ===== End theme: light ===== */
-/* ===== Start theme: dark ===== */
-[data-theme="dark"]{
-  --bg:#111815;--surface:#1A231F;--surface-2:#232E29;--text:#E8EEEA;--muted:#A3B2AA;
-  --border:#2E3A35;--accent:#7FB59B;--accent-soft:#25382F;--on-accent:#0E1512;
-  --shadow:0 2px 14px rgba(0,0,0,.4);
+
+html[data-density="compact"] {
+  --density: 0.75;
 }
-/* ===== End theme: dark ===== */
-/* ===== Start theme: gothic ===== */
-/* [data-theme="gothic"]{
-  --bg:#0D0B0D;--surface:#1A1418;--surface-2:#241B21;--text:#EDE6E8;--muted:#B5A5AB;
-  --border:#3A2A32;--accent:#C8A45C;--accent-soft:#3A2230;--on-accent:#0D0B0D;
-  --font-head:"Playfair Display","IBM Plex Sans Arabic",serif;--shadow:0 2px 14px rgba(0,0,0,.6);
-} */
-/* ===== End theme: gothic ===== */
-/* ===== Start theme: ramadan ===== */
-/* [data-theme="ramadan"]{
-  --bg:#0B1A33;--surface:#12274A;--surface-2:#1A3560;--text:#F3EFE2;--muted:#B8C4DA;
-  --border:#27427A;--accent:#E0B84F;--accent-soft:#2A3F6B;--on-accent:#0B1A33;
-  --shadow:0 2px 14px rgba(0,0,0,.45);
-} */
-/* ===== End theme: ramadan ===== */
+
+/* ---------- Semantic status colors, per mode ---------- */
+html[data-mode="light"] {
+  --ok: #17663a;
+  --ok-soft: #dcf2e3;
+  --warn: #7a4f00;
+  --warn-soft: #fdeebb;
+  --stop: #a3261b;
+  --stop-soft: #fde3e0;
+  --shadow-sm: 0 1px 2px rgba(20, 24, 33, 0.06);
+  --shadow-md: 0 6px 20px rgba(20, 24, 33, 0.08);
+  --shadow-lg: 0 18px 48px rgba(20, 24, 33, 0.16);
+  --scrim: rgba(20, 24, 33, 0.45);
+}
+html[data-mode="dark"] {
+  --ok: #7ddba4;
+  --ok-soft: #173a2a;
+  --warn: #f3cb68;
+  --warn-soft: #3b2f10;
+  --stop: #ff9a90;
+  --stop-soft: #431d1b;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 56px rgba(0, 0, 0, 0.6);
+  --scrim: rgba(0, 0, 0, 0.62);
+}
+
+/* ==========================================================================
+   THEMES
+   Required tokens per theme:
+   --bg --surface --surface-2 --text --text-muted --border
+   --accent --accent-contrast (text ON accent) --accent-soft --accent-text (accent used as text/icon)
+   Optional: --font-heading, --pattern (subtle background motif)
+   ========================================================================== */
+
+/* Base: Light */
+html[data-theme="light"] {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-2: #f0eee9;
+  --text: #1f2430;
+  --text-muted: #565d6b;
+  --border: #e3e0d8;
+  --accent: #2f6b64;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e1eeec;
+  --accent-text: #25564f;
+  --pattern: none;
+}
+
+/* Base: Dark */
+html[data-theme="dark"] {
+  --bg: #12151c;
+  --surface: #1a1f29;
+  --surface-2: #232a36;
+  --text: #eceef2;
+  --text-muted: #a8b0bf;
+  --border: #2f3746;
+  --accent: #7cc4b8;
+  --accent-contrast: #0c1a17;
+  --accent-soft: #1d3431;
+  --accent-text: #8fd3c8;
+  --pattern: none;
+}
+
+/* Seasonal: Autumn */
+html[data-theme="autumn"] {
+  --bg: #faf3ea;
+  --surface: #fffbf5;
+  --surface-2: #f5e8d8;
+  --text: #3a2418;
+  --text-muted: #6a5040;
+  --border: #ebd9c4;
+  --accent: #a84a14;
+  --accent-contrast: #ffffff;
+  --accent-soft: #f7e3d0;
+  --accent-text: #8f3d0d;
+  --pattern: radial-gradient(circle at 12% 18%, rgba(168, 74, 20, 0.06) 0 2px, transparent 3px) 0 0 / 56px 56px;
+}
+
+/* Seasonal: Summer */
+html[data-theme="summer"] {
+  --bg: #fffbeb;
+  --surface: #ffffff;
+  --surface-2: #fdf1c9;
+  --text: #2a2a1e;
+  --text-muted: #5a5842;
+  --border: #f2e6b8;
+  --accent: #a9470b;
+  --accent-contrast: #ffffff;
+  --accent-soft: #fee8bd;
+  --accent-text: #8d3a08;
+  --pattern: radial-gradient(circle at 85% 12%, rgba(245, 158, 11, 0.16), transparent 40%);
+}
+
+/* Seasonal: Spring */
+html[data-theme="spring"] {
+  --bg: #f4faf2;
+  --surface: #ffffff;
+  --surface-2: #e8f4e4;
+  --text: #1e2d22;
+  --text-muted: #4d6056;
+  --border: #d8ead3;
+  --accent: #2a7048;
+  --accent-contrast: #ffffff;
+  --accent-soft: #dcf1e3;
+  --accent-text: #205a39;
+  --pattern: radial-gradient(circle at 10% 90%, rgba(80, 170, 110, 0.12), transparent 38%);
+}
+
+/* Seasonal: Winter */
+html[data-theme="winter"] {
+  --bg: #f1f5fa;
+  --surface: #ffffff;
+  --surface-2: #e6edf6;
+  --text: #17212e;
+  --text-muted: #4d5d75;
+  --border: #d6e0ec;
+  --accent: #2a5696;
+  --accent-contrast: #ffffff;
+  --accent-soft: #dce8f6;
+  --accent-text: #234a82;
+  --pattern: radial-gradient(circle at 90% 8%, rgba(120, 160, 220, 0.16), transparent 36%);
+}
+
+/* Style: Gothic (deep black, burgundy, muted gold, serif headings) */
+html[data-theme="gothic"] {
+  --bg: #0d0b0c;
+  --surface: #171213;
+  --surface-2: #211a1c;
+  --text: #efe8e1;
+  --text-muted: #b6aaa2;
+  --border: #3a2a2e;
+  --accent: #c9a24b;
+  --accent-contrast: #1a1300;
+  --accent-soft: #2e2514;
+  --accent-text: #d8b663;
+  --burgundy: #8c1d40;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --pattern: linear-gradient(135deg, rgba(140, 29, 64, 0.16), transparent 35%);
+}
+
+/* Event: Ramadan (deep blue / gold; crescent + lantern motifs go in --pattern later) */
+html[data-theme="ramadan"] {
+  --bg: #0b1530;
+  --surface: #12214a;
+  --surface-2: #1a2c5e;
+  --text: #f3efe0;
+  --text-muted: #bcc5e0;
+  --border: #2b3e7a;
+  --accent: #e2b94b;
+  --accent-contrast: #1b1500;
+  --accent-soft: #2a3457;
+  --accent-text: #efc965;
+  --pattern: radial-gradient(circle at 88% 10%, rgba(226, 185, 75, 0.18), transparent 30%);
+}
+
+/* Event: Eid */
+html[data-theme="eid"] {
+  --bg: #fff8f0;
+  --surface: #ffffff;
+  --surface-2: #fbeee6;
+  --text: #2b1b2e;
+  --text-muted: #644d69;
+  --border: #f0dde6;
+  --accent: #a02a69;
+  --accent-contrast: #ffffff;
+  --accent-soft: #fbe4ef;
+  --accent-text: #8a2058;
+  --pattern: radial-gradient(circle at 12% 12%, rgba(201, 162, 75, 0.18), transparent 32%);
+}
+
+/* Arabic text always uses the Arabic font, even in Gothic (serif is Latin-only) */
+html[lang="ar"][data-theme] {
+  --font-body: var(--font-arabic);
+  --font-heading: var(--font-arabic);
+}

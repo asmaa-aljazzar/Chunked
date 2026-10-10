@@ -1,7 +1,189 @@
-/* Single entry point: order matters (tokens > base > components > layout > pages) */
-@import "tokens.css";
-@import "base.css";
-@import "components.css";
-@import "layout.css";
-@import "onboarding.css";
-@import "dashboard.css";
+/* style.css — entry stylesheet: tokens + Bootstrap bridge + base + app layout */
+@import url("tokens.css");
+@import url("components.css");
+
+/* ---------- Bootstrap bridge: make Bootstrap read our tokens ---------- */
+html[data-theme] {
+  --bs-body-font-family: var(--font-body);
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-secondary-color: var(--text-muted);
+  --bs-border-color: var(--border);
+  --bs-link-color: var(--accent-text);
+  --bs-link-hover-color: var(--accent-text);
+  --bs-emphasis-color: var(--text);
+  --bs-tertiary-bg: var(--surface-2);
+  --bs-border-radius: var(--radius-sm);
+}
+.btn-primary {
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-color: var(--accent-contrast);
+  --bs-btn-hover-bg: color-mix(in srgb, var(--accent) 88%, #000);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--accent) 88%, #000);
+  --bs-btn-hover-color: var(--accent-contrast);
+  --bs-btn-active-bg: color-mix(in srgb, var(--accent) 80%, #000);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--accent) 80%, #000);
+  --bs-btn-active-color: var(--accent-contrast);
+  --bs-btn-disabled-bg: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+  --bs-btn-disabled-color: var(--accent-contrast);
+  --bs-btn-focus-shadow-rgb: 120, 120, 120;
+}
+.btn-outline-secondary {
+  --bs-btn-color: var(--text);
+  --bs-btn-border-color: var(--border);
+  --bs-btn-hover-bg: var(--surface-2);
+  --bs-btn-hover-color: var(--text);
+  --bs-btn-hover-border-color: var(--border);
+  --bs-btn-active-bg: var(--surface-2);
+  --bs-btn-active-color: var(--text);
+}
+.form-control,
+.form-select {
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+  min-height: var(--tap);
+}
+.form-control::placeholder { color: var(--text-muted); opacity: 1; }
+.dropdown-menu {
+  --bs-dropdown-bg: var(--surface);
+  --bs-dropdown-color: var(--text);
+  --bs-dropdown-border-color: var(--border);
+  --bs-dropdown-link-color: var(--text);
+  --bs-dropdown-link-hover-bg: var(--surface-2);
+  --bs-dropdown-link-hover-color: var(--text);
+  --bs-dropdown-link-active-bg: var(--accent-soft);
+  --bs-dropdown-link-active-color: var(--accent-text);
+  --bs-dropdown-border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+.dropdown-item { min-height: 40px; display: flex; align-items: center; gap: var(--sp-2); }
+
+/* ---------- Base ---------- */
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  background: var(--bg);
+  background-image: var(--pattern);
+  background-attachment: fixed;
+  color: var(--text);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+h1, h2, h3, h4, h5, h6, .h-font { font-family: var(--font-heading); font-weight: 600; letter-spacing: -0.01em; }
+a { color: var(--accent-text); }
+.text-muted-x { color: var(--text-muted); }
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+.skip-link {
+  position: absolute; inset-inline-start: var(--sp-3); top: -100px; z-index: 2000;
+  background: var(--accent); color: var(--accent-contrast); padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+}
+.skip-link:focus { top: var(--sp-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ---------- App shell ---------- */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  min-height: 100vh;
+}
+.app-main { display: flex; flex-direction: column; min-width: 0; }
+
+.sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  background: var(--surface);
+  border-inline-end: 1px solid var(--border);
+  padding: var(--sp-4) var(--sp-3);
+  display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.brand { display: flex; align-items: center; gap: var(--sp-2); font-family: var(--font-heading); font-size: var(--fs-lg); font-weight: 700; color: var(--text); text-decoration: none; padding-inline: var(--sp-2); }
+.brand-mark { width: 36px; height: 36px; border-radius: 12px; background: var(--accent); color: var(--accent-contrast); display: grid; place-items: center; }
+
+.nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.nav-link-x {
+  display: flex; align-items: center; gap: var(--sp-2);
+  min-height: var(--tap); padding: 0 var(--sp-3);
+  border-radius: var(--radius-md);
+  color: var(--text-muted); text-decoration: none; font-weight: 500;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.nav-link-x:hover { background: var(--surface-2); color: var(--text); }
+.nav-link-x.active { background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
+.nav-link-x .bi { font-size: 1.1rem; }
+
+.sidebar-foot { margin-top: auto; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--topbar-h);
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding-inline: calc(var(--sp-4) * var(--density));
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar .search { flex: 1 1 auto; max-width: 420px; position: relative; }
+.topbar .search .bi { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.topbar .search input { padding-inline-start: 40px; border-radius: var(--radius-pill); }
+.topbar-actions { margin-inline-start: auto; display: flex; align-items: center; gap: var(--sp-1); }
+.icon-btn {
+  width: var(--tap); height: var(--tap); border-radius: var(--radius-pill);
+  display: inline-grid; place-items: center;
+  border: 0; background: transparent; color: var(--text);
+  transition: background var(--dur) var(--ease);
+}
+.icon-btn:hover { background: var(--surface-2); }
+.topnav { display: none; gap: 2px; margin-inline: var(--sp-3); }
+.topnav .nav-link-x { min-height: 40px; }
+
+.view {
+  width: 100%; max-width: var(--content-max); margin-inline: auto;
+  padding: calc(var(--sp-5) * var(--density)) calc(var(--sp-4) * var(--density)) var(--sp-6);
+  outline: none;
+}
+
+/* Navigation style = top bar */
+.app-shell[data-nav="top"] { grid-template-columns: minmax(0, 1fr); }
+.app-shell[data-nav="top"] .sidebar { display: none; }
+.app-shell[data-nav="top"] .topnav { display: flex; }
+.app-shell[data-nav="top"] .topbar .search { display: none; }
+
+/* Auth / onboarding screens hide the app chrome */
+body[data-layout="bare"] .sidebar,
+body[data-layout="bare"] .topbar { display: none; }
+body[data-layout="bare"] .app-shell { grid-template-columns: minmax(0, 1fr); }
+
+/* ---------- Responsive: sidebar becomes an off-canvas panel ---------- */
+.menu-btn { display: none; }
+@media (max-width: 991.98px) {
+  .app-shell { grid-template-columns: minmax(0, 1fr); }
+  .sidebar {
+    position: fixed; z-index: 1200; inset-block: 0; inset-inline-start: 0;
+    width: min(86vw, var(--sidebar-w));
+    transform: translateX(-100%);
+    transition: transform var(--dur) var(--ease);
+    box-shadow: var(--shadow-lg);
+  }
+  [dir="rtl"] .sidebar { transform: translateX(100%); }
+  .sidebar.is-open { transform: none; }
+  .menu-btn { display: inline-grid; }
+  .app-shell[data-nav="top"] .sidebar { display: flex; }
+  .app-shell[data-nav="top"] .topnav { display: none; }
+  .topbar .search { display: none; }
+}
+@media (max-width: 575.98px) {
+  :root { --topbar-h: 60px; }
+  .view { padding-inline: var(--sp-3); }
+}

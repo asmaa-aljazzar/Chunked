@@ -1,36 +1,76 @@
-// Dashboard: widgets are objects, state.widgets decides which render (show/hide ready)
-import { t } from '../utils/i18n.js';
-import { getState } from '../state.js';
-import { chunks, tasks, goal, habits, user, nextPrayer } from '../../data/mock.js';
-import { ChunkCard } from '../components/chunkCard.js';
-import { GoalCard } from '../components/goalCard.js';
-import { ReadinessBadge } from '../components/readinessBadge.js';
+// dashboard.js — Day 1 skeleton: proves the shell, tokens, RTL and widget grid work.
+// Day 3 replaces the demo widgets with real ones from data/mock.js + utils/prayerTimes.js.
+import { getState, isModuleOn, isPremium } from "../state.js";
+import { t, fmtDate } from "../utils/i18n.js";
+import { progressRing } from "../components/progressRing.js";
+import { CHUNKS } from "../../data/chunks.js";
 
-const card = (id, size, titleKey, body) =>
-  `<article class="card w-${size}" data-widget="${id}"><h2 class="card__title">${t(titleKey)}</h2>${body}</article>`;
+// Demo start times per chunk. Day 1 replaces these with real times from utils/prayerTimes.js.
+const DEMO_TIMES = { fajr: "05:12", duha: "06:40", dhuhr: "12:24", asr: "15:41", maghrib: "18:02", isha: "19:25" };
+const DEMO_CURRENT = "dhuhr";
 
-const widgets = {
-  chunks: { module: 'day', render: () => card('chunks', 'lg', 'w.chunks', `<ul class="chunks">${chunks.map(ChunkCard).join('')}</ul>`) },
-  tasks: { module: 'day', render: () => card('tasks', 'md', 'w.tasks', `<ul>${tasks.map((k) => `
-      <li class="task ${k.done ? 'task--done' : ''}"><input type="checkbox" data-task="${k.id}" ${k.done ? 'checked' : ''} aria-label="${k.title}">
-      <span>${k.title}</span><time class="chip">${k.min}m</time></li>`).join('')}</ul><button class="btn btn--ghost">${t('addTask')}</button>`) },
-  goal: { module: 'grow', render: () => card('goal', 'sm', 'w.goal', GoalCard(goal)) },
-  readiness: { module: 'focus', render: () => card('readiness', 'sm', 'w.readiness', `${ReadinessBadge({ status: 'ready' })}<p class="muted">${t('readyWhy')}</p>`) },
-  habits: { module: 'grow', render: () => card('habits', 'sm', 'w.habits', habits.map((h) => `
-      <div class="habit"><label><input type="checkbox" ${h.done ? 'checked' : ''}> ${h.title}</label><span class="chip">🔥 ${h.streak}</span></div>`).join('')) },
-  workload: { module: 'day', render: () => card('workload', 'sm', 'w.workload', `<span class="chip">◐ ${t('balanced')}</span><p class="muted">${t('workloadText')}</p>`) },
-  ai: { module: 'ai', render: () => card('ai', 'sm', 'w.ai', `<p class="suggestion">${t('aiText')}</p>
-      <div class="actions"><button class="btn btn--primary">${t('accept')}</button><button class="btn">${t('dismiss')}</button></div>`) }
-};
+function greeting() {
+  const h = new Date().getHours();
+  return t(h < 12 ? "dash.greeting.morning" : h < 17 ? "dash.greeting.afternoon" : "dash.greeting.evening");
+}
 
-const greetingKey = () => { const h = new Date().getHours(); return h < 12 ? 'greet.morning' : h < 18 ? 'greet.afternoon' : 'greet.evening'; };
+const widget = (size, title, body, { highlight = false } = {}) => `
+  <section class="widget" data-size="${size}">
+    <div class="ui-card ${highlight ? "is-highlight" : ""}" style="height:100%">
+      <h2 class="ui-card-title">${title}</h2>${body}
+    </div>
+  </section>`;
 
-export const renderDashboard = () => {
-  const { widgets: visible, modules, ai } = getState();
-  const enabled = (m) => (m === 'ai' ? ai : modules[m]);
-  return `<header class="greeting"><h1>${t(greetingKey())}, ${user.name}</h1><p class="muted">${t('greet.sub')}</p></header>
-    <div class="widget-grid">${visible.filter((id) => widgets[id] && enabled(widgets[id].module)).map((id) => widgets[id].render()).join('')}</div>`;
-};
-export const renderPrayerBox = () =>
-  `<p class="muted">${t('next.prayer')}</p><p><strong>${t('p.' + nextPrayer.id)}</strong> ${t('in')} ${nextPrayer.left}</p><p class="muted">${nextPrayer.time}</p>`;
-export const toggleTask = (id) => { const k = tasks.find((x) => x.id === Number(id)); if (k) k.done = !k.done; };
+export function render(view) {
+  const { user } = getState();
+  const name = user?.name ? `, ${user.name}` : "";
+
+  const chunks = CHUNKS.map(
+    ({ id }, i) => `
+      <div class="chunk ${id === DEMO_CURRENT ? "is-current" : ""}">
+        <div class="chunk-name">${t(`prayer.${id}`)}</div>
+        <div class="chunk-time">${DEMO_TIMES[id]}</div>
+        <div class="chunk-time mt-2">${i + 1} ${t("dash.chunkTasks")}</div>
+      </div>`,
+  ).join("");
+
+  const widgets = [
+    isModuleOn("day") &&
+      widget("full", t("dash.chunks"), `<div class="chunks">${chunks}</div>`),
+    isModuleOn("grow") &&
+      widget(
+        "md",
+        t("dash.mainGoal"),
+        `<div class="d-flex align-items-center gap-3">${progressRing(64)}
+           <div><div class="fw-semibold">Finish the frontend</div>
+           <div class="small text-muted-x">${t("dash.nextMilestone")}: Dashboard</div></div></div>`,
+      ),
+    isModuleOn("focus") &&
+      widget(
+        "md",
+        t("dash.readiness"),
+        `<span class="readiness is-yellow"><i class="bi bi-hourglass-split" aria-hidden="true"></i>${t("dash.readiness.yellow")}</span>
+         <p class="small text-muted-x mt-3 mb-0">${t("dash.readiness.reason")}</p>`,
+      ),
+    widget(
+      "md",
+      `${t("dash.templates")} <span class="badge-x ${isPremium() ? "badge-premium" : "badge-free"}">${t(isPremium() ? "common.premium" : "common.free")}</span>`,
+      `<p class="small text-muted-x">${t("dash.templatesHint")}</p><a class="btn btn-primary btn-sm" href="#/templates">${t("nav.templates")}</a>`,
+    ),
+  ].filter(Boolean);
+
+  view.innerHTML = `
+    <header class="mb-4 d-flex flex-wrap align-items-end justify-content-between gap-3">
+      <div>
+        <p class="text-muted-x mb-1">${fmtDate(new Date(), { weekday: "long", day: "numeric", month: "long" })}</p>
+        <h1 class="h2 mb-1">${greeting()}${name}</h1>
+        <p class="text-muted-x mb-0">${t("dash.subtitle")}</p>
+      </div>
+      ${
+        isModuleOn("day")
+          ? `<div class="chip is-active"><i class="bi bi-moon-stars" aria-hidden="true"></i>${t("prayer.next")}: ${t("prayer.asr")} · 15:41</div>`
+          : ""
+      }
+    </header>
+    <div class="widget-grid">${widgets.join("")}</div>`;
+}
