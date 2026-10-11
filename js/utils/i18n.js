@@ -10,8 +10,10 @@ export const getLang = () => lang;
 export const isRTL = () => lang === "ar";
 
 /** t("nav.day") -> "Day" / "اليوم". Falls back to English, then to the key itself. */
-export function t(key) {
-  return translations[lang]?.[key] ?? translations.en[key] ?? key;
+export function t(key, vars) {
+  let text = translations[lang]?.[key] ?? translations.en[key] ?? key;
+  if (vars) for (const [name, value] of Object.entries(vars)) text = text.replaceAll(`{${name}}`, value);
+  return text;
 }
 
 export function setLang(next) {

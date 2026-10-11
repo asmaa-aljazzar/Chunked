@@ -1,6 +1,8 @@
 // router.js — tiny hash router. "#/day/week" -> page module "pages/day.js", parts = ["day","week"].
 // A page module exports: render(view, { parts }) and optionally destroy().
 import { t, applyI18n } from "./utils/i18n.js";
+import { getState } from "./state.js";
+import { logout } from "./api.js";
 
 // first URL segment -> page file in js/pages/
 const ROUTES = {
@@ -18,9 +20,11 @@ const ROUTES = {
   forgot: "auth",
   admin: "admin",
 };
+const PUBLIC = new Set(["login", "signup", "forgot"]); // reachable while logged out
 const BARE = new Set(["onboarding", "login", "signup", "forgot"]); // screens without sidebar/topbar
 
 let current = null; // the page module currently on screen
+let renderId = 0; // lets a newer navigation cancel an older, slower one
 
 export const currentParts = () => (location.hash.replace(/^#\/?/, "") || "dashboard").split("/");
 
@@ -38,12 +42,32 @@ export function refresh() {
   return render({ keepScroll: true });
 }
 
+/** Who may see what. Returns the route to go to instead, or null if the visit is allowed. */
+function guard(key) {
+  const { user, settings } = getState();
+  if (!user) return PUBLIC.has(key) ? null : "login";
+  if (user.role === "admin") return key === "admin" ? null : "admin"; // admins only see the admin area
+  if (key === "admin") return "dashboard"; // typing #/admin is not enough: the real check is in Laravel
+  if (PUBLIC.has(key)) return settings.onboarded ? "dashboard" : "onboarding";
+  if (!settings.onboarded && key !== "onboarding") return "onboarding";
+  return null;
+}
+
 async function render(opts = {}) {
   const view = document.getElementById("view");
   const parts = currentParts();
   const key = parts[0];
 
-  current?.destroy?.();
+  if (key === "logout") {
+    logout();
+    return navigate("login");
+  }
+
+  const redirect = guard(key);
+  if (redirect) return navigate(redirect);
+
+  const myId = ++renderId;
+  current?.destroy?.({ refreshing: !!opts.keepScroll }); // a refresh redraws the SAME page, so pages may keep their state
   current = null;
 
   document.body.dataset.layout = BARE.has(key) ? "bare" : "app";
@@ -61,6 +85,7 @@ async function render(opts = {}) {
       mod = { render: (el) => placeholder(el, key) };
     }
   }
+  if (myId !== renderId) return; // user navigated again while this page was loading
 
   current = mod;
   mod.render(view, { parts });

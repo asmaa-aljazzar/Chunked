@@ -28,11 +28,13 @@ start();
 
 // Any settings change (theme, language, enabled modules...) redraws the chrome and the current page.
 subscribe((_state, patch) => {
-  if (!patch.settings) return;
-  applySettings();
-  renderChrome();
-  refresh();
+  if (patch.settings) {
+    applySettings();
+    renderChrome();
+    refresh();
+  } else if ("user" in patch) {
+    renderChrome(); // login / logout changes the sidebar and the profile menu
+  }
 });
 
-// Day 1/2: add the guard here once pages/onboarding.js and pages/auth.js exist:
-//   if (!getState().settings.onboarded && !["onboarding","login","signup","forgot"].includes(currentParts()[0])) navigate("signup");
+// Route guard (login, onboarding, admin) lives in router.js.

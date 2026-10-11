@@ -1,0 +1,33 @@
+/* auth.css — login / signup / forgot. Tokens only, logical properties only. */
+.auth { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 992px) { .auth { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+
+.auth-side {
+  display: none;
+  background: var(--accent-soft);
+  color: var(--text);
+  padding: var(--sp-6);
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-5);
+}
+@media (min-width: 992px) { .auth-side { display: flex; } }
+.auth-tagline { font-size: var(--fs-2xl); line-height: 1.2; margin: 0; max-width: 18ch; }
+.auth-points { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); max-width: 38ch; }
+.auth-points li { display: flex; gap: var(--sp-3); align-items: flex-start; color: var(--text-muted); }
+.auth-points .bi { color: var(--accent-text); font-size: 1.25rem; line-height: 1.4; }
+
+.auth-main { display: flex; flex-direction: column; padding: var(--sp-3) var(--sp-4) var(--sp-5); }
+.auth-top { display: flex; align-items: center; min-height: var(--topbar-h); }
+.auth-card { width: min(440px, 100%); margin: auto; padding-block: var(--sp-4); }
+
+.field-error { color: var(--warn); font-size: var(--fs-sm); margin-top: var(--sp-1); display: flex; gap: 6px; align-items: flex-start; }
+.form-control[aria-invalid="true"] { border-color: var(--warn); }
+
+.notice { display: flex; gap: var(--sp-2); align-items: flex-start; background: var(--warn-soft); color: var(--warn); border-radius: var(--radius-md); padding: var(--sp-3); margin-bottom: var(--sp-3); font-size: var(--fs-sm); font-weight: 500; }
+.notice[hidden], .field-error[hidden] { display: none; }
+
+.demo-hint { color: var(--text-muted); background: var(--surface-2); border-radius: var(--radius-md); padding: var(--sp-3); }
+
+/* arrows that point "back" must mirror in RTL */
+[dir="rtl"] .flip { transform: scaleX(-1); }

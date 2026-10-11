@@ -1,6 +1,6 @@
 // topbar.js — menu button (mobile), top navigation (when nav style = "top"), search, quick add,
 // notifications, AI, theme + language switches, profile menu.
-import { getState, update } from "../state.js";
+import { getState, update, isAdmin } from "../state.js";
 import { t } from "../utils/i18n.js";
 import { THEMES } from "../utils/theme.js";
 import { renderNavList, toggleSidebar } from "./sidebar.js";
@@ -24,11 +24,15 @@ export function renderTopbar() {
     </div>
 
     <div class="topbar-actions">
-      <button type="button" class="btn btn-primary d-inline-flex align-items-center gap-1" data-act="quickadd" style="min-height:var(--tap)">
+      ${
+        isAdmin()
+          ? ""
+          : `<button type="button" class="btn btn-primary d-inline-flex align-items-center gap-1" data-act="quickadd" style="min-height:var(--tap)">
         <i class="bi bi-plus-lg" aria-hidden="true"></i><span class="d-none d-sm-inline">${t("top.quickAdd")}</span>
-      </button>
-      <button type="button" class="icon-btn" data-act="notifications" aria-label="${t("top.notifications")}"><i class="bi bi-bell" aria-hidden="true"></i></button>
-      ${settings.ai_enabled ? `<button type="button" class="icon-btn" data-act="ai" aria-label="${t("top.ai")}"><i class="bi bi-stars" aria-hidden="true"></i></button>` : ""}
+      </button>`
+      }
+      ${isAdmin() ? "" : `<button type="button" class="icon-btn" data-act="notifications" aria-label="${t("top.notifications")}"><i class="bi bi-bell" aria-hidden="true"></i></button>`}
+      ${settings.ai_enabled && !isAdmin() ? `<button type="button" class="icon-btn" data-act="ai" aria-label="${t("top.ai")}"><i class="bi bi-stars" aria-hidden="true"></i></button>` : ""}
 
       <div class="dropdown">
         <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="${t("top.theme")}"><i class="bi bi-palette" aria-hidden="true"></i></button>
@@ -46,9 +50,8 @@ export function renderTopbar() {
         <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="${t("top.profile")}"
           style="background:var(--accent-soft);color:var(--accent-text);font-weight:700">${initial}</button>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#/settings"><i class="bi bi-gear" aria-hidden="true"></i>${t("nav.settings")}</a></li>
-          ${user?.role === "admin" ? `<li><a class="dropdown-item" href="#/admin"><i class="bi bi-shield-check" aria-hidden="true"></i>${t("nav.admin")}</a></li>` : ""}
-          <li><a class="dropdown-item" href="#/login"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>${t("top.logout")}</a></li>
+          ${isAdmin() ? "" : `<li><a class="dropdown-item" href="#/settings"><i class="bi bi-gear" aria-hidden="true"></i>${t("nav.settings")}</a></li>`}
+          <li><a class="dropdown-item" href="#/logout"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>${t("top.logout")}</a></li>
         </ul>
       </div>
     </div>`;

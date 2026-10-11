@@ -1,6 +1,6 @@
 // sidebar.js — main navigation. Day / Grow / Focus links show only if the module is in settings.enabled_modules.
 // The same list also feeds the top-bar navigation style (see topbar.js).
-import { getState, isModuleOn, isPremium } from "../state.js";
+import { getState, isModuleOn, isPremium, isAdmin } from "../state.js";
 import { t } from "../utils/i18n.js";
 import { currentParts } from "../router.js";
 
@@ -16,12 +16,27 @@ const NAV = [
   { id: "settings", icon: "bi-gear" },
 ];
 
+// The admin only sees the admin area (the router guard enforces this too).
+const ADMIN_NAV = [
+  { id: "overview", path: "admin", icon: "bi-speedometer2" },
+  { id: "users", path: "admin/users", icon: "bi-people" },
+  { id: "templates", path: "admin/templates", icon: "bi-file-earmark-pdf" },
+  { id: "orders", path: "admin/orders", icon: "bi-receipt" },
+];
+
 export function visibleNav() {
   const { settings } = getState();
   return NAV.filter((i) => (!i.module || isModuleOn(i.module)) && (!i.needsAI || settings.ai_enabled));
 }
 
 export function renderNavList() {
+  if (isAdmin()) {
+    const here = currentParts().join("/");
+    return ADMIN_NAV.map(
+      (i) => `<li><a class="nav-link-x ${here === i.path ? "active" : ""}" href="#/${i.path}" ${here === i.path ? 'aria-current="page"' : ""}>
+        <i class="bi ${i.icon}" aria-hidden="true"></i><span>${t(`nav.admin.${i.id}`)}</span></a></li>`,
+    ).join("");
+  }
   const section = currentParts()[0];
   return visibleNav()
     .map((item) => {
@@ -40,7 +55,7 @@ export function renderSidebar() {
     <nav><ul class="nav-list">${renderNavList()}</ul></nav>
     <div class="sidebar-foot">
       ${
-        isPremium()
+        isPremium() || isAdmin()
           ? ""
           : `<div class="ui-card is-highlight" style="padding:16px">
                <div class="fw-semibold mb-1">${t("common.premium")}</div>

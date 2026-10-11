@@ -7,6 +7,17 @@ ES modules need a web server (opening the file by double-click will not work).
 - VS Code: right-click `app.html` → **Open with Live Server**
 - or in this folder: `python -m http.server 5500` then open `http://localhost:5500/app.html`
 
+## Try it
+- Sign up with any valid email: you land in the onboarding wizard (5 steps, skippable), then the dashboard.
+- **Demo admin:** `admin@chunked.test` / `admin12345` -> goes to the admin area. Demo only; the real admin is created by a Laravel seeder.
+- Any other valid email on the login page logs in as a normal user. All of this is fake auth in `js/api.js`.
+
+## How the pieces fit
+- `js/router.js` has the guard: logged out -> login; new user -> onboarding; admin -> `#/admin` only; non-admin can't open `#/admin`.
+- `js/api.js` is the only place that "talks to the server". Replace its functions with `fetch("/api/...")` when Laravel is ready.
+- `js/utils/prayerTimes.js` gets times from the Aladhan API (cached per day, with approximate fallback times offline).
+- `js/state.js` `settings` has the same keys as the `user_settings` table.
+
 ## Rules that keep the project small
 1. **Colors only from `css/tokens.css`.** Never write a hex color in a component.
 2. **Strings only via `t("key")`** (JS) or `data-i18n="key"` (HTML); add both EN and AR in `data/translations.js`.
@@ -24,12 +35,3 @@ Copy a block in `css/tokens.css`, rename it, change the 9 color tokens, add it t
 
 ## Planned (see the day plan)
 Day 2 auth + onboarding · Day 3 dashboard widgets · Day 4 Day module · Day 5 Grow + Focus · Day 6 Settings, Templates (printable PDFs), Admin (mock), polish.
-
-| Feature | Free | Premium |
-|---|---|---|
-| AI suggestion card on dashboard | Yes | Yes |
-| AI chat | ~5 messages/day | Higher or unlimited |
-| "Let AI reorganize my day" | 1 per day | Unlimited |
-| Focus: AI comparison of interests | 1 per week | Unlimited |
-| "Why this suggestion?" explanations | Yes | Yes |
-| Insights and reports (AI-written) | Locked | Yes |

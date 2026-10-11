@@ -1,6 +1,8 @@
 /* style.css — entry stylesheet: tokens + Bootstrap bridge + base + app layout */
 @import url("tokens.css");
 @import url("components.css");
+@import url("auth.css");
+@import url("onboarding.css");
 
 /* ---------- Bootstrap bridge: make Bootstrap read our tokens ---------- */
 html[data-theme] {
@@ -187,3 +189,11 @@ body[data-layout="bare"] .app-shell { grid-template-columns: minmax(0, 1fr); }
   :root { --topbar-h: 60px; }
   .view { padding-inline: var(--sp-3); }
 }
+
+/* Auth + onboarding screens are full-bleed (no centered max-width column) */
+body[data-layout="bare"] .view { max-width: none; padding: 0; }
+
+/* Bootstrap switches / checkboxes use the theme accent instead of Bootstrap blue */
+.form-check-input:checked { background-color: var(--accent); border-color: var(--accent); }
+.form-check-input:focus { border-color: var(--accent); box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--accent) 30%, transparent); }
+.form-check-input:not(:checked) { background-color: var(--surface-2); border-color: var(--text-muted); }
