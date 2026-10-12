@@ -1,0 +1,62 @@
+<!-- PARTIAL:topbar START -->
+<header class="topbar">
+  <label class="btn btn--ghost btn--icon topbar__menu" for="nav-toggle" aria-label="Open or close the menu">
+    <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"></use></svg>
+  </label>
+
+  <form class="topbar__search" role="search" action="dashboard.html" method="get">
+    <label class="sr-only" for="site-search">Search</label>
+    <span class="search">
+      <svg class="icon search__icon" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
+      <input class="input search__input" id="site-search" type="search" name="q" placeholder="Search tasks, goals, notes">
+    </span>
+  </form>
+
+  <div class="topbar__actions">
+    <a class="btn btn--primary topbar__quick" href="#quick-add">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
+      <span class="topbar__quick-label">Quick add</span>
+    </a>
+
+    <a class="btn btn--ghost btn--icon topbar__bell" href="settings.html#notifications" aria-label="Notifications, 3 unread">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bell"></use></svg>
+      <span class="topbar__dot" aria-hidden="true"></span>
+    </a>
+
+    <!-- Theme and language live here from tablet width up; on phones they move into the profile menu -->
+    <div class="topbar__desktop-only">
+      <details class="menu">
+        <summary class="menu__trigger" aria-label="Choose theme">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-palette"></use></svg>
+        </summary>
+        <ul class="menu__panel">
+          <!-- PHP: add .is-active and aria-current="true" to the saved theme -->
+          <li><a class="menu__link is-active" href="?theme=light" aria-current="true">Light</a></li>
+          <li><a class="menu__link" href="?theme=dark">Dark</a></li>
+          <li><a class="menu__link" href="?theme=autumn">Autumn</a></li>
+          <li><a class="menu__link" href="?theme=summer">Summer</a></li>
+          <li><a class="menu__link" href="?theme=spring">Spring</a></li>
+          <li><a class="menu__link" href="?theme=winter">Winter</a></li>
+          <li><a class="menu__link" href="?theme=gothic">Gothic</a></li>
+          <li><a class="menu__link" href="?theme=ramadan">Ramadan</a></li>
+          <li><a class="menu__link" href="?theme=eid">Eid</a></li>
+        </ul>
+      </details>
+      <a class="btn btn--ghost" href="?lang=ar" hreflang="ar" lang="ar">العربية</a>
+    </div>
+
+    <details class="menu">
+      <summary class="menu__trigger" aria-label="Open profile menu">
+        <span class="avatar" aria-hidden="true">A</span>
+        <span class="topbar__name">Asmaa</span>
+      </summary>
+      <ul class="menu__panel">
+        <li><a class="menu__link" href="settings.html"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-settings"></use></svg>Settings</a></li>
+        <li class="menu__item--mobile"><a class="menu__link" href="settings.html#theme"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-palette"></use></svg>Theme</a></li>
+        <li class="menu__item--mobile"><a class="menu__link" href="?lang=ar" hreflang="ar" lang="ar"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-globe"></use></svg>العربية</a></li>
+        <li><a class="menu__link" href="login.html"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-logout"></use></svg>Log out</a></li>
+      </ul>
+    </details>
+  </div>
+</header>
+<!-- PARTIAL:topbar END -->

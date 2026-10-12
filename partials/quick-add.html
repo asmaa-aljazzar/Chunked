@@ -1,0 +1,22 @@
+<!-- PARTIAL:quick-add START -->
+<div class="modal modal--drawer" id="quick-add" role="dialog" aria-modal="true" aria-labelledby="quick-add-title">
+  <a class="modal__backdrop" href="#" aria-label="Close"></a>
+  <div class="modal__dialog">
+    <div class="modal__header">
+      <h2 id="quick-add-title">Quick add</h2>
+      <a class="btn btn--ghost btn--icon" href="#" aria-label="Close"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></a>
+    </div>
+    <form class="stack" action="day.html" method="post">
+      <div class="form-field"><label class="form-field__label" for="qa-title">Task</label><input class="input" id="qa-title" name="title" type="text" placeholder="What needs doing?" required></div>
+      <div class="form-field"><label class="form-field__label" for="qa-chunk">Chunk</label>
+        <select class="select" id="qa-chunk" name="chunk">
+          <option value="fajr">Fajr</option><option value="duha">Duha</option><option value="dhuhr" selected>Dhuhr</option>
+          <option value="asr">Asr</option><option value="maghrib">Maghrib</option><option value="isha">Isha</option>
+        </select>
+      </div>
+      <div class="form-field"><label class="form-field__label" for="qa-minutes">Estimated minutes</label><input class="input" id="qa-minutes" name="minutes" type="number" min="5" step="5" value="25"></div>
+      <div class="modal__footer"><a class="btn btn--secondary" href="#">Cancel</a><button class="btn btn--primary" type="submit">Add task</button></div>
+    </form>
+  </div>
+</div>
+<!-- PARTIAL:quick-add END -->

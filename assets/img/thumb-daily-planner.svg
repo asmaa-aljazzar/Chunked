@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-label="Daily Planner preview">
+  <rect width="300" height="400" fill="#ffffff"/><rect x="12" y="12" width="276" height="376" fill="none" stroke="#9aa3ab" stroke-width="2" rx="6"/>
+  <text x="26" y="46" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#2b3640">Daily Planner</text>
+  <line x1="26" y1="58" x2="274" y2="58" stroke="#2b3640" stroke-width="2"/>
+  <rect x="26" y="74" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="34" y1="108" x2="138" y2="108" stroke="#c3c9ce"/><line x1="34" y1="128" x2="138" y2="128" stroke="#c3c9ce"/><line x1="34" y1="148" x2="138" y2="148" stroke="#c3c9ce"/>
+  <rect x="154" y="74" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="162" y1="108" x2="266" y2="108" stroke="#c3c9ce"/><line x1="162" y1="128" x2="266" y2="128" stroke="#c3c9ce"/><line x1="162" y1="148" x2="266" y2="148" stroke="#c3c9ce"/>
+  <rect x="26" y="178" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="34" y1="212" x2="138" y2="212" stroke="#c3c9ce"/><line x1="34" y1="232" x2="138" y2="232" stroke="#c3c9ce"/><line x1="34" y1="252" x2="138" y2="252" stroke="#c3c9ce"/>
+  <rect x="154" y="178" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="162" y1="212" x2="266" y2="212" stroke="#c3c9ce"/><line x1="162" y1="232" x2="266" y2="232" stroke="#c3c9ce"/><line x1="162" y1="252" x2="266" y2="252" stroke="#c3c9ce"/>
+  <rect x="26" y="282" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="34" y1="316" x2="138" y2="316" stroke="#c3c9ce"/><line x1="34" y1="336" x2="138" y2="336" stroke="#c3c9ce"/><line x1="34" y1="356" x2="138" y2="356" stroke="#c3c9ce"/>
+  <rect x="154" y="282" width="120" height="96" fill="none" stroke="#9aa3ab" stroke-width="1.5" rx="3"/>
+  <line x1="162" y1="316" x2="266" y2="316" stroke="#c3c9ce"/><line x1="162" y1="336" x2="266" y2="336" stroke="#c3c9ce"/><line x1="162" y1="356" x2="266" y2="356" stroke="#c3c9ce"/>
+</svg>

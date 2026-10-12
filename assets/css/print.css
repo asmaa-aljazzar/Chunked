@@ -1,0 +1,77 @@
+/* =========================================================
+   print.css
+   Printable planner sheets (screen preview + @media print).
+   Sheets are always black on white, whatever the theme.
+   ========================================================= */
+
+:root {
+  --print-ink: #000000;
+  --print-line: #555555;
+  --print-paper: #ffffff;
+}
+
+@page { size: A4; margin: 12mm; }
+@page weekly { size: A4 landscape; margin: 10mm; }
+
+/* ---------- Screen preview ---------- */
+.print-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-block-end: var(--space-4); }
+.sheet {
+  inline-size: 100%;
+  max-inline-size: 210mm;
+  margin-inline: auto;
+  padding: 10mm;
+  background: var(--print-paper);
+  color: var(--print-ink);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+.sheet--weekly { max-inline-size: 297mm; page: weekly; }
+.sheet h1,
+.sheet h2,
+.sheet h3 { color: var(--print-ink); font-family: var(--font-body); }
+.sheet__title { font-size: 1.5rem; font-weight: 700; line-height: 1.25; }
+.sheet__header { display: grid; gap: 4mm; margin-block-end: 5mm; padding-block-end: 3mm; border-block-end: 2px solid var(--print-ink); }
+.sheet__fields { display: grid; gap: 3mm; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sheet__field { display: flex; align-items: flex-end; gap: 2mm; font-size: 0.875rem; font-weight: 600; }
+.sheet__field-line { flex: 1; min-block-size: 6mm; border-block-end: 1px solid var(--print-ink); }
+.sheet__grid { display: grid; gap: 4mm; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sheet__block { break-inside: avoid; border: 1px solid var(--print-ink); border-radius: 2mm; padding: 3mm; }
+.sheet__block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 2mm; margin-block-end: 2mm; font-size: 0.875rem; }
+.sheet__block-head h2 { font-size: 1rem; }
+.sheet__time { display: flex; align-items: flex-end; gap: 1mm; font-size: 0.75rem; }
+.sheet__time span:last-child { inline-size: 18mm; border-block-end: 1px solid var(--print-ink); min-block-size: 4mm; }
+.sheet__lines {
+  min-block-size: 36mm;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 7mm, var(--print-line) 7mm, var(--print-line) calc(7mm + 0.2mm));
+}
+.sheet__lines--short { min-block-size: 22mm; }
+.sheet__footer { display: grid; gap: 4mm; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block-start: 4mm; }
+.sheet__table { inline-size: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.8125rem; }
+.sheet__table th,
+.sheet__table td { border: 1px solid var(--print-ink); padding: 1.5mm; text-align: start; vertical-align: top; }
+.sheet__table th { background: var(--print-paper); font-weight: 700; }
+.sheet__table tbody th { inline-size: 22mm; }
+.sheet__table td { block-size: 26mm; }
+.sheet__goal { margin-block-end: 4mm; }
+
+/* ---------- Print ---------- */
+@media print {
+  .sidebar,
+  .topbar,
+  .app-footer,
+  .print-toolbar,
+  .skip-link,
+  .app__backdrop,
+  .nav-toggle,
+  .modal,
+  .sprite { display: none; }
+  html,
+  body { background: var(--print-paper); color: var(--print-ink); }
+  .app { display: block; }
+  .app__main { display: block; min-block-size: 0; }
+  .app__content { max-inline-size: none; padding: 0; margin: 0; }
+  .sheet { max-inline-size: none; margin: 0; padding: 0; border: 0; box-shadow: none; }
+  .sheet__block,
+  .sheet__table tr { break-inside: avoid; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

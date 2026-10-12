@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-label="Goal Map preview">
+  <rect width="300" height="400" fill="#ffffff"/><rect x="12" y="12" width="276" height="376" fill="none" stroke="#9aa3ab" stroke-width="2" rx="6"/>
+  <text x="26" y="46" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#2b3640">Goal Map</text>
+  <line x1="26" y1="58" x2="274" y2="58" stroke="#2b3640" stroke-width="2"/>
+  <circle cx="150" cy="220" r="34" fill="none" stroke="#2b3640" stroke-width="2"/>
+  <line x1="150" y1="186" x2="150" y2="120" stroke="#9aa3ab" stroke-width="2"/><line x1="184" y1="220" x2="250" y2="220" stroke="#9aa3ab" stroke-width="2"/>
+  <line x1="150" y1="254" x2="150" y2="320" stroke="#9aa3ab" stroke-width="2"/><line x1="116" y1="220" x2="50" y2="220" stroke="#9aa3ab" stroke-width="2"/>
+  <rect x="100" y="84" width="100" height="36" rx="6" fill="none" stroke="#9aa3ab" stroke-width="2"/><rect x="226" y="202" width="52" height="36" rx="6" fill="none" stroke="#9aa3ab" stroke-width="2"/>
+  <rect x="100" y="320" width="100" height="36" rx="6" fill="none" stroke="#9aa3ab" stroke-width="2"/><rect x="22" y="202" width="52" height="36" rx="6" fill="none" stroke="#9aa3ab" stroke-width="2"/>
+</svg>
