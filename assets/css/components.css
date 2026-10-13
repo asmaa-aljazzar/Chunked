@@ -108,7 +108,7 @@
 .timeline__item.is-current { background: var(--accent-soft); border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
 .timeline__item.is-current .timeline__status { color: var(--accent); }
 @media (min-width: 768px) {
-  .timeline { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .timeline { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .timeline__item { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: var(--space-1); }
 }
 
