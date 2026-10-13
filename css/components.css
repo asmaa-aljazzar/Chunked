@@ -122,3 +122,17 @@
 .choice:has(input:checked) .choice-check { opacity: 1; }
 .choice:has(input:focus-visible) { outline: 3px solid var(--accent-text); outline-offset: 2px; }
 .choice-theme { padding: var(--sp-2) var(--sp-3); }
+
+/* ---- Settings page ---- */
+.settings { max-width: 760px; }
+.set-list { margin: 0 0 var(--sp-3); }
+.set-list > div { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--border); }
+.set-list dt { font-weight: 500; }
+.set-list dd { margin: 0; color: var(--text-muted); }
+.save-bar {
+  position: sticky; bottom: var(--sp-3); z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4); background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-lg, 12px); box-shadow: var(--shadow-lg, 0 8px 24px rgb(0 0 0 / .15));
+}
+.save-bar[hidden] { display: none; }
