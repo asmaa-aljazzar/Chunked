@@ -43,16 +43,42 @@
   .chunk-row:nth-child(5) { animation-delay: 660ms; }
 
   .chunk-row--current {
-    animation-name: chunk-appear, current-row-glow;
-    animation-duration: 520ms, 3.2s;
+    transform-origin: center;
+    animation-name: chunk-appear, current-chunk-echo;
+    animation-duration: 520ms, 3.8s;
     animation-delay: 360ms, 1.3s;
     animation-timing-function: var(--ease-out), ease-in-out;
     animation-iteration-count: 1, infinite;
     animation-fill-mode: both, both;
   }
 
+  .rhythm-item--current {
+    animation: current-chunk-echo 3.8s ease-out infinite;
+  }
+
+  .chunk-row--current .chunk-row__status,
+  .rhythm-item--current .rhythm-item__marker {
+    position: relative;
+    isolation: isolate;
+  }
+
   .chunk-row--current .chunk-row__status {
-    animation: current-dot 1.8s 1.3s ease-in-out infinite;
+    display: grid;
+    width: 1.1rem;
+    height: 1.1rem;
+    place-items: center;
+    border-radius: 50%;
+  }
+
+  .chunk-row--current .chunk-row__status::before,
+  .rhythm-item--current .rhythm-item__marker::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 65%, transparent);
+    border-radius: 50%;
+    content: "";
+    animation: current-marker-echo 3.8s ease-out infinite;
   }
 
   .step-card,
@@ -110,22 +136,26 @@
     }
   }
 
-  @keyframes current-row-glow {
-    0%,
-    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 0%, transparent); }
-    50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 10%, transparent); }
-  }
-
-  @keyframes current-dot {
-    0%,
-    100% { transform: scale(0.85); opacity: 0.65; }
-    50% { transform: scale(1.15); opacity: 1; }
+  @keyframes current-chunk-echo {
+    0% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 18%, transparent); }
+    100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-accent) 0%, transparent); }
   }
 
   @keyframes bubble-drift {
     0%,
     100% { transform: translate3d(0, 0, 0); }
     50% { transform: translate3d(-6px, -12px, 0); }
+  }
+}
+
+@keyframes current-marker-echo {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
   }
 }
 
@@ -137,5 +167,10 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .chunk-row--current .chunk-row__status::before,
+  .rhythm-item--current .rhythm-item__marker::before {
+    animation: current-marker-echo 3.8s ease-out infinite !important;
   }
 }

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Notice the patterns in your Chunked routine and progress.">
+    <title>Insights — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/pages/dashboard.css">
+    <link rel="stylesheet" href="css/pages/insights.css">
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="insights"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content insights-content" id="main-content">
+          <header class="insights-intro">
+            <div>
+              <p class="eyebrow">A little perspective</p>
+              <h1>Your Insights</h1>
+              <p>Notice the small patterns that are helping you move forward.</p>
+            </div>
+            <span class="premium-badge insights-premium-badge">
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m2 5 3.1 2.2L8 2l2.9 5.2L14 5l-1.2 8H3.2L2 5Z"/><path d="M3.3 11h9.4"/></svg>
+              Premium
+            </span>
+          </header>
+
+          <p class="insights-preview-note">Preview with sample data</p>
+
+          <section class="insights-metrics" aria-label="Weekly summary">
+            <article class="insight-card insight-card--metric">
+              <span class="insight-card__label">Chunks completed</span>
+              <strong>18 <span>of 24</span></strong>
+              <p>You kept showing up, one step at a time.</p>
+            </article>
+            <article class="insight-card insight-card--metric">
+              <span class="insight-card__label">Focus time</span>
+              <strong>3h 20m</strong>
+              <p>Your focused moments added up this week.</p>
+            </article>
+            <article class="insight-card insight-card--metric">
+              <span class="insight-card__label">Active days</span>
+              <strong>5 <span>days</span></strong>
+              <p>A steady rhythm, with room to rest too.</p>
+            </article>
+          </section>
+
+          <section class="insights-panel" aria-labelledby="weekly-activity-title">
+            <div class="insights-panel__heading">
+              <div>
+                <p class="eyebrow">Your week at a glance</p>
+                <h2 id="weekly-activity-title">A steady rhythm</h2>
+              </div>
+              <span class="insights-panel__period">This week</span>
+            </div>
+            <div class="activity-chart" role="img" aria-label="Sample completed chunks: Monday 2, Tuesday 4, Wednesday 3, Thursday 5, Friday 2, Saturday 1, Sunday 1.">
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 40%"></span><span>Mon</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 80%"></span><span>Tue</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 60%"></span><span>Wed</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 100%"></span><span>Thu</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 40%"></span><span>Fri</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 24%"></span><span>Sat</span></div>
+              <div class="activity-chart__day"><span class="activity-chart__bar" style="--bar-height: 24%"></span><span>Sun</span></div>
+            </div>
+            <p class="insights-panel__note">Your busiest day was Thursday. Lighter days count, too.</p>
+          </section>
+
+          <section class="insights-note-card" aria-labelledby="gentle-note-title">
+            <span class="insights-note-card__sparkle" aria-hidden="true">✦</span>
+            <div>
+              <p class="eyebrow">A gentle note</p>
+              <h2 id="gentle-note-title">Consistency can be quiet.</h2>
+              <p>Five active days is a lovely rhythm. Keep making room for the pace that feels right to you.</p>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+.profile-content {
+  max-width: 70rem;
+}
+
+.profile-intro {
+  max-width: 42rem;
+  margin-bottom: var(--space-7);
+}
+
+.profile-intro .eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.profile-intro h1 {
+  margin-bottom: var(--space-3);
+  font-family: "Patrick Hand", var(--font-body);
+  font-size: clamp(2.2rem, 3.6vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.profile-intro > p:last-child {
+  margin-bottom: 0;
+  color: var(--color-text-muted);
+}
+
+.profile-card {
+  display: flex;
+  max-width: 42rem;
+  align-items: center;
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.profile-card__avatar {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  font-family: "Patrick Hand", var(--font-body);
+  font-size: 1.5rem;
+}
+
+.profile-card h2 {
+  margin-bottom: 0.35rem;
+  font-size: var(--text-lg);
+}
+
+.profile-card p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 560px) {
+  .profile-card {
+    align-items: flex-start;
+  }
+}

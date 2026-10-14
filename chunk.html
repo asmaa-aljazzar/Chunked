@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Focus on one chunk and its checklist.">
+    <title>Chunk session — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/pages/dashboard.css">
+    <link rel="stylesheet" href="css/pages/chunk.css">
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/pages/chunk.js"></script>
+  </head>
+  <body class="app-page chunk-session-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="chunk-bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="day"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="chunk-session-content" id="main-content">
+          <a class="chunk-back-link" href="dashboard.html"><span aria-hidden="true">←</span> Back to dashboard</a>
+
+          <div class="chunk-session-layout">
+            <section class="session-counter-card" aria-labelledby="session-counter-title">
+              <p class="eyebrow">Your rhythm</p>
+              <div class="session-counter-card__metrics">
+                <div class="session-counter-card__metric">
+                  <h2 id="session-counter-title">Sessions</h2>
+                  <p class="session-counter-card__count"><span id="session-count">0</span><small>today</small></p>
+                  <button class="button button--secondary" id="log-session" type="button">Log session</button>
+                </div>
+                <div class="session-counter-card__metric">
+                  <h2 id="break-counter-title">Break</h2>
+                  <p class="session-counter-card__count"><time id="break-counter-display" role="timer" aria-live="off">0:00:00</time><small>this break</small></p>
+                  <button class="button button--secondary" id="break-toggle" type="button">Start break</button>
+                </div>
+              </div>
+              <p class="session-counter-card__hint" id="session-message" role="status" aria-live="polite">Every focused start counts.</p>
+            </section>
+
+            <header class="chunk-current-heading">
+              <p class="eyebrow">One thing at a time</p>
+              <h1 id="chunk-title">Dhuhr</h1>
+              <p class="chunk-current-heading__range" id="chunk-time-range"></p>
+              <p class="chunk-current-heading__remaining">
+                <span>Time left in this chunk</span>
+                <time id="chunk-remaining" role="timer" aria-live="off">--:--:--</time>
+              </p>
+            </header>
+
+            <section class="chunk-checklist-card" aria-labelledby="checklist-title">
+              <div class="chunk-checklist-card__heading">
+                <span class="chunk-checklist-card__mark" aria-hidden="true">✦</span>
+                <div>
+                  <p class="eyebrow">Your chunk</p>
+                  <h2 id="checklist-title">A few small steps</h2>
+                </div>
+              </div>
+              <p class="chunk-checklist-card__progress" id="checklist-progress" aria-live="polite">0 of 9 complete</p>
+              <div class="chunk-task-slider" id="chunk-task-slider" role="region" aria-roledescription="carousel" aria-label="Chunk task cards">
+                <ul class="chunk-checklist" id="chunk-checklist"></ul>
+                <div class="chunk-task-slider__controls">
+                  <button class="chunk-task-slider__arrow" id="task-card-previous" type="button" aria-label="Previous task card" disabled>←</button>
+                  <p class="chunk-task-slider__position" id="task-card-position" aria-live="polite">Card 1 of 3</p>
+                  <button class="chunk-task-slider__arrow" id="task-card-next" type="button" aria-label="Next task card">→</button>
+                </div>
+              </div>
+              <p class="chunk-checklist-card__encouragement">You can take these one at a time.</p>
+            </section>
+
+            <section class="time-card" aria-labelledby="time-title">
+              <p class="eyebrow">A little focus</p>
+              <h2 id="time-title">Time remaining</h2>
+              <div class="time-card__duration">
+                <label for="timer-duration">Session length <output id="timer-duration-label" for="timer-duration">30 min</output></label>
+                <input id="timer-duration" type="range" min="15" max="180" step="15" value="30" aria-label="Session length in minutes">
+                <div class="time-card__duration-range" aria-hidden="true"><span>15 min</span><span>3 hours</span></div>
+              </div>
+              <p class="time-card__display" id="timer-display" role="timer" aria-live="off">0:30:00</p>
+              <p class="time-card__status" id="timer-status" aria-live="polite">Ready when you are.</p>
+              <div class="time-card__actions">
+                <button class="button button--primary" id="timer-toggle" type="button">Start session</button>
+                <button class="time-card__reset" id="timer-reset" type="button">Reset</button>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
