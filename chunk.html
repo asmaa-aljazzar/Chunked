@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/pages/dashboard.css">
-    <link rel="stylesheet" href="css/pages/chunk.css">
+    <link rel="stylesheet" href="css/pages/chunk.css?v=2">
     <script type="module" src="js/app.js"></script>
     <script type="module" src="js/pages/chunk.js"></script>
   </head>
@@ -29,6 +29,22 @@
         <div id="app-topbar"></div>
         <main class="chunk-session-content" id="main-content">
           <a class="chunk-back-link" href="dashboard.html"><span aria-hidden="true">←</span> Back to dashboard</a>
+
+          <header class="chunk-current-heading">
+            <p class="eyebrow">One thing at a time</p>
+            <h1 id="chunk-title">Dhuhr</h1>
+            <p class="chunk-current-heading__range" id="chunk-time-range"></p>
+            <div class="chunk-current-heading__stats" aria-label="Chunk timing">
+              <p class="chunk-time-stat">
+                <span>Sample time now</span>
+                <time id="chunk-sample-now">12:00 PM</time>
+              </p>
+              <p class="chunk-time-stat chunk-time-stat--accent">
+                <span>Time left in this chunk</span>
+                <time id="chunk-remaining" role="timer" aria-live="off">--:--:--</time>
+              </p>
+            </div>
+          </header>
 
           <div class="chunk-session-layout">
             <section class="session-counter-card" aria-labelledby="session-counter-title">
@@ -47,16 +63,6 @@
               </div>
               <p class="session-counter-card__hint" id="session-message" role="status" aria-live="polite">Every focused start counts.</p>
             </section>
-
-            <header class="chunk-current-heading">
-              <p class="eyebrow">One thing at a time</p>
-              <h1 id="chunk-title">Dhuhr</h1>
-              <p class="chunk-current-heading__range" id="chunk-time-range"></p>
-              <p class="chunk-current-heading__remaining">
-                <span>Time left in this chunk</span>
-                <time id="chunk-remaining" role="timer" aria-live="off">--:--:--</time>
-              </p>
-            </header>
 
             <section class="chunk-checklist-card" aria-labelledby="checklist-title">
               <div class="chunk-checklist-card__heading">

@@ -20,6 +20,7 @@ const timerToggle = document.querySelector("#timer-toggle");
 const timerDuration = document.querySelector("#timer-duration");
 const timerDurationLabel = document.querySelector("#timer-duration-label");
 const chunkRemaining = document.querySelector("#chunk-remaining");
+const sampleNowDisplay = document.querySelector("#chunk-sample-now");
 const sessionCount = document.querySelector("#session-count");
 const breakTimerDisplay = document.querySelector("#break-counter-display");
 const breakToggle = document.querySelector("#break-toggle");
@@ -41,20 +42,30 @@ function parseClockTime(value) {
 const [startLabel, endLabel] = chunk.range.split(/\s*[–-]\s*/);
 const startMinute = parseClockTime(startLabel);
 const endMinute = parseClockTime(endLabel);
+const sampleTimeStart = Date.now();
+const sampleStartOffset = startMinute === null ? null : (startMinute + 30) % (24 * 60);
+const sampleElapsedAtStart = 30 * 60;
+const sampleEndOffset = endMinute === null ? null : endMinute;
+const sampleDurationMinutes = startMinute === null || endMinute === null
+  ? null
+  : (endMinute > startMinute ? endMinute - startMinute : endMinute + 24 * 60 - startMinute);
+
+function formatSampleTime(date) {
+  return new Intl.DateTimeFormat("en", { hour: "numeric", minute: "2-digit" }).format(date);
+}
 
 function updateChunkRemaining() {
-  if (startMinute === null || endMinute === null) {
+  if (sampleStartOffset === null || sampleEndOffset === null || sampleDurationMinutes === null) {
     chunkRemaining.textContent = "--:--:--";
     return;
   }
 
-  const now = new Date();
-  const endTime = new Date(now);
-  endTime.setHours(Math.floor(endMinute / 60), endMinute % 60, 0, 0);
-  if (endMinute <= startMinute) endTime.setDate(endTime.getDate() + 1);
-  if (endTime <= now) endTime.setDate(endTime.getDate() + 1);
-
-  const secondsLeft = Math.max(0, Math.floor((endTime - now) / 1000));
+  const elapsedSeconds = Math.floor((Date.now() - sampleTimeStart) / 1000);
+  const sampleNow = new Date();
+  sampleNow.setHours(0, sampleStartOffset + Math.floor(elapsedSeconds / 60), elapsedSeconds % 60, 0);
+  const durationSeconds = sampleDurationMinutes * 60;
+  const secondsLeft = Math.max(0, durationSeconds - sampleElapsedAtStart - elapsedSeconds);
+  sampleNowDisplay.textContent = formatSampleTime(sampleNow);
   const hours = Math.floor(secondsLeft / 3600).toString().padStart(2, "0");
   const minutes = Math.floor((secondsLeft % 3600) / 60).toString().padStart(2, "0");
   const seconds = (secondsLeft % 60).toString().padStart(2, "0");

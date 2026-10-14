@@ -38,7 +38,7 @@
   position: relative;
   width: min(100%, 86rem);
   margin-inline: auto;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(1.5rem, 4vw, 3rem);
   padding-block-end: 4rem;
 }
 
@@ -46,7 +46,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-bottom: var(--space-5);
+  margin-bottom: 0.5rem;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   font-weight: 600;
@@ -58,10 +58,7 @@
 }
 
 .chunk-current-heading {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  margin-bottom: var(--space-3);
+  margin: 0;
   text-align: center;
 }
 
@@ -83,30 +80,50 @@
   font-size: var(--text-sm);
 }
 
-.chunk-current-heading__remaining {
+.chunk-current-heading__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  width: min(100%, 27rem);
+  margin: 0.35rem auto 0;
+}
+
+.chunk-time-stat {
   display: grid;
   justify-items: center;
-  gap: 0.2rem;
-  margin: var(--space-4) 0 0;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  box-shadow: var(--shadow-card);
 }
 
-.chunk-current-heading__remaining > span {
+.chunk-time-stat > span {
   color: var(--color-text-muted);
   font-size: var(--text-xs);
+  text-align: center;
 }
 
-.chunk-current-heading__remaining time {
-  color: var(--color-accent-strong);
-  font-size: var(--text-lg);
+.chunk-time-stat time {
+  color: var(--color-text);
+  font-size: var(--text-base);
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.chunk-time-stat--accent time {
+  color: var(--color-accent-strong);
   font-weight: 700;
 }
 
 .chunk-session-layout {
   display: grid;
   grid-template-columns: minmax(12rem, 0.8fr) minmax(22rem, 1.55fr) minmax(12rem, 0.8fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: 2rem;
 }
 
 .session-counter-card,
@@ -128,19 +145,21 @@
 
 .session-counter-card {
   grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: center;
+  grid-row: 1;
+  align-self: start;
 }
 
 .chunk-checklist-card {
+  grid-row: 1;
   grid-column: 2;
-  grid-row: 2;
+  top: auto;
+  align-self: start;
 }
 
 .time-card {
   grid-column: 3;
-  grid-row: 1 / span 2;
-  align-self: center;
+  grid-row: 1;
+  align-self: start;
 }
 
 .session-counter-card__metrics {
@@ -232,6 +251,7 @@
 }
 
 .chunk-checklist-card {
+  top: -1.5rem;
   min-height: 28rem;
   padding: clamp(1.5rem, 3vw, 2.4rem);
   box-shadow: var(--shadow-card), 0 0 36px color-mix(in srgb, var(--color-accent) 10%, transparent);
@@ -412,23 +432,18 @@
 
   .session-counter-card {
     grid-column: 1;
-    grid-row: 1 / span 2;
-    align-self: center;
-  }
-
-  .chunk-current-heading {
-    grid-column: 2;
     grid-row: 1;
+    align-self: start;
   }
 
   .chunk-checklist-card {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 1;
   }
 
   .time-card {
     grid-column: 1 / -1;
-    grid-row: 3;
+    grid-row: 2;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
@@ -481,32 +496,28 @@
   }
 
   .chunk-session-content {
-    padding: 1.5rem 1rem 7rem;
+    padding: 0.5rem 1rem 7rem;
   }
 
   .chunk-session-layout {
     grid-template-columns: 1fr;
-  }
-
-  .chunk-current-heading {
-    grid-column: 1;
-    grid-row: 1;
+    row-gap: 0;
   }
 
   .chunk-checklist-card {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: auto;
     min-height: 0;
   }
 
   .session-counter-card {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: auto;
   }
 
   .time-card {
     grid-column: 1;
-    grid-row: 4;
+    grid-row: auto;
   }
 
   .time-card {
