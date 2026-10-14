@@ -368,6 +368,10 @@ body.sidebar-hidden .app-sidebar {
 }
 
 @media (max-width: 760px) {
+  .chunk-session-page .sidebar-current-chunk {
+    display: none;
+  }
+
   .app-sidebar {
     inset-block: auto 0.75rem;
     inset-inline: 0.75rem;
