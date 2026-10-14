@@ -1,0 +1,13 @@
+.auth-card__heading h2 {
+  max-width: 14ch;
+}
+
+.auth-form {
+  gap: 1.15rem;
+}
+
+@media (max-width: 760px) {
+  .auth-layout {
+    padding-block: var(--space-5);
+  }
+}

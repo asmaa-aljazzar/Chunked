@@ -12,6 +12,26 @@
     animation: settle-in 650ms 100ms var(--ease-out) both, preview-float 5s 850ms ease-in-out infinite, neon-breathe 3.2s 850ms ease-in-out infinite alternate;
   }
 
+  .auth-story::before {
+    animation: bubble-drift 7s 450ms ease-in-out infinite;
+  }
+
+  .auth-story::after {
+    animation: bubble-drift 5.5s 1.1s ease-in-out infinite reverse;
+  }
+
+  .auth-bubble--one {
+    animation: bubble-drift 6s 350ms ease-in-out infinite reverse;
+  }
+
+  .auth-bubble--two {
+    animation: bubble-drift 7.5s 850ms ease-in-out infinite;
+  }
+
+  .auth-bubble--three {
+    animation: bubble-drift 5s 1.4s ease-in-out infinite reverse;
+  }
+
   .chunk-row {
     animation: chunk-appear 520ms var(--ease-out) both;
   }
@@ -100,6 +120,12 @@
     0%,
     100% { transform: scale(0.85); opacity: 0.65; }
     50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  @keyframes bubble-drift {
+    0%,
+    100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(-6px, -12px, 0); }
   }
 }
 
