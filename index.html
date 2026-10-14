@@ -1,19 +1,250 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chunked</title>
-  <style>
-    body { font-family: system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; background: #f7f6f3; color: #1f2430; }
-    a { display: inline-block; margin-top: 16px; padding: 12px 24px; border-radius: 999px; background: #2f6b64; color: #fff; text-decoration: none; }
-  </style>
-</head>
-<body>
-  <main style="text-align:center">
-    <h1>Chunked</h1>
-    <p>Landing page: Day 6, only if time remains.</p>
-    <a href="app.html">Open the app</a>
-  </main>
-</body>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Make space for what matters. Plan your day in calm, meaningful chunks with Chunked.">
+    <title>Chunked — Make space for what matters</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/pages/landing.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="index.html" aria-label="Chunked home">
+          <span class="brand__mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+          <span class="brand__name">Chunked</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="#how-it-works">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#themes">Themes</a>
+          <a href="#plans">Plans</a>
+        </nav>
+
+        <div class="site-header__actions">
+          <a class="button button--quiet" href="login.html">Log in</a>
+          <a class="button button--primary button--small" href="signup.html">Sign up</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero section-shell" aria-labelledby="hero-title">
+        <div class="container hero__grid">
+          <div class="hero__copy">
+            <p class="eyebrow">A little more calm in your day</p>
+            <h1 id="hero-title">Make space for what <span>matters.</span></h1>
+            <p class="hero__description">Plan your day in thoughtful chunks, care for your goals, and move at a pace that feels right for you.</p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="signup.html">Start for free <span aria-hidden="true">→</span></a>
+              <a class="text-link" href="#how-it-works">See how it works</a>
+            </div>
+            <p class="hero__note">A kinder way to make progress, one part of the day at a time.</p>
+          </div>
+
+          <aside class="day-preview" aria-labelledby="day-preview-title">
+            <div class="day-preview__topline">
+              <div>
+                <p class="day-preview__label">YOUR DAY, IN CHUNKS</p>
+                <h2 id="day-preview-title">A steady rhythm</h2>
+              </div>
+              <span class="day-preview__date">Today</span>
+            </div>
+            <ol class="chunk-list" aria-label="Five daily prayer periods">
+              <li class="chunk-row chunk-row--done">
+                <span class="chunk-row__number" aria-hidden="true">01</span>
+                <span class="chunk-row__name">Fajr</span>
+                <span class="chunk-row__task">A gentle start</span>
+                <span class="chunk-row__status" aria-label="Complete">✓</span>
+              </li>
+              <li class="chunk-row chunk-row--current" aria-current="step">
+                <span class="chunk-row__number" aria-hidden="true">02</span>
+                <span class="chunk-row__name">Dhuhr</span>
+                <span class="chunk-row__task">Focus on one thing</span>
+                <span class="chunk-row__status" aria-label="Current period">•</span>
+              </li>
+              <li class="chunk-row">
+                <span class="chunk-row__number" aria-hidden="true">03</span>
+                <span class="chunk-row__name">Asr</span>
+                <span class="chunk-row__task">Room to reset</span>
+                <span class="chunk-row__status" aria-hidden="true">—</span>
+              </li>
+              <li class="chunk-row">
+                <span class="chunk-row__number" aria-hidden="true">04</span>
+                <span class="chunk-row__name">Maghrib</span>
+                <span class="chunk-row__task">Time for what matters</span>
+                <span class="chunk-row__status" aria-hidden="true">—</span>
+              </li>
+              <li class="chunk-row">
+                <span class="chunk-row__number" aria-hidden="true">05</span>
+                <span class="chunk-row__name">Isha</span>
+                <span class="chunk-row__task">Close the day gently</span>
+                <span class="chunk-row__status" aria-hidden="true">—</span>
+              </li>
+            </ol>
+            <p class="day-preview__footer"><span aria-hidden="true">✦</span> Small steps are still progress.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-shell section-shell--soft" id="how-it-works" aria-labelledby="how-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">A rhythm that makes sense</p>
+            <h2 id="how-title">Your day, made manageable.</h2>
+            <p>Instead of carrying the whole day in your head, give your attention to one part at a time.</p>
+          </div>
+          <ol class="steps-grid">
+            <li class="step-card">
+              <span class="step-card__number">01</span>
+              <h3>Choose your rhythm</h3>
+              <p>Use the five prayer periods as gentle anchors for your day.</p>
+            </li>
+            <li class="step-card">
+              <span class="step-card__number">02</span>
+              <h3>Make room for tasks</h3>
+              <p>Keep your next steps visible and give each one a manageable place.</p>
+            </li>
+            <li class="step-card">
+              <span class="step-card__number">03</span>
+              <h3>Begin where you are</h3>
+              <p>Adjust your plan as life happens. Progress does not need to be perfect.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section-shell" id="features" aria-labelledby="features-title">
+        <div class="container">
+          <div class="section-heading section-heading--left">
+            <p class="eyebrow">A few things to help</p>
+            <h2 id="features-title">Support for the day you have.</h2>
+            <p>Simple tools to help you plan today, keep growing, and choose what needs your attention.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-card__icon" aria-hidden="true">☀</span>
+              <h3>DAY</h3>
+              <p>Organize tasks by part of the day, or leave them open until you know when they fit.</p>
+              <a href="day.html" class="text-link">Explore DAY <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="feature-card">
+              <span class="feature-card__icon" aria-hidden="true">↗</span>
+              <h3>GROW</h3>
+              <p>Keep meaningful goals and small habits close, and notice the progress you make.</p>
+              <a href="grow.html" class="text-link">Explore GROW <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="feature-card">
+              <span class="feature-card__icon" aria-hidden="true">◎</span>
+              <h3>FOCUS</h3>
+              <p>Choose a priority that fits your energy and make a little room for it today.</p>
+              <a href="focus.html" class="text-link">Explore FOCUS <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell section-shell--soft" id="themes" aria-labelledby="themes-title">
+        <div class="container theme-promo">
+          <div class="theme-promo__copy">
+            <p class="eyebrow">Make it feel like yours</p>
+            <h2 id="themes-title">A calmer space, your way.</h2>
+            <p>Choose a look that feels comfortable, from a quiet everyday palette to seasonal colors for a change of pace.</p>
+          </div>
+          <div class="theme-swatches" aria-label="Theme color previews">
+            <div class="theme-swatch theme-swatch--light"><span></span><span></span><span></span><b>Light</b></div>
+            <div class="theme-swatch theme-swatch--spring"><span></span><span></span><span></span><b>Spring</b></div>
+            <div class="theme-swatch theme-swatch--ramadan"><span></span><span></span><span></span><b>Ramadan</b></div>
+            <div class="theme-swatch theme-swatch--eid"><span></span><span></span><span></span><b>Eid</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell" id="plans" aria-labelledby="plans-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Start simply</p>
+            <h2 id="plans-title">A plan for your next step.</h2>
+            <p>Begin with the essentials. Choose more tools when you’re ready for them.</p>
+          </div>
+          <div class="plan-grid">
+            <article class="plan-card">
+              <p class="plan-card__eyebrow">A thoughtful place to begin</p>
+              <h3>Free</h3>
+              <p class="plan-card__price">Free <span>to get started</span></p>
+              <ul>
+                <li>Plan your day in chunks</li>
+                <li>Track goals and simple habits</li>
+                <li>Choose a daily focus</li>
+              </ul>
+              <a class="button button--secondary" href="signup.html">Start for free</a>
+            </article>
+            <article class="plan-card plan-card--featured">
+              <p class="plan-card__eyebrow">For a little more room</p>
+              <h3>Premium</h3>
+              <p class="plan-card__price">More tools <span>for your routine</span></p>
+              <ul>
+                <li>More ways to personalize your space</li>
+                <li>Extra planning tools and templates</li>
+                <li>More room to build your routine</li>
+              </ul>
+              <a class="button button--primary" href="signup.html">Explore Premium</a>
+            </article>
+          </div>
+          <p class="plans-note">Plan details can grow with the product. No payment is collected on this preview.</p>
+        </div>
+      </section>
+
+      <section class="closing-cta" aria-labelledby="closing-title">
+        <div class="container closing-cta__inner">
+          <div>
+            <p class="eyebrow">Start with today</p>
+            <h2 id="closing-title">One small step is enough.</h2>
+          </div>
+          <a class="button button--light" href="signup.html">Create your free account <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__main">
+        <div class="site-footer__brand">
+          <a class="brand" href="index.html" aria-label="Chunked home">
+            <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+            <span class="brand__name">Chunked</span>
+          </a>
+          <p>Make space for what matters.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#how-it-works">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#themes">Themes</a>
+          <a href="#plans">Plans</a>
+        </nav>
+        <div class="footer-account">
+          <a href="login.html">Log in</a>
+          <a href="signup.html">Sign up</a>
+        </div>
+      </div>
+      <div class="container site-footer__bottom">
+        <span>© 2026 Chunked</span>
+        <span>Made for progress at your own pace.</span>
+      </div>
+    </footer>
+  </body>
 </html>

@@ -1,0 +1,115 @@
+@media (prefers-reduced-motion: no-preference) {
+  .hero__copy,
+  .day-preview {
+    animation: settle-in 650ms var(--ease-out) both;
+  }
+
+  .hero__copy {
+    animation-delay: 0ms;
+  }
+
+  .day-preview {
+    animation: settle-in 650ms 100ms var(--ease-out) both, preview-float 5s 850ms ease-in-out infinite, neon-breathe 3.2s 850ms ease-in-out infinite alternate;
+  }
+
+  .chunk-row {
+    animation: chunk-appear 520ms var(--ease-out) both;
+  }
+
+  .chunk-row:nth-child(1) { animation-delay: 260ms; }
+  .chunk-row:nth-child(2) { animation-delay: 360ms; }
+  .chunk-row:nth-child(3) { animation-delay: 460ms; }
+  .chunk-row:nth-child(4) { animation-delay: 560ms; }
+  .chunk-row:nth-child(5) { animation-delay: 660ms; }
+
+  .chunk-row--current {
+    animation-name: chunk-appear, current-row-glow;
+    animation-duration: 520ms, 3.2s;
+    animation-delay: 360ms, 1.3s;
+    animation-timing-function: var(--ease-out), ease-in-out;
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: both, both;
+  }
+
+  .chunk-row--current .chunk-row__status {
+    animation: current-dot 1.8s 1.3s ease-in-out infinite;
+  }
+
+  .step-card,
+  .feature-card,
+  .plan-card,
+  .theme-swatch {
+    transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .step-card:hover,
+  .feature-card:hover,
+  .plan-card:hover,
+  .theme-swatch:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+
+  @keyframes settle-in {
+    from {
+      transform: translateY(14px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes chunk-appear {
+    from {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes preview-float {
+    0%,
+    100% { translate: 0 0; }
+    50% { translate: 0 -6px; }
+  }
+
+  @keyframes neon-breathe {
+    from {
+      box-shadow: var(--shadow-float), var(--shadow-neon);
+    }
+
+    to {
+      box-shadow: var(--shadow-float), 0 0 26px color-mix(in srgb, var(--color-accent) 48%, transparent), 0 0 72px color-mix(in srgb, var(--color-accent) 32%, transparent), inset 0 0 18px color-mix(in srgb, var(--color-accent) 12%, transparent);
+    }
+  }
+
+  @keyframes current-row-glow {
+    0%,
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 0%, transparent); }
+    50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 10%, transparent); }
+  }
+
+  @keyframes current-dot {
+    0%,
+    100% { transform: scale(0.85); opacity: 0.65; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
