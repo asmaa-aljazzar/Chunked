@@ -1,5 +1,5 @@
 import { applyTheme, getActiveMode, getActiveThemeKey, toggleThemeMode } from "../utils/theme.js";
-import { getLanguage, toggleLanguage } from "../utils/language.js";
+import { getLanguage, toggleLanguage } from "../utils/language.js?v=3";
 import { getProfile } from "../utils/profile.js";
 
 const sunIcon = `
@@ -40,7 +40,7 @@ export function mountTopbar(container) {
         <p class="app-topbar__context">Your space, at your pace</p>
       </div>
       <div class="app-topbar__actions">
-        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch to Arabic" title="Switch language">عربي</button>
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch layout to Arabic (right-to-left)" title="Switch layout direction">AR</button>
         <button class="icon-button" id="theme-toggle" type="button" title="Switch theme" aria-pressed="false"></button>
         <div class="notification-wrap" id="notification-wrap">
           <button class="icon-button" id="notification-toggle" type="button" aria-label="Open notifications" aria-expanded="false" aria-controls="notification-panel" title="Notifications">
@@ -86,8 +86,9 @@ export function mountTopbar(container) {
   function setSidebarVisible(isVisible, persist = true) {
     document.body.classList.toggle("sidebar-hidden", !isVisible);
     sidebarButton.setAttribute("aria-expanded", String(isVisible));
-    sidebarButton.setAttribute("aria-label", `${isVisible ? "Hide" : "Show"} navigation`);
-    sidebarButton.title = `${isVisible ? "Hide" : "Show"} navigation`;
+    const navigationLabel = `${isVisible ? "Hide" : "Show"} navigation`;
+    sidebarButton.setAttribute("aria-label", navigationLabel);
+    sidebarButton.title = navigationLabel;
     if (sidebar) sidebar.inert = !isVisible;
     if (!isVisible && sidebar?.contains(document.activeElement)) sidebarButton.focus();
     if (!persist) return;
@@ -109,15 +110,18 @@ export function mountTopbar(container) {
   function syncThemeButton(theme) {
     const isDark = theme.mode === "dark";
     themeButton.innerHTML = isDark ? sunIcon : moonIcon;
-    themeButton.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
+    const nextMode = isDark ? "light" : "dark";
+    const label = `Switch to ${nextMode} theme`;
+    themeButton.setAttribute("aria-label", label);
     themeButton.setAttribute("aria-pressed", String(isDark));
   }
 
   function syncLanguageButton(language = getLanguage()) {
     const arabic = language === "ar";
-    languageButton.textContent = arabic ? "EN" : "عربي";
-    languageButton.setAttribute("aria-label", `Switch to ${arabic ? "English" : "Arabic"}`);
-    languageButton.title = `Switch to ${arabic ? "English" : "Arabic"}`;
+    languageButton.textContent = arabic ? "EN" : "AR";
+    const label = `Switch layout to ${arabic ? "English (left-to-right)" : "Arabic (right-to-left)"}`;
+    languageButton.setAttribute("aria-label", label);
+    languageButton.title = label;
   }
 
   function syncProfile(profile = getProfile()) {
@@ -146,7 +150,12 @@ export function mountTopbar(container) {
   themeButton.addEventListener("click", () => toggleThemeMode());
   languageButton.addEventListener("click", () => toggleLanguage());
   document.addEventListener("chunked:themechange", (event) => syncThemeButton(event.detail));
-  document.addEventListener("chunked:languagechange", (event) => syncLanguageButton(event.detail.language));
+  document.addEventListener("chunked:languagechange", (event) => {
+    syncLanguageButton(event.detail.language);
+    setSidebarVisible(sidebarButton.getAttribute("aria-expanded") === "true", false);
+    syncThemeButton({ mode: getActiveMode() });
+    syncProfile();
+  });
   document.addEventListener("chunked:profilechange", (event) => syncProfile(event.detail));
   window.addEventListener("storage", (event) => {
     if (event.key === "chunked-profile-v1") syncProfile();

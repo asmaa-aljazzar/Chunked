@@ -1,5 +1,5 @@
 import { applyTheme, getActiveMode, getActiveThemeKey, THEMES } from "../utils/theme.js";
-import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "../utils/language.js";
+import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "../utils/language.js?v=3";
 import { getProfile, saveProfile, PROFILE_STORAGE_KEY } from "../utils/profile.js";
 import { DAY_MODE_STORAGE_KEY, getDayMode } from "../utils/day-preferences.js";
 
@@ -133,6 +133,10 @@ function selectTheme(themeKey) {
     button.setAttribute("aria-pressed", String(button.dataset.themeKey === theme.key));
   });
   updateCurrentTheme(theme);
+  updateThemeStatus(theme);
+}
+
+function updateThemeStatus(theme) {
   themeStatus.textContent = `${theme.label} ${theme.mode} theme applied.`;
 }
 
@@ -177,11 +181,15 @@ languageSelect.value = getLanguage();
 languageSelect.addEventListener("change", () => {
   const language = applyLanguage(languageSelect.value);
   languageStatus.textContent = language === "ar"
-    ? "Right-to-left layout is active. Most page copy remains in English in this preview."
-    : "English left-to-right layout is active.";
+    ? "Right-to-left layout is active. Interface text remains in English."
+    : "Left-to-right layout is active. Interface text remains in English.";
 });
 document.addEventListener("chunked:languagechange", (event) => {
   languageSelect.value = event.detail.language;
+  const selectedTheme = THEMES.find((theme) => theme.key === getActiveThemeKey()) ?? THEMES[0];
+  const selection = { ...selectedTheme, mode: getActiveMode() };
+  updateCurrentTheme(selection);
+  if (themeStatus.textContent) updateThemeStatus(selection);
 });
 
 const savedDayMode = getDayMode();
@@ -206,7 +214,8 @@ Object.entries(settingsPreferenceInputs).forEach(([key, input]) => input.addEven
 }));
 
 resetButton.addEventListener("click", () => {
-  if (!window.confirm("Reset your profile, appearance, language, DAY, and reminder settings in this browser? Your tasks, goals, habits, and reflections will stay untouched.")) return;
+  const confirmCopy = "Reset your profile, appearance, language, DAY, and reminder settings in this browser? Your tasks, goals, habits, and reflections will stay untouched.";
+  if (!window.confirm(confirmCopy)) return;
   [PROFILE_STORAGE_KEY, LANGUAGE_STORAGE_KEY, DAY_MODE_STORAGE_KEY, SETTINGS_PREFERENCES_KEY, "chunked-theme", "chunked-mode"].forEach((key) => {
     try { localStorage.removeItem(key); } catch { /* Continue resetting in-memory defaults. */ }
   });
@@ -240,3 +249,30 @@ themeOptions.addEventListener("click", (event) => {
   const button = event.target.closest("[data-theme-key]");
   if (button) selectTheme(button.dataset.themeKey);
 });
+
+const settingsNavLinks = [...document.querySelectorAll(".settings-nav__link")];
+const settingsSections = settingsNavLinks
+  .map((link) => document.querySelector(link.getAttribute("href")))
+  .filter(Boolean);
+
+function setActiveSettingsSection(sectionId) {
+  settingsNavLinks.forEach((link) => {
+    if (link.hash === `#${sectionId}`) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
+
+settingsNavLinks.forEach((link) => link.addEventListener("click", () => {
+  setActiveSettingsSection(link.hash.slice(1));
+}));
+
+if ("IntersectionObserver" in window) {
+  const settingsSectionObserver = new IntersectionObserver((entries) => {
+    const visibleSections = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visibleSections[0]) setActiveSettingsSection(visibleSections[0].target.id);
+  }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.1, 0.25, 0.5] });
+
+  settingsSections.forEach((section) => settingsSectionObserver.observe(section));
+}

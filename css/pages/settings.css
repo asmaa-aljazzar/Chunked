@@ -2,9 +2,68 @@
   max-width: 78rem;
 }
 
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(10.5rem, 14rem) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.settings-nav {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 0.35rem;
+  align-self: start;
+  padding: 0.25rem;
+}
+
+.settings-nav__label {
+  margin: 0 0 0.35rem;
+  padding-inline: 0.8rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.settings-nav__link {
+  display: flex;
+  min-height: 2.9rem;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  padding: 0.65rem 0.8rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.settings-nav__link:hover {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.settings-nav__link[aria-current="location"] {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+}
+
+.settings-nav__link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+  outline-offset: 2px;
+}
+
 .settings-sections {
   display: grid;
   gap: var(--space-5);
+  min-width: 0;
 }
 
 .settings-intro {
@@ -30,6 +89,7 @@
 }
 
 .settings-section {
+  scroll-margin-top: 1.25rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
@@ -404,6 +464,44 @@
 @media (max-width: 760px) {
   .settings-content {
     padding-block-start: var(--space-5);
+  }
+
+  .settings-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .settings-nav {
+    position: sticky;
+    z-index: 5;
+    top: 0;
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--page-gutter, 1rem));
+    border-block: 1px solid var(--color-border);
+    background: var(--color-bg);
+    padding: 0.55rem var(--page-gutter, 1rem);
+    scrollbar-width: none;
+  }
+
+  .settings-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .settings-nav__label {
+    display: none;
+  }
+
+  .settings-nav__link {
+    min-height: 2.5rem;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .settings-section {
+    scroll-margin-top: 4.5rem;
   }
 }
 

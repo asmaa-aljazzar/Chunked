@@ -49,6 +49,10 @@ body.sidebar-hidden .app-sidebar {
   pointer-events: none;
 }
 
+[dir="rtl"] body.sidebar-hidden .app-sidebar {
+  transform: translateX(calc(100% + 1px));
+}
+
 .app-sidebar__brand {
   margin-inline: 0.65rem;
 }

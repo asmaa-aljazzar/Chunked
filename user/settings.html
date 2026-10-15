@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="../css/tokens.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/components.css?v=11">
     <link rel="stylesheet" href="../css/animations.css">
-    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=4">
     <link rel="stylesheet" href="../css/pages/settings.css">
-    <script type="module" src="../js/app.js?v=5"></script>
-    <script type="module" src="../js/pages/settings.js?v=2"></script>
+    <script type="module" src="../js/app.js?v=7"></script>
+    <script type="module" src="../js/pages/settings.js?v=4"></script>
   </head>
   <body class="app-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -33,8 +33,19 @@
             <p>Make Chunked feel like yours.</p>
           </header>
 
-          <div class="settings-sections">
-            <section class="settings-section" aria-labelledby="profile-settings-title">
+          <div class="settings-layout">
+            <nav class="settings-nav" aria-label="Settings sections">
+              <p class="settings-nav__label">Your preferences</p>
+              <a class="settings-nav__link" href="#profile-settings" aria-current="location">Account</a>
+              <a class="settings-nav__link" href="#appearance-settings">Appearance</a>
+                  <a class="settings-nav__link" href="#language-settings">Layout direction</a>
+              <a class="settings-nav__link" href="#day-settings">DAY</a>
+              <a class="settings-nav__link" href="#notification-settings">Notifications</a>
+              <a class="settings-nav__link" href="#privacy-settings">Privacy &amp; data</a>
+            </nav>
+
+            <div class="settings-sections">
+            <section class="settings-section" id="profile-settings" aria-labelledby="profile-settings-title">
               <div class="settings-section__heading">
                 <div>
                   <h2 id="profile-settings-title">Profile</h2>
@@ -65,7 +76,7 @@
               </form>
             </section>
 
-            <section class="settings-section" aria-labelledby="appearance-settings-title">
+            <section class="settings-section" id="appearance-settings" aria-labelledby="appearance-settings-title">
               <div class="settings-section__heading">
                 <div>
                   <h2 id="appearance-settings-title">Appearance</h2>
@@ -89,25 +100,25 @@
               <noscript><p class="theme-status">Enable JavaScript to choose a theme.</p></noscript>
             </section>
 
-            <section class="settings-section" aria-labelledby="language-settings-title">
+            <section class="settings-section" id="language-settings" aria-labelledby="language-settings-title">
               <div class="settings-section__heading">
                 <div>
-                  <h2 id="language-settings-title">Language</h2>
-                  <p>Choose the language and reading direction for the interface.</p>
+                  <h2 id="language-settings-title">Layout direction</h2>
+                  <p>Choose the reading direction for the interface.</p>
                 </div>
               </div>
               <div class="settings-field settings-field--short">
-                <label for="interface-language">Interface language</label>
+                <label for="interface-language">Reading direction</label>
                 <select id="interface-language" name="language">
-                  <option value="en">English</option>
-                  <option value="ar">العربية</option>
+                  <option value="en">Left to right</option>
+                  <option value="ar">Right to left</option>
                 </select>
               </div>
-              <p class="settings-help" id="language-settings-note">Arabic switches the full layout to right-to-left. Most page copy remains in English in this frontend preview.</p>
+              <p class="settings-help" id="language-settings-note">This changes layout direction only. Interface text remains in English.</p>
               <p id="language-settings-status" class="settings-status" role="status" aria-live="polite"></p>
             </section>
 
-            <section class="settings-section" aria-labelledby="day-settings-title">
+            <section class="settings-section" id="day-settings" aria-labelledby="day-settings-title">
               <div class="settings-section__heading">
                 <div>
                   <h2 id="day-settings-title">DAY preferences</h2>
@@ -129,7 +140,7 @@
               <p id="day-settings-status" class="settings-status" role="status" aria-live="polite"></p>
             </section>
 
-            <section class="settings-section" aria-labelledby="notification-settings-title">
+            <section class="settings-section" id="notification-settings" aria-labelledby="notification-settings-title">
               <div class="settings-section__heading">
                 <div>
                   <h2 id="notification-settings-title">Notifications</h2>
@@ -154,7 +165,7 @@
               <p id="notification-settings-status" class="settings-status" role="status" aria-live="polite"></p>
             </section>
 
-            <section class="settings-section" aria-labelledby="privacy-settings-title">
+            <section class="settings-section" id="privacy-settings" aria-labelledby="privacy-settings-title">
               <div class="settings-section__heading">
                 <div>
                   <h2 id="privacy-settings-title">Privacy &amp; data</h2>
@@ -165,6 +176,7 @@
               <button class="button button--secondary" id="reset-demo-settings" type="button">Reset demo settings</button>
               <p id="reset-settings-status" class="settings-status" role="status" aria-live="polite"></p>
             </section>
+          </div>
           </div>
         </main>
       </div>

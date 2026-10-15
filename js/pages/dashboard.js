@@ -40,19 +40,20 @@ window.addEventListener("storage", (event) => {
   if (event.key === "chunked-profile-v1" || event.key === "chunked-day-mode-v1") syncDashboardPreferences();
 });
 
-if (greeting) {
+function updateDateAndGreeting() {
+  if (!greeting) return;
   const hour = new Date().getHours();
-  greeting.textContent = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
-}
+  const greetingText = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  greeting.textContent = greetingText;
 
-if (todayDate) {
-  todayDate.textContent = new Intl.DateTimeFormat("en", {
+  if (todayDate) todayDate.textContent = new Intl.DateTimeFormat("en", {
     weekday: "long",
     month: "long",
     day: "numeric",
   }).format(new Date());
 }
 
+updateDateAndGreeting();
 const revealTargets = document.querySelectorAll(
   ".dashboard-content > section, .dashboard-grid > *, .dashboard-content > .demo-note",
 );

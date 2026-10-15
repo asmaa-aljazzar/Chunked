@@ -311,6 +311,3 @@ html[data-theme="eid"][data-mode="dark"] {
   --color-highlight: #d6b46d;
 }
 
-html[lang="ar"] {
-  --font-body: var(--font-arabic);
-}

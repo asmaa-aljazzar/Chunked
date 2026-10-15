@@ -3,12 +3,14 @@ body.app-page {
 }
 
 .app-main {
+  width: calc(100% - var(--sidebar-width));
   min-height: 100svh;
   margin-inline-start: var(--sidebar-width);
-  transition: margin-inline-start 240ms var(--ease-out);
+  transition: margin-inline-start 240ms var(--ease-out), width 240ms var(--ease-out);
 }
 
 body.sidebar-hidden .app-main {
+  width: 100%;
   margin-inline-start: 0;
 }
 
@@ -541,6 +543,7 @@ body.sidebar-hidden .app-main {
 
 @media (max-width: 760px) {
   .app-main {
+    width: 100%;
     margin-inline-start: 0;
   }
 

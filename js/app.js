@@ -1,7 +1,7 @@
-import { mountSidebar } from "./components/sidebar.js?v=5";
-import { mountTopbar } from "./components/topbar.js?v=5";
+import { mountSidebar } from "./components/sidebar.js?v=6";
+import { mountTopbar } from "./components/topbar.js?v=7";
 import { enhanceSelects } from "./components/dropdown.js?v=1";
-import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "./utils/language.js?v=1";
+import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "./utils/language.js?v=3";
 import { getProfile } from "./utils/profile.js?v=1";
 
 applyLanguage(getLanguage(), { persist: false });
