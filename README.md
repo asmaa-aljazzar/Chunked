@@ -1,5 +1,7 @@
 # Chunked
 
+[**Open the live demo →**](https://asmaa-aljazzar.github.io/Chunked/)
+
 Chunked is a calm daily-planning and personal-growth app. It helps people organize a day into manageable chunks, focus on one thing at a time, and keep goals and habits in view.
 
 This repository currently contains a responsive frontend prototype built with HTML, CSS, and vanilla JavaScript. Pages use sample data and browser storage; the PHP backend and live database connection have not been implemented yet.
@@ -9,7 +11,6 @@ This repository currently contains a responsive frontend prototype built with HT
 - **Figma product design:** [Complete Chunked Product Design](https://www.figma.com/make/xeK6qXd9XsPCiseZCgg2zI/Complete-Chunked-Product-Design?fullscreen=1&t=iJrxCoTWeAVJrH9j-1&code-node-id=0-6)
 - **MVP database diagram (PDF):** [View or download the ER diagram](database/Chunked-mvp.pdf)
 - **MVP database diagram source:** [DBML source](database/chunked_mvp.dbml)
-- **Live demo:** [Open Chunked](https://asmaa-aljazzar.github.io/Chunked/)
 
 The PDF is included in the repository under `database/`. The DBML source can be imported into [dbdiagram.io](https://dbdiagram.io) if you want to edit or export the diagram.
 
