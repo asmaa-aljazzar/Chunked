@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Reflect on your tasks, habits, and goals with gentle, useful progress insights.">
+    <title>Your progress — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/insights.css?v=9">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/insights.js?v=9"></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="insights"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content insights-content" id="main-content">
+          <header class="insights-intro">
+            <div>
+              <p class="eyebrow">A little perspective</p>
+              <h1>Your progress</h1>
+              <p>A little reflection on what you’ve been building.</p>
+            </div>
+            <div class="insights-header-actions">
+              <span class="premium-badge insights-premium-badge"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m2 5 3.1 2.2L8 2l2.9 5.2L14 5l-1.2 8H3.2L2 5Z"/><path d="M3.3 11h9.4"/></svg>Premium</span>
+              <div class="insights-range-control">
+                <label id="insights-range-label" for="insights-range">Show</label>
+                <select id="insights-range" name="range">
+                  <option value="7">Last 7 days</option>
+                  <option value="30">Last 30 days</option>
+                </select>
+              </div>
+            </div>
+          </header>
+
+          <p class="insights-data-note" id="insights-data-note" hidden></p>
+
+          <section class="insights-section" aria-labelledby="day-insights-title">
+            <div class="insights-section__heading">
+              <div><p class="eyebrow">DAY</p><h2 id="day-insights-title">Task overview</h2></div>
+              <div class="insights-section__actions"><span class="insights-demo-label" id="task-demo-label" hidden>Example data</span><a class="text-link" href="day.html">Open DAY <span aria-hidden="true">→</span></a></div>
+            </div>
+            <div class="insights-task-grid" id="task-overview">
+              <article class="insight-card insight-card--metric"><span class="insight-card__label">Tasks created</span><strong id="tasks-created">—</strong><p>In the selected period</p></article>
+              <article class="insight-card insight-card--metric"><span class="insight-card__label">Completed</span><strong id="tasks-completed">—</strong><p>Of the tasks created in this period</p></article>
+              <article class="insight-card insight-card--metric"><span class="insight-card__label">Still open</span><strong id="tasks-open">—</strong><p>Future tasks remain part of your plan</p></article>
+              <article class="insight-card insight-card--metric"><span class="insight-card__label">Completion rate</span><strong id="task-completion-rate">—</strong><p>Completed ÷ created</p></article>
+            </div>
+            <div class="insights-empty" id="task-empty" hidden><p>No task data yet. Your first small step will appear here.</p><a class="text-link" href="day.html">Add a task in DAY <span aria-hidden="true">→</span></a></div>
+          </section>
+
+          <div class="insights-columns">
+            <section class="insights-section insights-panel" aria-labelledby="goal-insights-title">
+              <div class="insights-section__heading"><div><p class="eyebrow">GROW</p><h2 id="goal-insights-title">Goal progress</h2></div><div class="insights-section__actions"><span class="insights-demo-label" id="goal-demo-label" hidden>Example data</span><a class="text-link" href="grow.html">Open GROW <span aria-hidden="true">→</span></a></div></div>
+              <div class="insights-goal-summary" id="goal-summary"></div>
+              <div class="insights-empty" id="goal-empty" hidden><p>Create a goal in GROW to start tracking your progress.</p><a class="text-link" href="grow.html">Go to GROW <span aria-hidden="true">→</span></a></div>
+            </section>
+
+            <section class="insights-section insights-panel" aria-labelledby="habit-insights-title">
+              <div class="insights-section__heading"><div><p class="eyebrow">GROW</p><h2 id="habit-insights-title">Habit consistency</h2></div><div class="insights-section__actions"><span class="insights-demo-label" id="habit-demo-label" hidden>Example data</span><a class="text-link" href="grow.html">Open habits <span aria-hidden="true">→</span></a></div></div>
+              <div class="insights-habit-today"><span>Habits completed today</span><strong id="habits-completed-today">—</strong></div>
+              <p class="insights-habit-summary" id="habit-period-summary"></p>
+              <div class="insights-habit-list" id="habit-summary-list"></div>
+              <div class="insights-empty" id="habit-empty" hidden><p>Your habit history will appear after you start checking in.</p><a class="text-link" href="grow.html">Explore GROW <span aria-hidden="true">→</span></a></div>
+            </section>
+          </div>
+
+          <section class="insights-section insights-panel" aria-labelledby="activity-title">
+            <div class="insights-section__heading"><div><p class="eyebrow">DAY</p><h2 id="activity-title">Completed tasks over time</h2></div><div class="insights-section__actions"><span class="insights-demo-label" id="activity-demo-label" hidden>Example data</span><span class="insights-panel__period" id="activity-period">Last 7 days</span></div></div>
+            <div class="insights-chart-scroll"><div class="activity-chart" id="activity-chart" aria-label="Completed tasks by day"></div></div>
+            <p class="insights-empty" id="activity-empty" hidden>No completed tasks are recorded in this period yet.</p>
+          </section>
+
+          <section class="insights-note-card" aria-labelledby="reflection-title">
+            <span class="insights-note-card__sparkle" aria-hidden="true">✦</span>
+            <div class="insights-reflection">
+              <div class="insights-reflection__heading"><div><p class="eyebrow">Just for you</p><h2 id="reflection-title">A moment to reflect</h2><p>Your reflections are saved on this device.</p></div><button class="button button--secondary" id="reflection-add" type="button">＋ Add reflection</button></div>
+              <article class="reflection-latest" id="reflection-latest" hidden></article>
+              <p class="reflection-empty" id="reflection-empty">A few words to yourself can help you notice the progress you’re making.</p>
+              <form id="reflection-form" hidden>
+                <label for="reflection-text">What helped you make progress?</label>
+                <textarea id="reflection-text" name="reflection" rows="3" maxlength="500" placeholder="Write a few words for yourself…" required></textarea>
+                <div class="insights-reflection__footer"><span id="reflection-status" role="status" aria-live="polite"></span><div><button class="button button--secondary" id="reflection-cancel" type="button">Cancel</button><button class="button button--primary" type="submit">Save reflection</button></div></div>
+              </form>
+              <a class="text-link reflection-archive-link" href="reflections.html">View all reflections <span aria-hidden="true">→</span></a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -148,6 +148,53 @@
   }
 }
 
+.progress-track > span,
+.grow-progress > span,
+.insights-progress > span {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 950ms cubic-bezier(0.22, 0.75, 0.25, 1);
+  transition-delay: var(--progress-delay, 0ms);
+}
+
+.progress-track.is-progress-visible > span,
+.grow-progress.is-progress-visible > span,
+.insights-progress.is-progress-visible > span {
+  transform: scaleX(1);
+}
+
+[dir="rtl"] .progress-track > span,
+[dir="rtl"] .grow-progress > span,
+[dir="rtl"] .insights-progress > span {
+  transform-origin: right center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-track > span,
+  .grow-progress > span,
+  .insights-progress > span {
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+}
+
+html[data-compact-spacing="true"] {
+  --space-4: 0.85rem;
+  --space-5: 1.25rem;
+  --space-6: 1.7rem;
+  --space-7: 2.4rem;
+}
+
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
 @keyframes current-marker-echo {
   0% {
     opacity: 0.7;

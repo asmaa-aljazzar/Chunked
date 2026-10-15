@@ -1,9 +1,12 @@
 import { CHUNKS, getCurrentChunkKey, setCurrentChunkKey } from "../utils/chunks.js";
+import { getDayMode, getPeriodDisplay } from "../utils/day-preferences.js";
 
 const params = new URLSearchParams(window.location.search);
 const requestedChunk = params.get("period")?.toLowerCase();
 const activeChunk = CHUNKS[requestedChunk] ? requestedChunk : getCurrentChunkKey();
 const chunk = CHUNKS[activeChunk];
+const customDayMode = getDayMode() === "custom";
+const displayChunkLabel = getPeriodDisplay(activeChunk, chunk.label);
 setCurrentChunkKey(activeChunk);
 const title = document.querySelector("#chunk-title");
 const timeRange = document.querySelector("#chunk-time-range");
@@ -26,10 +29,10 @@ const breakTimerDisplay = document.querySelector("#break-counter-display");
 const breakToggle = document.querySelector("#break-toggle");
 const sessionMessage = document.querySelector("#session-message");
 
-document.title = `${chunk.label} session — Chunked`;
-title.textContent = chunk.label;
-timeRange.textContent = `Sample range: ${chunk.range}`;
-checklistTitle.textContent = `${chunk.label} checklist`;
+document.title = `${displayChunkLabel} session — Chunked`;
+title.textContent = displayChunkLabel;
+timeRange.textContent = customDayMode ? "Custom period · no time set" : `Sample range: ${chunk.range}`;
+checklistTitle.textContent = `${displayChunkLabel} checklist`;
 
 function parseClockTime(value) {
   const match = value.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
@@ -39,7 +42,7 @@ function parseClockTime(value) {
   return hour * 60 + Number(match[2]);
 }
 
-const [startLabel, endLabel] = chunk.range.split(/\s*[–-]\s*/);
+const [startLabel, endLabel] = (customDayMode ? "" : chunk.range).split(/\s*[–-]\s*/);
 const startMinute = parseClockTime(startLabel);
 const endMinute = parseClockTime(endLabel);
 const sampleTimeStart = Date.now();
@@ -56,7 +59,8 @@ function formatSampleTime(date) {
 
 function updateChunkRemaining() {
   if (sampleStartOffset === null || sampleEndOffset === null || sampleDurationMinutes === null) {
-    chunkRemaining.textContent = "--:--:--";
+    sampleNowDisplay.textContent = "Time not set";
+    chunkRemaining.textContent = "—";
     return;
   }
 

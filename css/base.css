@@ -7,6 +7,15 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 1rem);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
@@ -62,6 +71,16 @@ h3 {
 
 p {
   color: var(--color-text-muted);
+}
+
+/* Keep long titles and descriptions inside cards across every page. */
+:where(.panel, [class*="-card"], [class*="-panel"]) {
+  min-width: 0;
+}
+
+:where(.panel, [class*="-card"], [class*="-panel"]) :where(h1, h2, h3, h4, p, li) {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 ::selection {

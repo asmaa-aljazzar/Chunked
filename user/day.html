@@ -10,15 +10,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/tokens.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css?v=3">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/pages/dashboard.css">
-    <link rel="stylesheet" href="css/pages/day.css?v=4">
-    <script type="module" src="js/app.js"></script>
-    <script type="module" src="js/pages/day.js?v=4"></script>
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/day.css?v=4">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/day.js?v=2"></script>
   </head>
   <body class="app-page day-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -43,7 +43,7 @@
 
           <section class="day-current panel" aria-labelledby="day-current-title">
             <div>
-              <p class="eyebrow">Sample current chunk</p>
+              <p class="eyebrow">Current chunk</p>
               <h2 id="day-current-title">Dhuhr</h2>
               <p class="day-current__range">11:30 AM – 3:30 PM</p>
               <p>One thing at a time. You don’t need to finish everything today.</p>
@@ -68,11 +68,11 @@
               <p class="day-sample-note">Sample schedule · preview tasks save in this browser</p>
             </div>
             <ol class="day-period-list" aria-label="Daily periods">
-              <li><button class="day-period" type="button" data-period="fajr" aria-pressed="false"><span class="day-period__state">Finished</span><strong>Fajr</strong><span>5:00 AM – 11:30 AM</span><small>0 of 0 tasks</small></button></li>
-              <li><button class="day-period is-current" type="button" data-period="dhuhr" aria-pressed="true"><span class="day-period__state">Current sample</span><strong>Dhuhr</strong><span>11:30 AM – 3:30 PM</span><small>0 of 0 tasks</small></button></li>
-              <li><button class="day-period" type="button" data-period="asr" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Asr</strong><span>3:30 PM – 6:00 PM</span><small>0 of 0 tasks</small></button></li>
-              <li><button class="day-period" type="button" data-period="maghrib" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Maghrib</strong><span>6:00 PM – 8:30 PM</span><small>0 of 0 tasks</small></button></li>
-              <li><button class="day-period" type="button" data-period="isha" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Isha</strong><span>8:30 PM – 5:00 AM</span><small>0 of 0 tasks</small></button></li>
+              <li><button class="day-period" type="button" data-period="fajr" aria-pressed="false"><span class="day-period__state">Finished</span><strong>Fajr</strong><span class="day-period__range">5:00 AM – 11:30 AM</span><small>0 of 0 tasks</small></button></li>
+              <li><button class="day-period is-current" type="button" data-period="dhuhr" aria-pressed="true"><span class="day-period__state">Current sample</span><strong>Dhuhr</strong><span class="day-period__range">11:30 AM – 3:30 PM</span><small>0 of 0 tasks</small></button></li>
+              <li><button class="day-period" type="button" data-period="asr" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Asr</strong><span class="day-period__range">3:30 PM – 6:00 PM</span><small>0 of 0 tasks</small></button></li>
+              <li><button class="day-period" type="button" data-period="maghrib" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Maghrib</strong><span class="day-period__range">6:00 PM – 8:30 PM</span><small>0 of 0 tasks</small></button></li>
+              <li><button class="day-period" type="button" data-period="isha" aria-pressed="false"><span class="day-period__state">Upcoming</span><strong>Isha</strong><span class="day-period__range">8:30 PM – 5:00 AM</span><small>0 of 0 tasks</small></button></li>
             </ol>
           </section>
 

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Grow toward meaningful goals with small, steady steps.">
+    <title>GROW — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=2">
+    <link rel="stylesheet" href="../css/pages/grow.css?v=10">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/grow.js?v=12"></script>
+  </head>
+  <body class="app-page grow-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="grow"></div>
+
+      <div class="app-main">
+        <div id="app-topbar"></div>
+
+        <main class="dashboard-content grow-content" id="main-content">
+          <header class="grow-header">
+            <div>
+              <p class="eyebrow">A little progress, day by day</p>
+              <h1>GROW</h1>
+              <p class="grow-header__subtitle">Small steps today, meaningful growth over time.</p>
+            </div>
+            <button class="button button--primary" type="button" data-open-form="goal">
+              <span aria-hidden="true">＋</span> New goal
+            </button>
+          </header>
+
+          <p class="grow-demo-note">Sample goals and habits for this prototype. Changes are saved in this browser.</p>
+
+          <section class="grow-overview" aria-label="Growth overview">
+            <article class="grow-stat panel">
+              <span class="grow-stat__icon" aria-hidden="true">↗</span>
+              <div><p>Active goals</p><strong id="active-goal-count">0</strong></div>
+            </article>
+            <article class="grow-stat panel">
+              <span class="grow-stat__icon" aria-hidden="true">✦</span>
+              <div><p>Goals completed</p><strong id="completed-goal-count">0</strong></div>
+            </article>
+            <article class="grow-stat panel">
+              <span class="grow-stat__icon" aria-hidden="true">☼</span>
+              <div><p>Habits today</p><strong id="habits-today-count">0 of 0</strong></div>
+            </article>
+          </section>
+
+          <div class="grow-workspace">
+            <section class="grow-section grow-goals-section panel" aria-labelledby="goals-title">
+              <div class="panel-heading grow-section__heading">
+                <div>
+                  <p class="eyebrow">A direction that matters to you</p>
+                  <h2 id="goals-title">My goals</h2>
+                  <p>Choose what matters and make progress at your own pace.</p>
+                </div>
+                <a class="text-link grow-view-all" href="goals.html">View all goals <span aria-hidden="true">→</span></a>
+              </div>
+              <div class="grow-goal-slider" id="grow-goal-slider" role="region" aria-label="Goal cards" aria-roledescription="carousel">
+                <div class="grow-goal-grid" id="goal-list" aria-live="polite"></div>
+                <div class="grow-goal-slider__controls" id="goal-slider-controls" hidden>
+                  <button class="grow-goal-slider__arrow" id="goal-previous" type="button" aria-label="Previous goal" disabled>←</button>
+                  <span id="goal-position" aria-live="polite">Goal 1 of 1</span>
+                  <button class="grow-goal-slider__arrow" id="goal-next" type="button" aria-label="Next goal">→</button>
+                </div>
+              </div>
+              <div class="grow-empty" id="goals-empty" hidden>
+                <span class="grow-empty__icon" aria-hidden="true">✦</span>
+                <h3>Your next chapter starts with one goal.</h3>
+                <p>Choose something meaningful to work toward. You can change your plan anytime.</p>
+                <button class="button button--primary" type="button" data-open-form="goal">Create your first goal</button>
+              </div>
+            </section>
+
+            <section class="grow-section grow-habits-section panel" aria-labelledby="habits-title">
+              <div class="panel-heading grow-section__heading">
+                <div>
+                  <p class="eyebrow">Gentle routines, built over time</p>
+                  <h2 id="habits-title">My habits</h2>
+                  <p>Build routines that support the life you want.</p>
+                </div>
+                <button class="button button--secondary" type="button" data-open-form="habit"><span aria-hidden="true">＋</span> Add habit</button>
+              </div>
+              <ul class="grow-habit-list" id="habit-list" aria-live="polite"></ul>
+              <div class="grow-empty" id="habits-empty" hidden>
+                <span class="grow-empty__icon" aria-hidden="true">☼</span>
+                <h3>Start with one small habit.</h3>
+                <p>Choose a routine that feels realistic for your current life.</p>
+                <button class="button button--primary" type="button" data-open-form="habit">Add a habit</button>
+              </div>
+              <details class="grow-archived" id="archived-habits" hidden>
+                <summary>Archived habits</summary>
+                <ul class="grow-habit-list" id="archived-habit-list"></ul>
+              </details>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <dialog class="grow-dialog" id="grow-dialog" aria-labelledby="grow-dialog-title">
+      <form id="grow-form">
+        <div class="grow-dialog__heading">
+          <div><p class="eyebrow" id="grow-dialog-eyebrow">A new direction</p><h2 id="grow-dialog-title">Create a goal</h2></div>
+          <button class="icon-button" id="grow-dialog-close" type="button" aria-label="Close form">×</button>
+        </div>
+        <label for="grow-name" id="grow-name-label">Goal title</label>
+        <input id="grow-name" name="name" type="text" maxlength="90" required autocomplete="off">
+        <label for="grow-description" id="grow-description-label">Description <span>(optional)</span></label>
+        <textarea id="grow-description" name="description" rows="3" maxlength="240"></textarea>
+        <div class="grow-dialog__goal-fields" id="goal-fields">
+          <label for="grow-date">Target date <span>(optional)</span></label>
+          <input id="grow-date" name="date" type="date">
+          <label for="grow-progress">Starting progress <span>(optional)</span></label>
+          <div class="grow-progress-input"><input id="grow-progress" name="progress" type="range" min="0" max="100" value="0"><output id="grow-progress-output" for="grow-progress">0%</output></div>
+        </div>
+        <fieldset class="grow-habit-fields" id="habit-fields" hidden>
+          <legend>Schedule</legend>
+          <label class="grow-schedule-option"><input type="radio" name="schedule-type" value="daily" checked> Every day</label>
+          <label class="grow-schedule-option"><input type="radio" name="schedule-type" value="selected"> Selected days</label>
+          <div class="grow-weekday-options" id="grow-weekday-options" aria-label="Choose scheduled weekdays">
+            <label><input type="checkbox" name="weekdays" value="0"> Sun</label>
+            <label><input type="checkbox" name="weekdays" value="1"> Mon</label>
+            <label><input type="checkbox" name="weekdays" value="2"> Tue</label>
+            <label><input type="checkbox" name="weekdays" value="3"> Wed</label>
+            <label><input type="checkbox" name="weekdays" value="4"> Thu</label>
+            <label><input type="checkbox" name="weekdays" value="5"> Fri</label>
+            <label><input type="checkbox" name="weekdays" value="6"> Sat</label>
+          </div>
+          <p class="grow-form-hint" id="grow-schedule-hint">This habit is expected every day.</p>
+        </fieldset>
+        <div class="grow-dialog__actions">
+          <button class="button button--secondary" id="grow-cancel" type="button">Cancel</button>
+          <button class="button button--primary" id="grow-submit" type="submit">Create goal</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

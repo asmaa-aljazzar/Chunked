@@ -1,12 +1,17 @@
 import { CHUNKS } from "../utils/chunks.js";
+import { getDayMode } from "../utils/day-preferences.js";
 
-const PERIODS = [
+const prayerPeriods = [
   { id: "fajr", label: "Fajr", range: "5:00 AM – 11:30 AM", state: "Finished" },
   { id: "dhuhr", label: "Dhuhr", range: "11:30 AM – 3:30 PM", state: "Current sample" },
   { id: "asr", label: "Asr", range: "3:30 PM – 6:00 PM", state: "Upcoming" },
   { id: "maghrib", label: "Maghrib", range: "6:00 PM – 8:30 PM", state: "Upcoming" },
   { id: "isha", label: "Isha", range: "8:30 PM – 5:00 AM", state: "Upcoming" },
 ];
+const isCustomMode = getDayMode() === "custom";
+const PERIODS = prayerPeriods.map((period, index) => isCustomMode
+  ? { ...period, label: `Custom period ${index + 1}`, range: "", state: index === 1 ? "Current period" : "Custom period" }
+  : period);
 
 const STORAGE_KEY = "chunked-day-tasks-v1";
 const SAMPLE_TASKS = [
@@ -35,6 +40,8 @@ const periodEmptyState = document.querySelector("#day-period-empty");
 const unscheduledEmptyState = document.querySelector("#unscheduled-empty");
 const currentTaskCount = document.querySelector("#current-period-task-count");
 const currentProgress = document.querySelector("#current-period-progress");
+const currentChunkTitle = document.querySelector("#day-current-title");
+const currentChunkRange = document.querySelector(".day-current__range");
 const taskDialog = document.querySelector("#task-dialog");
 const taskForm = document.querySelector("#task-form");
 const taskTitleInput = document.querySelector("#task-title");
@@ -43,6 +50,14 @@ const taskDurationInput = document.querySelector("#task-duration");
 const taskPriorityInput = document.querySelector("#task-priority");
 const dialogTitle = document.querySelector("#task-dialog-title");
 const submitTaskButton = taskForm.querySelector("[type='submit']");
+
+if (isCustomMode) {
+  PERIODS.forEach((period) => {
+    const option = taskPeriodInput.querySelector(`option[value="${period.id}"]`);
+    if (option) option.textContent = period.label;
+  });
+  taskPeriodInput.dispatchEvent(new Event("change", { bubbles: true }));
+}
 
 let selectedPeriod = "dhuhr";
 let editingTaskId = null;
@@ -69,6 +84,8 @@ function loadTasks() {
       duration: Number.isFinite(task.duration) ? task.duration : null,
       priority: ["high", "medium", "low"].includes(task.priority) ? task.priority : "",
       completed: Boolean(task.completed),
+      ...(typeof task.createdOn === "string" ? { createdOn: task.createdOn } : {}),
+      ...(typeof task.completedOn === "string" ? { completedOn: task.completedOn } : {}),
     }));
 
     const oldSampleIds = ["sample-js-events", "sample-academy-exercise"];
@@ -188,6 +205,10 @@ function renderPeriods() {
     const isSelected = period.id === selectedPeriod;
     button.setAttribute("aria-pressed", String(isSelected));
     button.classList.toggle("is-current", isSelected);
+    button.querySelector("strong").textContent = period.label;
+    const rangeLabel = button.querySelector(".day-period__range");
+    rangeLabel.textContent = period.range || "No time set";
+    rangeLabel.hidden = !period.range;
     button.querySelector(".day-period__state").textContent = period.state;
     button.querySelector("small").textContent = `${counts.completed} of ${counts.total} complete`;
   });
@@ -240,6 +261,9 @@ function renderCurrentChunkSummary() {
 }
 
 function render() {
+  const currentPeriod = getPeriod("dhuhr");
+  currentChunkTitle.textContent = currentPeriod.label;
+  currentChunkRange.textContent = currentPeriod.range || "Custom period · no time set";
   renderPeriods();
   renderSelectedPeriod();
   renderUnscheduledTasks();
@@ -316,7 +340,7 @@ taskForm.addEventListener("submit", (event) => {
   if (editingTaskId) {
     updateTask(editingTaskId, taskData);
   } else {
-    tasks.push({ id: makeTaskId(), ...taskData, completed: false });
+    tasks.push({ id: makeTaskId(), ...taskData, createdOn: localDateKey(), completedOn: "", completed: false });
     saveTasks();
     render();
   }
@@ -376,7 +400,7 @@ function handleTaskChange(event) {
   const task = tasks.find((item) => item.id === taskItem.dataset.taskId);
   if (!task) return;
 
-  if (control.dataset.action === "complete") updateTask(task.id, { completed: control.checked });
+  if (control.dataset.action === "complete") updateTask(task.id, { completed: control.checked, completedOn: control.checked ? localDateKey() : "" });
   if (control.dataset.action === "assign" && control.value !== "unscheduled") {
     updateTask(task.id, { period: control.value });
   }
@@ -387,4 +411,14 @@ unscheduledTaskList.addEventListener("click", handleTaskClick);
 periodTaskList.addEventListener("change", handleTaskChange);
 unscheduledTaskList.addEventListener("change", handleTaskChange);
 
+function localDateKey() {
+  const date = new Date();
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 render();
+
+if (new URLSearchParams(window.location.search).get("quickAdd") === "task") {
+  window.history.replaceState(null, "", window.location.pathname);
+  openTaskDialog("unscheduled");
+}

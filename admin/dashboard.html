@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Chunked administration dashboard prototype.">
+    <title>Admin Dashboard — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="js/admin.js"></script>
+  </head>
+  <body class="app-page admin-page">
+    <a class="skip-link" href="#admin-main">Skip to content</a>
+    <div class="admin-shell">
+      <aside class="admin-sidebar" id="admin-sidebar" aria-label="Admin navigation">
+        <a class="brand admin-brand" href="../index.html" aria-label="Chunked home">
+          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+          <span class="brand__name">Chunked</span>
+          <span class="admin-brand__tag">ADMIN</span>
+        </a>
+
+        <p class="admin-sidebar__caption">PLATFORM</p>
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button class="admin-nav__link is-active" type="button" data-admin-view="overview" aria-current="page"><span aria-hidden="true">▦</span> Dashboard</button>
+          <button class="admin-nav__link" type="button" data-admin-view="users"><span aria-hidden="true">♙</span> Users</button>
+          <button class="admin-nav__link" type="button" data-admin-view="templates"><span aria-hidden="true">▤</span> Templates</button>
+          <button class="admin-nav__link" type="button" data-admin-view="categories"><span aria-hidden="true">▧</span> Categories</button>
+          <button class="admin-nav__link" type="button" data-admin-view="subscriptions"><span aria-hidden="true">◇</span> Subscriptions</button>
+          <button class="admin-nav__link" type="button" data-admin-view="transactions"><span aria-hidden="true">▣</span> Transactions</button>
+          <button class="admin-nav__link" type="button" data-admin-view="notifications"><span aria-hidden="true">♧</span> Notifications</button>
+          <button class="admin-nav__link" type="button" data-admin-view="ai-activity"><span aria-hidden="true">✦</span> AI Activity</button>
+          <button class="admin-nav__link" type="button" data-admin-view="reports"><span aria-hidden="true">▥</span> Reports</button>
+          <button class="admin-nav__link" type="button" data-admin-view="audit-logs"><span aria-hidden="true">≡</span> Audit logs</button>
+          <button class="admin-nav__link" type="button" data-admin-view="settings"><span aria-hidden="true">⚙</span> Settings</button>
+        </nav>
+
+        <div class="admin-sidebar__footer">
+          <span class="admin-sidebar__avatar" aria-hidden="true">AM</span>
+          <span><strong>Alex Morgan</strong><small>Administrator · demo</small></span>
+          <a href="../user/dashboard.html" class="admin-sidebar__exit" aria-label="Return to user dashboard" title="Return to user dashboard">↗</a>
+        </div>
+      </aside>
+
+      <div class="admin-workspace">
+        <header class="admin-topbar">
+          <div class="admin-topbar__leading">
+            <button class="icon-button admin-menu-toggle" id="admin-menu-toggle" type="button" aria-controls="admin-sidebar" aria-expanded="true" aria-label="Toggle admin navigation">☰</button>
+            <p>Platform workspace <span aria-hidden="true">/</span> <strong id="admin-breadcrumb">Dashboard</strong></p>
+          </div>
+          <div class="admin-topbar__actions">
+            <span class="admin-demo-pill"><span aria-hidden="true">●</span> Demo data</span>
+            <button class="icon-button" type="button" data-admin-view="notifications" aria-label="Open notifications" title="Open notifications">♧</button>
+            <button class="admin-account" type="button" aria-label="Administrator profile">AM <span>Alex Morgan</span></button>
+          </div>
+        </header>
+
+        <main class="admin-main" id="admin-main">
+          <section class="admin-view is-active" id="admin-view-overview" data-view-panel="overview" aria-labelledby="admin-page-title">
+            <div class="admin-page-heading">
+              <div>
+                <p class="eyebrow">PLATFORM OVERVIEW</p>
+                <h1 id="admin-page-title">Dashboard</h1>
+                <p>A clear view of the Chunked platform, at a glance.</p>
+              </div>
+              <span class="admin-date" id="admin-date">Today</span>
+            </div>
+
+            <div class="admin-demo-notice" role="note">
+              <span aria-hidden="true">ⓘ</span>
+              <p><strong>Prototype data:</strong> These figures are examples for the frontend preview. They are not live users, subscriptions, or payments.</p>
+            </div>
+
+            <div class="admin-metrics" aria-label="Platform summary">
+              <article class="admin-metric-card">
+                <span class="admin-metric-card__icon" aria-hidden="true">♙</span>
+                <p>Total users</p><strong id="metric-total-users">2,480</strong>
+                <span class="admin-metric-card__note">Registered accounts · demo</span>
+              </article>
+              <article class="admin-metric-card">
+                <span class="admin-metric-card__icon" aria-hidden="true">◉</span>
+                <p>Active users</p><strong id="metric-active-users">1,126</strong>
+                <span class="admin-metric-card__note">Last 30 days · demo</span>
+              </article>
+              <article class="admin-metric-card admin-metric-card--free">
+                <span class="admin-metric-card__icon" aria-hidden="true">○</span>
+                <p>Free users</p><strong id="metric-free-users">2,108</strong>
+                <span class="admin-metric-card__note">85% of demo accounts</span>
+              </article>
+              <article class="admin-metric-card admin-metric-card--premium">
+                <span class="admin-metric-card__icon" aria-hidden="true">✦</span>
+                <p>Premium users</p><strong id="metric-premium-users">372</strong>
+                <span class="admin-metric-card__note">15% of demo accounts</span>
+              </article>
+              <article class="admin-metric-card">
+                <span class="admin-metric-card__icon" aria-hidden="true">▤</span>
+                <p>Published templates</p><strong id="metric-published-templates">48</strong>
+                <span class="admin-metric-card__note">Free and premium · demo</span>
+              </article>
+              <article class="admin-metric-card admin-metric-card--review">
+                <span class="admin-metric-card__icon" aria-hidden="true">◷</span>
+                <p>Pending review</p><strong id="metric-pending-templates">6</strong>
+                <span class="admin-metric-card__note">Templates awaiting review · demo</span>
+              </article>
+            </div>
+
+            <div class="admin-overview-grid">
+              <section class="admin-panel admin-user-mix" aria-labelledby="user-mix-title">
+                <div class="admin-panel__heading">
+                  <div><p class="eyebrow">ACCOUNT ACCESS</p><h2 id="user-mix-title">Free and Premium users</h2></div>
+                  <button class="admin-text-action" type="button" data-admin-view="users">View users <span aria-hidden="true">→</span></button>
+                </div>
+                <div class="admin-user-mix__summary">
+                  <div><strong>2,480</strong><span>total accounts</span></div>
+                  <span class="admin-user-mix__period">Demo snapshot</span>
+                </div>
+                <div class="admin-user-mix__bar" role="img" aria-label="Demo account mix: 85 percent free users and 15 percent premium users">
+                  <span class="admin-user-mix__free" style="width:85%"></span><span class="admin-user-mix__premium" style="width:15%"></span>
+                </div>
+                <div class="admin-user-mix__legend">
+                  <p><span class="admin-legend-dot admin-legend-dot--free"></span><span>Free</span><strong>2,108</strong><small>85%</small></p>
+                  <p><span class="admin-legend-dot admin-legend-dot--premium"></span><span>Premium</span><strong>372</strong><small>15%</small></p>
+                </div>
+              </section>
+
+              <section class="admin-panel admin-activity" aria-labelledby="admin-activity-title">
+                <div class="admin-panel__heading">
+                  <div><p class="eyebrow">RECENT CHANGES</p><h2 id="admin-activity-title">Admin activity</h2></div>
+                  <button class="admin-text-action" type="button" data-admin-view="audit-logs">View log <span aria-hidden="true">→</span></button>
+                </div>
+                <ol class="admin-activity-list" id="admin-activity-list">
+                  <li><span class="admin-activity-list__icon">✓</span><div><strong>Published “A Calm Day Plan”</strong><p>Alex Morgan · Templates</p></div><time datetime="2026-10-15T09:40">9:40 AM</time></li>
+                  <li><span class="admin-activity-list__icon">✎</span><div><strong>Updated Study category</strong><p>Alex Morgan · Categories</p></div><time datetime="2026-10-15T09:12">9:12 AM</time></li>
+                  <li><span class="admin-activity-list__icon">◷</span><div><strong>Moved 2 templates to review</strong><p>System · Template review</p></div><time datetime="2026-10-15T08:55">8:55 AM</time></li>
+                  <li><span class="admin-activity-list__icon">＋</span><div><strong>Created “Gentle Morning Routine”</strong><p>Alex Morgan · Templates</p></div><time datetime="2026-10-14T16:28">Yesterday</time></li>
+                </ol>
+              </section>
+            </div>
+
+            <section class="admin-panel admin-template-summary" aria-labelledby="template-summary-title">
+              <div class="admin-panel__heading">
+                <div><p class="eyebrow">MARKETPLACE</p><h2 id="template-summary-title">Templates at a glance</h2></div>
+                <button class="button button--secondary" type="button" data-admin-view="templates">Manage templates <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="admin-template-summary__stats">
+                <p><span>Published</span><strong>48</strong></p><p><span>Drafts</span><strong>12</strong></p><p><span>Pending review</span><strong>6</strong></p><p><span>Archived</span><strong>4</strong></p>
+              </div>
+            </section>
+          </section>
+
+          <section class="admin-view" id="admin-view-templates" data-view-panel="templates" aria-labelledby="templates-page-title" hidden>
+            <div class="admin-page-heading">
+              <div><p class="eyebrow">MARKETPLACE CONTENT</p><h1 id="templates-page-title">Templates</h1><p>Create, review, and manage printable templates.</p></div>
+              <button class="button button--primary" id="admin-create-template" type="button"><span aria-hidden="true">＋</span> New template</button>
+            </div>
+            <div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Demo management:</strong> Changes are stored in this browser only. Publishing here does not publish a live marketplace item.</p></div>
+            <section class="admin-panel admin-template-toolbar" aria-label="Template search and filters">
+              <label class="admin-search"><span class="admin-search__label">Search templates</span><span class="admin-search__field"><span aria-hidden="true">⌕</span><input id="admin-template-search" type="search" placeholder="Search by title or creator"></span></label>
+              <label><span>Category</span><select id="admin-template-category"><option value="all">All categories</option><option>DAY</option><option>GROW</option><option>FOCUS</option><option>Habits</option><option>Study</option><option>Work</option><option>Self-care</option></select></label>
+              <label><span>Access</span><select id="admin-template-access"><option value="all">Free and premium</option><option value="free">Free</option><option value="premium">Premium</option></select></label>
+              <label><span>Status</span><select id="admin-template-status"><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="review">Pending review</option><option value="archived">Archived</option></select></label>
+            </section>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <caption class="visually-hidden">Template library management</caption>
+                <thead><tr><th scope="col">Template</th><th scope="col">Category</th><th scope="col">Access</th><th scope="col">Status</th><th scope="col">Updated</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+                <tbody id="admin-template-rows"></tbody>
+              </table>
+              <div class="admin-empty-state" id="admin-template-empty" hidden><span aria-hidden="true">▤</span><h2>No templates found</h2><p>Adjust the filters or create a new template.</p><button class="button button--secondary" id="admin-template-clear" type="button">Clear filters</button></div>
+            </div>
+            <div class="admin-pagination" id="admin-template-pagination" aria-label="Template list pagination"></div>
+          </section>
+
+          <section class="admin-view admin-data-view" data-view-panel="users" aria-labelledby="users-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">ACCOUNT ACCESS</p><h1 id="users-page-title">Users</h1><p>Sample account mix and access status for the admin preview.</p></div></div>
+            <div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Fictional sample records:</strong> Names and account details below are made up for this frontend preview. No real user data is shown.</p></div>
+            <div class="admin-metrics admin-metrics--compact"><article class="admin-metric-card"><p>Total accounts</p><strong>2,480</strong><span class="admin-metric-card__note">Demo snapshot</span></article><article class="admin-metric-card"><p>Free plan</p><strong>2,108</strong><span class="admin-metric-card__note">85% of sample accounts</span></article><article class="admin-metric-card admin-metric-card--premium"><p>Premium plan</p><strong>372</strong><span class="admin-metric-card__note">15% of sample accounts</span></article></div>
+            <div class="admin-table-wrap"><table class="admin-table"><caption class="visually-hidden">Fictional sample users</caption><thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Status</th><th>Joined</th></tr></thead><tbody><tr><td>Maya Chen</td><td>maya.chen@example.test</td><td><span class="admin-badge admin-badge--free">Free</span></td><td><span class="admin-badge admin-badge--published">Active</span></td><td>Oct 12, 2026</td></tr><tr><td>Omar Haddad</td><td>omar.haddad@example.test</td><td><span class="admin-badge admin-badge--premium">Premium</span></td><td><span class="admin-badge admin-badge--published">Active</span></td><td>Oct 10, 2026</td></tr><tr><td>Leah Brooks</td><td>leah.brooks@example.test</td><td><span class="admin-badge admin-badge--free">Free</span></td><td><span class="admin-badge">Paused</span></td><td>Oct 08, 2026</td></tr><tr><td>Sam Rivera</td><td>sam.rivera@example.test</td><td><span class="admin-badge admin-badge--premium">Premium</span></td><td><span class="admin-badge admin-badge--published">Active</span></td><td>Oct 05, 2026</td></tr></tbody></table></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="categories" aria-labelledby="categories-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">MARKETPLACE STRUCTURE</p><h1 id="categories-page-title">Categories</h1><p>Sample categories organize the printable library.</p></div><button class="button button--primary" id="admin-create-category" type="button">＋ New category</button></div>
+            <div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Demo catalog:</strong> Counts and examples are fictional. New categories are saved in this browser as draft examples.</p></div>
+            <div class="admin-category-grid" id="admin-category-grid"><article class="admin-panel"><span class="admin-category-icon">☼</span><h2>DAY</h2><p>Daily planning and gentle priorities.</p><strong>8 templates</strong><span class="admin-badge admin-badge--published">Active</span></article><article class="admin-panel"><span class="admin-category-icon">↗</span><h2>GROW</h2><p>Goals, milestones, and habits.</p><strong>7 templates</strong><span class="admin-badge admin-badge--published">Active</span></article><article class="admin-panel"><span class="admin-category-icon">◎</span><h2>FOCUS</h2><p>Single-task sessions and focus plans.</p><strong>6 templates</strong><span class="admin-badge admin-badge--published">Active</span></article><article class="admin-panel"><span class="admin-category-icon">▤</span><h2>Study</h2><p>Study plans, revision, and learning.</p><strong>9 templates</strong><span class="admin-badge admin-badge--published">Active</span></article><article class="admin-panel"><span class="admin-category-icon">▣</span><h2>Work</h2><p>Workday planning and project resets.</p><strong>5 templates</strong><span class="admin-badge">Draft</span></article><article class="admin-panel"><span class="admin-category-icon">♡</span><h2>Self-care</h2><p>Rest, reflection, and personal care.</p><strong>4 templates</strong><span class="admin-badge admin-badge--published">Active</span></article></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="subscriptions" aria-labelledby="subscriptions-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">ACCESS PLANS</p><h1 id="subscriptions-page-title">Subscriptions</h1><p>Example plan distribution and renewal dates.</p></div></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Fictional subscription data:</strong> No real accounts or billing systems are connected.</p></div>
+            <div class="admin-metrics admin-metrics--compact"><article class="admin-metric-card"><p>Active subscriptions</p><strong>372</strong><span class="admin-metric-card__note">Sample total</span></article><article class="admin-metric-card"><p>Monthly plan</p><strong>284</strong><span class="admin-metric-card__note">Demo subscribers</span></article><article class="admin-metric-card"><p>Annual plan</p><strong>88</strong><span class="admin-metric-card__note">Demo subscribers</span></article></div>
+            <div class="admin-table-wrap"><table class="admin-table"><caption class="visually-hidden">Sample subscription records</caption><thead><tr><th>Account</th><th>Plan</th><th>Billing cycle</th><th>Status</th><th>Next renewal</th></tr></thead><tbody><tr><td>Omar Haddad <small>omar.haddad@example.test</small></td><td>Premium</td><td>Monthly</td><td><span class="admin-badge admin-badge--published">Active</span></td><td>Nov 10, 2026</td></tr><tr><td>Sam Rivera <small>sam.rivera@example.test</small></td><td>Premium</td><td>Annual</td><td><span class="admin-badge admin-badge--published">Active</span></td><td>Feb 02, 2027</td></tr><tr><td>Nora Ali <small>nora.ali@example.test</small></td><td>Premium</td><td>Monthly</td><td><span class="admin-badge">Canceling</span></td><td>Oct 28, 2026</td></tr></tbody></table></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="transactions" aria-labelledby="transactions-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">PAYMENTS</p><h1 id="transactions-page-title">Transactions</h1><p>Example payment activity with masked reference IDs only.</p></div></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Fictional transaction data:</strong> No real payments were processed. This page intentionally contains no card or bank details.</p></div>
+            <div class="admin-metrics admin-metrics--compact"><article class="admin-metric-card"><p>Demo revenue</p><strong>$1,842</strong><span class="admin-metric-card__note">October sample</span></article><article class="admin-metric-card"><p>Successful</p><strong>96.8%</strong><span class="admin-metric-card__note">Example rate</span></article><article class="admin-metric-card"><p>Refunds</p><strong>3</strong><span class="admin-metric-card__note">Sample records</span></article></div>
+            <div class="admin-table-wrap"><table class="admin-table"><caption class="visually-hidden">Fictional transaction records</caption><thead><tr><th>Reference</th><th>Account</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>DEMO-TX-1048</td><td>Omar Haddad</td><td>Oct 15, 2026</td><td>$4.99</td><td><span class="admin-badge admin-badge--published">Succeeded</span></td></tr><tr><td>DEMO-TX-1047</td><td>Sam Rivera</td><td>Oct 15, 2026</td><td>$39.00</td><td><span class="admin-badge admin-badge--published">Succeeded</span></td></tr><tr><td>DEMO-TX-1046</td><td>Nora Ali</td><td>Oct 14, 2026</td><td>$4.99</td><td><span class="admin-badge admin-badge--review">Refunded</span></td></tr></tbody></table></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="notifications" aria-labelledby="notifications-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">PLATFORM UPDATES</p><h1 id="notifications-page-title">Notifications</h1><p>Preview announcement drafts and their simulated delivery status.</p></div><button class="button button--primary" id="admin-create-announcement" type="button">＋ New announcement</button></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Preview only:</strong> These fictional notices have not been sent to users.</p></div>
+            <div class="admin-table-wrap"><table class="admin-table"><caption class="visually-hidden">Sample announcement drafts</caption><thead><tr><th>Announcement</th><th>Audience</th><th>Status</th><th>Scheduled</th><th>Sample reach</th></tr></thead><tbody id="admin-announcement-rows"><tr><td><strong>A calmer way to plan your week</strong><small>Product update · 2 lines</small></td><td>All users</td><td><span class="admin-badge">Draft</span></td><td>Not scheduled</td><td>2,480</td></tr><tr><td><strong>New printable study templates</strong><small>Template release</small></td><td>Free + Premium</td><td><span class="admin-badge admin-badge--published">Example sent</span></td><td>Oct 12, 2026</td><td>2,480</td></tr><tr><td><strong>Welcome to Chunked</strong><small>Onboarding message</small></td><td>New accounts</td><td><span class="admin-badge admin-badge--published">Active example</span></td><td>On signup</td><td>—</td></tr></tbody></table></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="ai-activity" aria-labelledby="ai-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">OPERATIONS · AGGREGATE ONLY</p><h1 id="ai-page-title">AI Activity</h1><p>High-level service usage. Individual prompts and private conversations are never displayed here.</p></div></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Fictional operational metrics:</strong> Sample counts only; no AI service is connected in this frontend.</p></div>
+            <div class="admin-metrics admin-metrics--compact"><article class="admin-metric-card"><p>Requests this month</p><strong>8,420</strong><span class="admin-metric-card__note">Sample aggregate</span></article><article class="admin-metric-card"><p>Successful responses</p><strong>98.4%</strong><span class="admin-metric-card__note">Example service rate</span></article><article class="admin-metric-card"><p>Average response</p><strong>1.8s</strong><span class="admin-metric-card__note">Demo latency</span></article></div>
+            <section class="admin-panel"><div class="admin-panel__heading"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Requests by day</h2></div><span class="admin-badge">Example data</span></div><div class="admin-report-bars" aria-label="Sample request totals by day"><div><span style="--bar:48%"></span><small>Thu</small><strong>920</strong></div><div><span style="--bar:63%"></span><small>Fri</small><strong>1,210</strong></div><div><span style="--bar:56%"></span><small>Sat</small><strong>1,080</strong></div><div><span style="--bar:74%"></span><small>Sun</small><strong>1,420</strong></div><div><span style="--bar:68%"></span><small>Mon</small><strong>1,310</strong></div><div><span style="--bar:82%"></span><small>Tue</small><strong>1,580</strong></div><div><span style="--bar:47%"></span><small>Wed</small><strong>900</strong></div></div></section>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="reports" aria-labelledby="reports-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">PLATFORM TRENDS</p><h1 id="reports-page-title">Reports</h1><p>Sample aggregate metrics to show the planned reporting layout.</p></div><span class="admin-date">Last 30 days · demo</span></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Illustrative sample data:</strong> These trends are not calculated from live records.</p></div>
+            <div class="admin-metrics admin-metrics--compact"><article class="admin-metric-card"><p>New accounts</p><strong>318</strong><span class="admin-metric-card__note">↑ 12% from prior demo period</span></article><article class="admin-metric-card"><p>Templates saved</p><strong>1,904</strong><span class="admin-metric-card__note">Across sample accounts</span></article><article class="admin-metric-card"><p>Goal completion</p><strong>64%</strong><span class="admin-metric-card__note">Illustrative rate</span></article></div>
+            <section class="admin-panel"><div class="admin-panel__heading"><div><p class="eyebrow">ACCOUNT GROWTH</p><h2>New accounts by week</h2></div></div><div class="admin-report-bars" aria-label="Sample weekly account totals"><div><span style="--bar:35%"></span><small>Sep 21</small><strong>48</strong></div><div><span style="--bar:52%"></span><small>Sep 28</small><strong>71</strong></div><div><span style="--bar:46%"></span><small>Oct 05</small><strong>64</strong></div><div><span style="--bar:72%"></span><small>Oct 12</small><strong>98</strong></div><div><span style="--bar:57%"></span><small>Oct 19</small><strong>77</strong></div></div></section>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="audit-logs" aria-labelledby="audit-page-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">ACCOUNTABILITY</p><h1 id="audit-page-title">Audit logs</h1><p>Example records show how important admin actions will be reviewed.</p></div></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Sample audit trail:</strong> These fictional entries are not security records. Production audit logging must be enforced by the server.</p></div>
+            <div class="admin-table-wrap"><table class="admin-table"><caption class="visually-hidden">Fictional audit log sample</caption><thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Area</th><th>Result</th></tr></thead><tbody><tr><td>Oct 15, 9:40 AM</td><td>Alex Morgan</td><td>Published “A Calm Day Plan”</td><td>Templates</td><td><span class="admin-badge admin-badge--published">Success · demo</span></td></tr><tr><td>Oct 15, 9:12 AM</td><td>Alex Morgan</td><td>Updated Study category</td><td>Categories</td><td><span class="admin-badge admin-badge--published">Success · demo</span></td></tr><tr><td>Oct 15, 8:55 AM</td><td>System sample</td><td>Flagged 2 templates for review</td><td>Templates</td><td><span class="admin-badge admin-badge--review">Review · demo</span></td></tr><tr><td>Oct 14, 4:28 PM</td><td>Alex Morgan</td><td>Created “Gentle Morning Routine”</td><td>Templates</td><td><span class="admin-badge admin-badge--published">Success · demo</span></td></tr></tbody></table></div>
+          </section>
+          <section class="admin-view admin-data-view" data-view-panel="settings" aria-labelledby="admin-settings-title" hidden>
+            <div class="admin-page-heading"><div><p class="eyebrow">PLATFORM CONFIGURATION</p><h1 id="admin-settings-title">Admin settings</h1><p>Example platform defaults, separate from personal user settings.</p></div></div><div class="admin-demo-notice" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Preview configuration:</strong> Values are examples and controls are disabled; no platform settings are changed.</p></div>
+            <div class="admin-settings-grid"><section class="admin-panel"><p class="eyebrow">GENERAL</p><h2>Platform details</h2><dl class="admin-settings-list"><div><dt>Platform name</dt><dd>Chunked</dd></div><div><dt>Default language</dt><dd>English</dd></div><div><dt>Default theme</dt><dd>Daylight</dd></div><div><dt>Support contact</dt><dd>support@example.test</dd></div></dl></section><section class="admin-panel"><p class="eyebrow">ACCESS</p><h2>Plan defaults</h2><dl class="admin-settings-list"><div><dt>Free plan</dt><dd><span class="admin-badge admin-badge--free">Enabled · demo</span></dd></div><div><dt>Premium plan</dt><dd><span class="admin-badge admin-badge--premium">Enabled · demo</span></dd></div><div><dt>Template review</dt><dd>Manual before publish</dd></div><div><dt>Maintenance mode</dt><dd>Off · sample</dd></div></dl><button class="button button--secondary" type="button" disabled>Save settings</button></section></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <dialog class="admin-dialog" id="admin-template-dialog" aria-labelledby="admin-template-dialog-title">
+      <form class="admin-dialog__form" id="admin-template-form" method="dialog">
+        <div class="admin-dialog__heading"><div><p class="eyebrow">TEMPLATE DETAILS</p><h2 id="admin-template-dialog-title">New template</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close dialog">×</button></div>
+        <input id="admin-template-id" name="id" type="hidden">
+        <label><span>Title</span><input id="admin-template-title" name="title" type="text" maxlength="90" required></label>
+        <label><span>Description</span><textarea id="admin-template-description" name="description" rows="3" maxlength="300" required></textarea></label>
+        <div class="admin-dialog__row">
+          <label><span>Category</span><select id="admin-template-form-category" name="category" required><option value="DAY">DAY</option><option value="GROW">GROW</option><option value="FOCUS">FOCUS</option><option value="Habits">Habits</option><option value="Study">Study</option><option value="Work">Work</option><option value="Self-care">Self-care</option></select></label>
+          <label><span>Access</span><select id="admin-template-form-access" name="access"><option value="free">Free</option><option value="premium">Premium</option></select></label>
+        </div>
+        <label><span>Preview image URL</span><input id="admin-template-image" name="image" type="url" placeholder="https://example.com/preview.jpg"></label>
+        <label class="admin-dialog__price" id="admin-template-price-wrap"><span>Price (USD)</span><input id="admin-template-price" name="price" type="number" min="0.01" step="0.01" value="4.99"></label>
+        <label><span>Template contents</span><textarea id="admin-template-contents" name="contents" rows="4" placeholder="Add tasks, goals, habits, milestones, or focus suggestions."></textarea></label>
+        <label><span>Publication status</span><select id="admin-template-form-status" name="status"><option value="draft">Draft</option><option value="review">Pending review</option><option value="published">Published</option><option value="archived">Archived</option></select></label>
+        <p class="admin-form-status" id="admin-template-form-status-message" role="status" aria-live="polite"></p>
+        <div class="admin-dialog__actions"><button class="button button--secondary" type="button" data-dialog-close>Cancel</button><button class="button button--secondary" type="submit" name="intent" value="preview">Preview</button><button class="button button--primary" type="submit" name="intent" value="save">Save template</button></div>
+      </form>
+    </dialog>
+    <dialog class="admin-dialog" id="admin-quick-create-dialog" aria-labelledby="admin-quick-create-title">
+      <form class="admin-dialog__form" id="admin-quick-create-form">
+        <div class="admin-dialog__heading"><div><p class="eyebrow" id="admin-quick-create-eyebrow">DEMO CONTENT</p><h2 id="admin-quick-create-title">Create item</h2></div><button class="icon-button" type="button" data-quick-create-close aria-label="Close dialog">×</button></div>
+        <label><span id="admin-quick-create-name-label">Name</span><input id="admin-quick-create-name" type="text" maxlength="90" required></label>
+        <label><span id="admin-quick-create-detail-label">Description</span><textarea id="admin-quick-create-detail" rows="3" maxlength="300" required></textarea></label>
+        <label id="admin-announcement-audience-wrap" hidden><span>Audience</span><select id="admin-announcement-audience"><option>All users</option><option>Free users</option><option>Premium users</option></select></label>
+        <p class="admin-form-status" id="admin-quick-create-status" role="status" aria-live="polite"></p>
+        <div class="admin-dialog__actions"><button class="button button--secondary" type="button" data-quick-create-close>Cancel</button><button class="button button--primary" type="submit">Save demo item</button></div>
+      </form>
+    </dialog>
+    <div class="admin-toast" id="admin-toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

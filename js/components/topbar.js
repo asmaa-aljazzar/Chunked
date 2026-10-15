@@ -1,4 +1,6 @@
 import { applyTheme, getActiveMode, getActiveThemeKey, toggleThemeMode } from "../utils/theme.js";
+import { getLanguage, toggleLanguage } from "../utils/language.js";
+import { getProfile } from "../utils/profile.js";
 
 const sunIcon = `
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -38,6 +40,7 @@ export function mountTopbar(container) {
         <p class="app-topbar__context">Your space, at your pace</p>
       </div>
       <div class="app-topbar__actions">
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch to Arabic" title="Switch language">عربي</button>
         <button class="icon-button" id="theme-toggle" type="button" title="Switch theme" aria-pressed="false"></button>
         <div class="notification-wrap" id="notification-wrap">
           <button class="icon-button" id="notification-toggle" type="button" aria-label="Open notifications" aria-expanded="false" aria-controls="notification-panel" title="Notifications">
@@ -55,7 +58,7 @@ export function mountTopbar(container) {
         <div class="account-menu-wrap" id="account-menu-wrap">
           <button class="app-topbar__account" id="account-menu-toggle" type="button" aria-label="Open profile menu" aria-expanded="false" aria-controls="account-menu">
             <span class="app-topbar__avatar" aria-hidden="true">${profileIcon}</span>
-            <span>Profile</span>
+            <span class="app-topbar__profile-name">Alex Morgan</span>
           </button>
           <nav class="account-menu" id="account-menu" aria-label="Profile menu" hidden>
             <a class="account-menu__link" href="profile.html">Profile</a>
@@ -68,6 +71,7 @@ export function mountTopbar(container) {
     </header>`;
 
   const themeButton = container.querySelector("#theme-toggle");
+  const languageButton = container.querySelector("#language-toggle");
   const sidebarButton = container.querySelector("#sidebar-toggle");
   const sidebar = document.querySelector("#app-nav .app-sidebar");
   const notificationButton = container.querySelector("#notification-toggle");
@@ -109,6 +113,19 @@ export function mountTopbar(container) {
     themeButton.setAttribute("aria-pressed", String(isDark));
   }
 
+  function syncLanguageButton(language = getLanguage()) {
+    const arabic = language === "ar";
+    languageButton.textContent = arabic ? "EN" : "عربي";
+    languageButton.setAttribute("aria-label", `Switch to ${arabic ? "English" : "Arabic"}`);
+    languageButton.title = `Switch to ${arabic ? "English" : "Arabic"}`;
+  }
+
+  function syncProfile(profile = getProfile()) {
+    const name = profile.displayName || "Profile";
+    container.querySelector(".app-topbar__profile-name").textContent = name;
+    accountMenuButton.setAttribute("aria-label", `Open profile menu for ${name}`);
+  }
+
   function setNotificationsOpen(isOpen) {
     notificationPanel.hidden = !isOpen;
     notificationButton.setAttribute("aria-expanded", String(isOpen));
@@ -120,12 +137,21 @@ export function mountTopbar(container) {
   }
 
   syncThemeButton(applyTheme(getActiveThemeKey(), { mode: getActiveMode(), persist: false }));
+  syncLanguageButton();
+  syncProfile();
 
   sidebarButton.addEventListener("click", () => {
     setSidebarVisible(sidebarButton.getAttribute("aria-expanded") !== "true");
   });
   themeButton.addEventListener("click", () => toggleThemeMode());
+  languageButton.addEventListener("click", () => toggleLanguage());
   document.addEventListener("chunked:themechange", (event) => syncThemeButton(event.detail));
+  document.addEventListener("chunked:languagechange", (event) => syncLanguageButton(event.detail.language));
+  document.addEventListener("chunked:profilechange", (event) => syncProfile(event.detail));
+  window.addEventListener("storage", (event) => {
+    if (event.key === "chunked-profile-v1") syncProfile();
+    if (event.key === "chunked-language-v1") syncLanguageButton();
+  });
 
   notificationButton.addEventListener("click", () => {
     setAccountMenuOpen(false);

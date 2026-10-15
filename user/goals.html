@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Search and browse all your Chunked goals.">
+    <title>All goals — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=2">
+    <link rel="stylesheet" href="../css/pages/grow.css?v=5">
+    <link rel="stylesheet" href="../css/pages/goals.css?v=3">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/goals.js?v=1"></script>
+  </head>
+  <body class="app-page goals-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="grow"></div>
+
+      <div class="app-main">
+        <div id="app-topbar"></div>
+
+        <main class="dashboard-content grow-content goals-content" id="main-content">
+          <a class="text-link goals-back" href="grow.html"><span aria-hidden="true">←</span> Back to GROW</a>
+          <header class="goals-header">
+            <div>
+              <p class="eyebrow">A direction that matters to you</p>
+              <h1>All goals</h1>
+              <p>Browse your goals and find the one you want to focus on.</p>
+            </div>
+            <div class="goals-header__actions">
+              <a class="button button--primary" href="grow.html?newGoal=1"><span aria-hidden="true">＋</span> New goal</a>
+            </div>
+          </header>
+
+          <section class="goals-browser panel" aria-labelledby="goals-browser-title">
+            <div class="panel-heading goals-browser__heading">
+              <div>
+                <p class="eyebrow">Your goals, in one place</p>
+                <h2 id="goals-browser-title">Find a goal</h2>
+              </div>
+              <label class="goals-search">
+                <span class="visually-hidden">Search goals</span>
+                <span class="goals-search__icon" aria-hidden="true">⌕</span>
+                <input id="goals-search-input" type="search" placeholder="Search goals" autocomplete="off">
+              </label>
+            </div>
+
+            <p class="goals-results-count" id="goals-results-count" aria-live="polite"></p>
+            <div class="goals-grid" id="goals-grid" aria-live="polite"></div>
+            <div class="goals-empty" id="goals-empty" hidden>
+              <span class="grow-empty__icon" aria-hidden="true">✦</span>
+              <h3 id="goals-empty-title">No goals yet.</h3>
+              <p id="goals-empty-copy">Create a goal in GROW and it will appear here.</p>
+              <a class="button button--secondary" href="grow.html">Back to GROW</a>
+            </div>
+            <nav class="goals-pagination" id="goals-pagination" aria-label="Goal pages" hidden>
+              <button class="goals-pagination__button" id="goals-previous" type="button" aria-label="Previous page" disabled>←</button>
+              <div class="goals-pagination__pages" id="goals-page-buttons"></div>
+              <button class="goals-pagination__button" id="goals-next" type="button" aria-label="Next page">→</button>
+            </nav>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

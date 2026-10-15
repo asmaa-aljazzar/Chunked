@@ -1,0 +1,362 @@
+// Chunked MVP schema — aligned with chunked_mvp_schema.sql
+// Paste into https://dbdiagram.io to render and create a shareable diagram.
+
+Enum user_role {
+  user
+  admin
+}
+
+Enum account_status {
+  active
+  suspended
+  pending
+}
+
+Enum plan_type {
+  free
+  premium
+}
+
+Enum billing_interval {
+  none
+  month
+  year
+}
+
+Enum subscription_status {
+  active
+  trial
+  canceled
+  expired
+  past_due
+}
+
+Enum theme_type {
+  base
+  seasonal
+  style
+  event
+}
+
+Enum language_code {
+  en
+  ar
+}
+
+Enum day_organization {
+  prayer
+  custom
+}
+
+Enum goal_status {
+  active
+  paused
+  completed
+  archived
+}
+
+Enum task_priority {
+  low
+  normal
+  high
+}
+
+Enum task_status {
+  open
+  done
+  postponed
+  archived
+}
+
+Enum habit_schedule_type {
+  daily
+  selected_days
+}
+
+Enum habit_status {
+  active
+  paused
+  archived
+}
+
+Enum readiness_state {
+  ready
+  prepare
+  blocked
+}
+
+Enum focus_session_type {
+  focus
+  break
+}
+
+Enum focus_session_status {
+  running
+  completed
+  stopped
+}
+
+Enum template_language {
+  en
+  ar
+  bilingual
+}
+
+Enum template_access {
+  free
+  premium
+}
+
+Enum publication_status {
+  draft
+  published
+  archived
+}
+
+Table users {
+  id bigint [pk, increment]
+  display_name varchar(120) [not null]
+  email varchar(254) [not null, unique]
+  password_hash varchar(255) [not null, note: 'Store a PHP password_hash() result; never plaintext']
+  role user_role [not null, default: 'user']
+  account_status account_status [not null, default: 'active']
+  email_verified_at datetime
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table plans {
+  id bigint [pk, increment]
+  name varchar(80) [not null]
+  plan_type plan_type [not null]
+  price decimal(10,2) [not null, default: 0]
+  currency char(3) [not null, default: 'USD']
+  billing_interval billing_interval [not null, default: 'none']
+  is_active boolean [not null, default: true]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (name, billing_interval) [unique]
+  }
+}
+
+Table subscriptions {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  plan_id bigint [not null]
+  status subscription_status [not null]
+  started_at datetime [not null]
+  ends_at datetime
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (user_id, status, ends_at)
+    (plan_id, status)
+  }
+}
+
+Table themes {
+  id bigint [pk, increment]
+  theme_key varchar(40) [not null, unique, note: 'light, dark, autumn, summer, spring, winter, gothic, ramadan, eid']
+  name varchar(80) [not null]
+  theme_type theme_type [not null, default: 'base']
+  is_active boolean [not null, default: true]
+}
+
+Table user_settings {
+  user_id bigint [pk]
+  theme_id bigint
+  language language_code [not null, default: 'en']
+  timezone varchar(80) [not null, default: 'Asia/Amman']
+  day_organization day_organization [not null, default: 'prayer']
+  prayer_times json [note: 'Sample/custom period times; backend may calculate local prayer times later']
+  prayer_offsets json
+  enabled_modules json [note: 'At least one module should remain enabled']
+  onboarded boolean [not null, default: false]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table goals {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  parent_goal_id bigint
+  title varchar(160) [not null]
+  description text
+  status goal_status [not null, default: 'active']
+  progress tinyint [not null, default: 0, note: '0–100 percent']
+  target_date date
+  completed_at datetime
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table tasks {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  goal_id bigint
+  title varchar(180) [not null]
+  description text
+  period_key varchar(40) [note: 'fajr, dhuhr, asr, maghrib, isha, or custom key']
+  planned_date date [not null]
+  priority task_priority [not null, default: 'normal']
+  effort_minutes int
+  status task_status [not null, default: 'open']
+  completed_at datetime
+  sort_order int [not null, default: 0]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (user_id, planned_date, status, sort_order)
+    (goal_id)
+  }
+}
+
+Table habits {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  goal_id bigint
+  name varchar(140) [not null]
+  description text
+  schedule_type habit_schedule_type [not null, default: 'daily']
+  schedule_days json [note: 'Array of ISO weekdays 1–7 when schedule_type is selected_days']
+  start_date date [not null]
+  status habit_status [not null, default: 'active']
+  longest_streak int [not null, default: 0]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table habit_logs {
+  id bigint [pk, increment]
+  habit_id bigint [not null]
+  log_date date [not null]
+  is_completed boolean [not null, default: false]
+  completed_at datetime
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (habit_id, log_date) [unique]
+  }
+}
+
+Table focus_choices {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  goal_id bigint
+  title varchar(160) [not null]
+  description text
+  is_active boolean [not null, default: true]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (user_id, is_active)
+  }
+}
+
+Table focus_checkins {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  focus_choice_id bigint [not null]
+  checkin_date date [not null]
+  readiness readiness_state [not null]
+  blocker_note text
+  next_step text
+  estimated_minutes int
+  created_at timestamp [not null]
+
+  indexes {
+    (user_id, focus_choice_id, checkin_date) [unique]
+  }
+}
+
+Table focus_sessions {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  focus_choice_id bigint
+  task_id bigint
+  session_type focus_session_type [not null, default: 'focus']
+  status focus_session_status [not null, default: 'completed']
+  planned_seconds int
+  elapsed_seconds int [not null, default: 0]
+  started_at datetime [not null]
+  ended_at datetime
+  created_at timestamp [not null]
+
+  indexes {
+    (user_id, started_at)
+  }
+}
+
+Table reflections {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  entry_date date [not null]
+  body text [not null]
+  mood varchar(40)
+  energy varchar(40)
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (user_id, entry_date)
+  }
+}
+
+Table template_categories {
+  id bigint [pk, increment]
+  name varchar(100) [not null]
+  slug varchar(110) [not null, unique]
+  description varchar(500)
+  display_order int [not null, default: 0]
+  is_active boolean [not null, default: true]
+}
+
+Table templates {
+  id bigint [pk, increment]
+  category_id bigint [not null]
+  created_by bigint
+  slug varchar(140) [not null, unique]
+  title_en varchar(180) [not null]
+  title_ar varchar(180)
+  description text
+  language template_language [not null, default: 'en']
+  access_type template_access [not null, default: 'free']
+  file_path varchar(500) [not null, note: 'Private PDF storage path; authorize downloads in the backend']
+  preview_image varchar(500)
+  publication_status publication_status [not null, default: 'draft']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (publication_status, category_id, access_type)
+  }
+}
+
+// Relationships
+Ref: subscriptions.user_id > users.id
+Ref: subscriptions.plan_id > plans.id
+Ref: user_settings.user_id - users.id
+Ref: user_settings.theme_id > themes.id
+Ref: goals.user_id > users.id
+Ref: goals.parent_goal_id > goals.id
+Ref: tasks.user_id > users.id
+Ref: tasks.goal_id > goals.id
+Ref: habits.user_id > users.id
+Ref: habits.goal_id > goals.id
+Ref: habit_logs.habit_id > habits.id
+Ref: focus_choices.user_id > users.id
+Ref: focus_choices.goal_id > goals.id
+Ref: focus_checkins.user_id > users.id
+Ref: focus_checkins.focus_choice_id > focus_choices.id
+Ref: focus_sessions.user_id > users.id
+Ref: focus_sessions.focus_choice_id > focus_choices.id
+Ref: focus_sessions.task_id > tasks.id
+Ref: reflections.user_id > users.id
+Ref: templates.category_id > template_categories.id
+Ref: templates.created_by > users.id

@@ -79,6 +79,14 @@ body.sidebar-hidden .app-main {
   stroke-width: 1.7;
 }
 
+.app-topbar__profile-name {
+  display: block;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dashboard-content {
   width: min(100%, 78rem);
   margin-inline: auto;
@@ -404,7 +412,15 @@ body.sidebar-hidden .app-main {
   gap: var(--space-4);
 }
 
+@property --ring-progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
 .progress-ring {
+  --ring-progress: 0%;
+  --ring-target: 60%;
   position: relative;
   display: grid;
   width: 5rem;
@@ -412,7 +428,18 @@ body.sidebar-hidden .app-main {
   flex: 0 0 auto;
   place-items: center;
   border-radius: 50%;
-  background: conic-gradient(var(--color-accent) 0 60%, var(--color-surface-soft) 60% 100%);
+  background: conic-gradient(var(--color-accent) 0 var(--ring-progress), var(--color-surface-soft) var(--ring-progress) 100%);
+  animation: dashboard-ring-fill 1s var(--ease-out) var(--progress-delay, 0ms) both;
+  animation-play-state: paused;
+}
+
+.progress-ring.is-progress-visible {
+  animation-play-state: running;
+}
+
+@keyframes dashboard-ring-fill {
+  from { --ring-progress: 0%; }
+  to { --ring-progress: var(--ring-target); }
 }
 
 .progress-ring::before {
@@ -433,6 +460,13 @@ body.sidebar-hidden .app-main {
 
 .progress-ring small {
   font-size: 0.65rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-ring {
+    animation: none;
+    --ring-progress: var(--ring-target);
+  }
 }
 
 .goal-summary__body h3,

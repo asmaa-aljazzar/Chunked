@@ -1,10 +1,64 @@
 import { applyTheme, getActiveMode, getActiveThemeKey, THEMES } from "../utils/theme.js";
+import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "../utils/language.js";
+import { getProfile, saveProfile, PROFILE_STORAGE_KEY } from "../utils/profile.js";
+import { DAY_MODE_STORAGE_KEY, getDayMode } from "../utils/day-preferences.js";
 
 const themeOptions = document.querySelector("#theme-options");
 const currentThemeLabel = document.querySelector("#theme-current");
 const themeStatus = document.querySelector("#theme-status");
+const profileForm = document.querySelector("#profile-settings-form");
+const profileNameInput = document.querySelector("#profile-name");
+const profileEmailInput = document.querySelector("#profile-email");
+const profileNamePreview = document.querySelector("#profile-display-name");
+const profileAvatar = document.querySelector("#profile-avatar");
+const profileStatus = document.querySelector("#profile-settings-status");
+const languageSelect = document.querySelector("#interface-language");
+const languageStatus = document.querySelector("#language-settings-status");
+const dayModeInputs = [...document.querySelectorAll('input[name="dayMode"]')];
+const dayStatus = document.querySelector("#day-settings-status");
+const settingsPreferenceInputs = {
+  compactSpacing: document.querySelector("#compact-spacing"),
+  reducedMotion: document.querySelector("#reduced-motion"),
+  taskReminders: document.querySelector("#task-reminders"),
+  habitReminders: document.querySelector("#habit-reminders"),
+  dailyPlanningReminder: document.querySelector("#daily-planning-reminder"),
+};
+const notificationStatus = document.querySelector("#notification-settings-status");
+const resetButton = document.querySelector("#reset-demo-settings");
+const resetStatus = document.querySelector("#reset-settings-status");
+const SETTINGS_PREFERENCES_KEY = "chunked-settings-preferences-v1";
 const groupOrder = ["Base", "Seasonal", "Style", "Occasion"];
 const premiumThemeKeys = new Set(["autumn", "summer", "spring", "winter"]);
+
+function readSettingsPreferences() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SETTINGS_PREFERENCES_KEY) || "{}");
+    return Object.fromEntries(Object.keys(settingsPreferenceInputs).map((key) => [key, saved[key] === true]));
+  } catch {
+    return Object.fromEntries(Object.keys(settingsPreferenceInputs).map((key) => [key, false]));
+  }
+}
+
+function applyDisplayPreferences(preferences) {
+  document.documentElement.dataset.compactSpacing = String(preferences.compactSpacing);
+  document.documentElement.dataset.reducedMotion = String(preferences.reducedMotion);
+}
+
+function updateProfilePreview(name) {
+  const cleanName = name.trim();
+  profileNamePreview.textContent = cleanName || "Your name";
+  profileAvatar.textContent = cleanName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toLocaleUpperCase() || "?";
+}
+
+function saveSettingsPreferences() {
+  const preferences = Object.fromEntries(Object.entries(settingsPreferenceInputs).map(([key, input]) => [key, input.checked]));
+  try {
+    localStorage.setItem(SETTINGS_PREFERENCES_KEY, JSON.stringify(preferences));
+  } catch {
+    notificationStatus.textContent = "This browser could not save the preference. It will apply for this visit only.";
+  }
+  applyDisplayPreferences(preferences);
+}
 
 function createThemeOption(theme, selectedTheme) {
   const button = document.createElement("button");
@@ -82,6 +136,12 @@ function selectTheme(themeKey) {
   themeStatus.textContent = `${theme.label} ${theme.mode} theme applied.`;
 }
 
+function syncThemeSelection(themeKey) {
+  themeOptions.querySelectorAll("[data-theme-key]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.themeKey === themeKey));
+  });
+}
+
 function updateCurrentTheme(selection) {
   currentThemeLabel.textContent = `Current theme: ${selection.label} · ${selection.mode}`;
 }
@@ -90,6 +150,87 @@ const activeTheme = getActiveThemeKey();
 const initialTheme = THEMES.find((theme) => theme.key === activeTheme) ?? THEMES[0];
 renderThemeOptions(initialTheme.key);
 updateCurrentTheme({ ...initialTheme, mode: getActiveMode() });
+
+const profile = getProfile();
+profileNameInput.value = profile.displayName;
+profileEmailInput.value = profile.email;
+updateProfilePreview(profile.displayName);
+
+profileForm.addEventListener("input", () => {
+  profileNameInput.setCustomValidity(profileNameInput.value.trim() ? "" : "Please enter a display name.");
+  updateProfilePreview(profileNameInput.value);
+});
+profileForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  profileNameInput.setCustomValidity(profileNameInput.value.trim() ? "" : "Please enter a display name.");
+  if (!profileForm.reportValidity()) return;
+  if (!saveProfile({ displayName: profileNameInput.value, email: profileEmailInput.value })) {
+    profileStatus.textContent = "This browser could not save your profile name.";
+    return;
+  }
+  profileNameInput.value = profileNameInput.value.trim();
+  updateProfilePreview(profileNameInput.value);
+  profileStatus.textContent = "Your name is saved in this browser and will appear across Chunked.";
+});
+
+languageSelect.value = getLanguage();
+languageSelect.addEventListener("change", () => {
+  const language = applyLanguage(languageSelect.value);
+  languageStatus.textContent = language === "ar"
+    ? "Right-to-left layout is active. Most page copy remains in English in this preview."
+    : "English left-to-right layout is active.";
+});
+document.addEventListener("chunked:languagechange", (event) => {
+  languageSelect.value = event.detail.language;
+});
+
+const savedDayMode = getDayMode();
+dayModeInputs.forEach((input) => { input.checked = input.value === savedDayMode; });
+dayModeInputs.forEach((input) => input.addEventListener("change", () => {
+  if (!input.checked) return;
+  try { localStorage.setItem(DAY_MODE_STORAGE_KEY, input.value); } catch { /* Apply for this visit if storage is unavailable. */ }
+  document.dispatchEvent(new CustomEvent("chunked:daymodechange", { detail: { mode: input.value } }));
+  dayStatus.textContent = input.value === "prayer"
+    ? "Prayer periods are active in DAY and on your Dashboard. Times shown are sample values."
+    : "Five custom period slots are active in DAY and on your Dashboard. No times are assigned.";
+}));
+
+const savedPreferences = readSettingsPreferences();
+Object.entries(settingsPreferenceInputs).forEach(([key, input]) => { input.checked = savedPreferences[key]; });
+applyDisplayPreferences(savedPreferences);
+Object.entries(settingsPreferenceInputs).forEach(([key, input]) => input.addEventListener("change", () => {
+  saveSettingsPreferences();
+  if (["taskReminders", "habitReminders", "dailyPlanningReminder"].includes(key)) {
+    notificationStatus.textContent = "Reminder preferences are saved in this browser. This demo does not send notifications.";
+  }
+}));
+
+resetButton.addEventListener("click", () => {
+  if (!window.confirm("Reset your profile, appearance, language, DAY, and reminder settings in this browser? Your tasks, goals, habits, and reflections will stay untouched.")) return;
+  [PROFILE_STORAGE_KEY, LANGUAGE_STORAGE_KEY, DAY_MODE_STORAGE_KEY, SETTINGS_PREFERENCES_KEY, "chunked-theme", "chunked-mode"].forEach((key) => {
+    try { localStorage.removeItem(key); } catch { /* Continue resetting in-memory defaults. */ }
+  });
+  profileForm.reset();
+  const defaultProfile = { displayName: "Alex Morgan", email: "alex@example.com" };
+  profileNameInput.value = defaultProfile.displayName;
+  profileEmailInput.value = defaultProfile.email;
+  saveProfile(defaultProfile);
+  languageSelect.value = "en";
+  languageSelect.dispatchEvent(new Event("change", { bubbles: true }));
+  dayModeInputs.forEach((input) => { input.checked = input.value === "prayer"; });
+  document.dispatchEvent(new CustomEvent("chunked:daymodechange", { detail: { mode: "prayer" } }));
+  Object.values(settingsPreferenceInputs).forEach((input) => { input.checked = false; });
+  saveSettingsPreferences();
+  const resetTheme = applyTheme("light");
+  syncThemeSelection(resetTheme.key);
+  updateCurrentTheme(resetTheme);
+  updateProfilePreview(defaultProfile.displayName);
+  profileStatus.textContent = "";
+  languageStatus.textContent = "";
+  dayStatus.textContent = "";
+  notificationStatus.textContent = "";
+  resetStatus.textContent = "Demo settings reset. Your saved content was kept.";
+});
 
 document.addEventListener("chunked:themechange", (event) => {
   updateCurrentTheme(event.detail);

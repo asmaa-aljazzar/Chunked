@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Personalize your Chunked profile, appearance, and daily preferences.">
+    <title>Settings — Chunked</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/settings.css">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/settings.js?v=2"></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="settings"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content settings-content" id="main-content">
+          <header class="settings-intro">
+            <p class="eyebrow">A space that feels like yours</p>
+            <h1>Settings</h1>
+            <p>Make Chunked feel like yours.</p>
+          </header>
+
+          <div class="settings-sections">
+            <section class="settings-section" aria-labelledby="profile-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="profile-settings-title">Profile</h2>
+                  <p>Your name and contact details for this demo.</p>
+                </div>
+              </div>
+              <form id="profile-settings-form" class="settings-form" novalidate>
+                <div class="profile-settings__identity">
+                  <div class="profile-settings__avatar" id="profile-avatar" aria-hidden="true">A</div>
+                  <div>
+                    <p class="profile-settings__name" id="profile-display-name">Alex Morgan</p>
+                    <p class="profile-settings__note">Demo profile · saved in this browser</p>
+                  </div>
+                </div>
+                <label class="settings-field" for="profile-name">
+                  <span>Display name</span>
+                  <input id="profile-name" name="displayName" type="text" autocomplete="name" value="Alex Morgan" required>
+                </label>
+                <label class="settings-field" for="profile-email">
+                  <span>Email address</span>
+                  <input id="profile-email" name="email" type="email" autocomplete="email" value="alex@example.com" readonly aria-describedby="profile-email-note">
+                  <small id="profile-email-note">Email editing is not available in this frontend demo.</small>
+                </label>
+                <div class="settings-actions">
+                  <button class="button button--primary" type="submit">Save changes</button>
+                  <p id="profile-settings-status" class="settings-status" role="status" aria-live="polite"></p>
+                </div>
+              </form>
+            </section>
+
+            <section class="settings-section" aria-labelledby="appearance-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="appearance-settings-title">Appearance</h2>
+                  <p>Choose colors and display preferences that feel comfortable.</p>
+                </div>
+                <p class="theme-current" id="theme-current" aria-live="polite">Current theme: Light</p>
+              </div>
+              <h3 class="settings-subheading" id="theme-picker-title">Themes</h3>
+              <div class="theme-groups" id="theme-options" role="group" aria-label="Choose a theme"></div>
+              <p class="theme-status" id="theme-status" role="status" aria-live="polite"></p>
+              <div class="settings-preferences">
+                <label class="settings-choice" for="compact-spacing">
+                  <span><strong>Compact spacing</strong><small>Fit a little more on each screen.</small></span>
+                  <input id="compact-spacing" type="checkbox" name="compactSpacing">
+                </label>
+                <label class="settings-choice" for="reduced-motion">
+                  <span><strong>Reduce motion</strong><small>Limit decorative movement and transitions.</small></span>
+                  <input id="reduced-motion" type="checkbox" name="reducedMotion">
+                </label>
+              </div>
+              <noscript><p class="theme-status">Enable JavaScript to choose a theme.</p></noscript>
+            </section>
+
+            <section class="settings-section" aria-labelledby="language-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="language-settings-title">Language</h2>
+                  <p>Choose the language and reading direction for the interface.</p>
+                </div>
+              </div>
+              <div class="settings-field settings-field--short">
+                <label for="interface-language">Interface language</label>
+                <select id="interface-language" name="language">
+                  <option value="en">English</option>
+                  <option value="ar">العربية</option>
+                </select>
+              </div>
+              <p class="settings-help" id="language-settings-note">Arabic switches the full layout to right-to-left. Most page copy remains in English in this frontend preview.</p>
+              <p id="language-settings-status" class="settings-status" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="settings-section" aria-labelledby="day-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="day-settings-title">DAY preferences</h2>
+                  <p>Choose which period names appear in DAY and on your Dashboard.</p>
+                </div>
+              </div>
+              <fieldset class="settings-radio-group">
+                <legend>Day organization</legend>
+                <label class="settings-choice" for="day-mode-prayer">
+                  <span><strong>Prayer periods</strong><small>Fajr, Dhuhr, Asr, Maghrib, and Isha.</small></span>
+                  <input id="day-mode-prayer" type="radio" name="dayMode" value="prayer" checked>
+                </label>
+                <label class="settings-choice" for="day-mode-custom">
+                  <span><strong>Custom periods</strong><small>Use a flexible schedule that suits your day.</small></span>
+                  <input id="day-mode-custom" type="radio" name="dayMode" value="custom">
+                </label>
+              </fieldset>
+              <p class="settings-help">Prayer mode shows Fajr, Dhuhr, Asr, Maghrib, and Isha with sample times. Custom mode shows five custom slots without times. This preference is saved in this browser; prayer times are not calculated.</p>
+              <p id="day-settings-status" class="settings-status" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="settings-section" aria-labelledby="notification-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="notification-settings-title">Notifications</h2>
+                  <p>Choose which reminders you would like this browser demo to remember.</p>
+                </div>
+              </div>
+              <div class="settings-preferences">
+                <label class="settings-choice" for="task-reminders">
+                  <span><strong>Task reminders</strong><small>Reminders for planned tasks.</small></span>
+                  <input id="task-reminders" type="checkbox" name="taskReminders">
+                </label>
+                <label class="settings-choice" for="habit-reminders">
+                  <span><strong>Habit reminders</strong><small>A gentle nudge for scheduled habits.</small></span>
+                  <input id="habit-reminders" type="checkbox" name="habitReminders">
+                </label>
+                <label class="settings-choice" for="daily-planning-reminder">
+                  <span><strong>Daily planning reminder</strong><small>A reminder to make space for today's priorities.</small></span>
+                  <input id="daily-planning-reminder" type="checkbox" name="dailyPlanningReminder">
+                </label>
+              </div>
+              <p class="settings-help">These preferences are saved locally. Browser notifications may require permission and depend on browser support; this demo does not send notifications.</p>
+              <p id="notification-settings-status" class="settings-status" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="settings-section" aria-labelledby="privacy-settings-title">
+              <div class="settings-section__heading">
+                <div>
+                  <h2 id="privacy-settings-title">Privacy &amp; data</h2>
+                  <p>Understand where this frontend demo keeps your preferences.</p>
+                </div>
+              </div>
+              <p class="settings-help">Settings may be stored in localStorage in this browser. This is not a secure account or cloud backup, and your settings are not synchronized with a server.</p>
+              <button class="button button--secondary" id="reset-demo-settings" type="button">Reset demo settings</button>
+              <p id="reset-settings-status" class="settings-status" role="status" aria-live="polite"></p>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

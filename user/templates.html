@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Find a little structure for your day, goals, habits, and focus.">
+    <title>Templates — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=2">
+    <link rel="stylesheet" href="../css/pages/templates.css?v=7">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/templates.js?v=6"></script>
+  </head>
+  <body class="app-page templates-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="templates"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+
+        <main class="dashboard-content templates-content" id="main-content">
+          <header class="templates-header">
+            <div>
+              <p class="eyebrow">A little inspiration</p>
+              <h1>Templates</h1>
+              <p>A little structure to help you get started.</p>
+            </div>
+          </header>
+
+          <nav class="templates-tabs" aria-label="Template library views" role="tablist">
+            <button class="templates-tabs__tab is-active" id="marketplace-tab" type="button" role="tab" aria-selected="true" aria-controls="marketplace-panel">Explore templates</button>
+            <button class="templates-tabs__tab" id="saved-templates-tab" type="button" role="tab" aria-selected="false" aria-controls="saved-templates-panel" tabindex="-1">My templates <span class="templates-saved-count" id="saved-template-count" hidden>0</span></button>
+          </nav>
+
+          <section class="templates-panel" id="marketplace-panel" role="tabpanel" aria-labelledby="marketplace-tab">
+            <div class="templates-toolbar panel">
+              <label class="templates-search">
+                <span class="templates-search__label">Search templates</span>
+                <span class="templates-search__field">
+                  <span class="templates-search__icon" aria-hidden="true">⌕</span>
+                  <input id="template-search" type="search" placeholder="Search templates" autocomplete="off">
+                </span>
+              </label>
+              <div class="templates-access-filter">
+                <label id="template-access-label" for="template-access">Access</label>
+                <select id="template-access" name="access">
+                  <option value="all">Free and premium</option>
+                  <option value="free">Free</option>
+                  <option value="premium">Premium</option>
+                </select>
+              </div>
+            </div>
+
+            <nav class="templates-categories" aria-label="Filter templates by category" id="template-categories">
+              <button type="button" class="templates-category is-active" data-category="all" aria-pressed="true">All</button>
+              <button type="button" class="templates-category" data-category="day" aria-pressed="false">DAY</button>
+              <button type="button" class="templates-category" data-category="grow" aria-pressed="false">GROW</button>
+              <button type="button" class="templates-category" data-category="focus" aria-pressed="false">FOCUS</button>
+              <button type="button" class="templates-category" data-category="habits" aria-pressed="false">Habits</button>
+              <button type="button" class="templates-category" data-category="study" aria-pressed="false">Study</button>
+              <button type="button" class="templates-category" data-category="work" aria-pressed="false">Work</button>
+              <button type="button" class="templates-category" data-category="self-care" aria-pressed="false">Self-care</button>
+            </nav>
+
+            <p class="templates-results-count" id="template-results-count" aria-live="polite"></p>
+            <div class="templates-grid" id="template-grid" aria-live="polite"></div>
+            <div class="templates-empty panel" id="template-empty" hidden>
+              <span class="templates-empty__icon" aria-hidden="true">✦</span>
+              <h2 id="template-empty-title">No templates match those filters.</h2>
+              <p id="template-empty-copy">Try another search or category to find a starting point.</p>
+              <button class="button button--secondary" id="clear-template-filters" type="button">Clear filters</button>
+            </div>
+          </section>
+
+          <section class="templates-panel" id="saved-templates-panel" role="tabpanel" aria-labelledby="saved-templates-tab" hidden>
+            <div class="templates-section-heading">
+              <div><p class="eyebrow">Kept for later</p><h2>My templates</h2></div>
+              <button class="button button--secondary" id="back-to-marketplace" type="button">Explore templates</button>
+            </div>
+            <p class="templates-results-count" id="saved-results-count" aria-live="polite"></p>
+            <div class="templates-grid" id="saved-template-grid" aria-live="polite"></div>
+            <div class="templates-empty panel" id="saved-template-empty" hidden>
+              <span class="templates-empty__icon" aria-hidden="true">✦</span>
+              <h2>No saved templates yet.</h2>
+              <p>Save a template here when you find one you’d like to come back to.</p>
+              <button class="button button--secondary" type="button" data-show-marketplace>Browse templates</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <dialog class="template-dialog" id="template-details-dialog" aria-labelledby="template-detail-title">
+      <div class="template-dialog__content">
+        <form method="dialog" class="template-dialog__close-form"><button class="template-dialog__close" aria-label="Close details">×</button></form>
+        <div class="template-detail-preview" id="template-detail-preview" aria-hidden="true"></div>
+        <p class="eyebrow" id="template-detail-category"></p>
+        <h2 id="template-detail-title">Template title</h2>
+        <p id="template-detail-description"></p>
+        <div class="template-detail-access" id="template-detail-access"></div>
+        <section class="template-detail-includes" aria-labelledby="template-includes-heading">
+          <h3 id="template-includes-heading">Inside this printable</h3>
+          <ul id="template-detail-items"></ul>
+        </section>
+        <section class="template-detail-guide" id="template-detail-guide" aria-labelledby="template-guide-heading" hidden>
+          <h3 id="template-guide-heading">Printable PDF</h3>
+          <p id="template-guide-name"></p>
+          <iframe id="template-guide-preview" title="PDF guide preview" loading="lazy" hidden></iframe>
+          <a class="template-guide-download" id="template-guide-download" href="#" target="_blank" rel="noopener">Open or print the PDF</a>
+        </section>
+        <p class="template-dialog__status" id="template-detail-status" role="status" aria-live="polite"></p>
+        <div class="template-dialog__actions" id="template-detail-actions"></div>
+      </div>
+    </dialog>
+
+    <dialog class="template-dialog template-dialog--confirm" id="template-premium-dialog" aria-labelledby="template-premium-title">
+      <div class="template-dialog__content">
+        <form method="dialog" class="template-dialog__close-form"><button class="template-dialog__close" aria-label="Close premium information">×</button></form>
+        <p class="eyebrow">Premium template</p>
+        <h2 id="template-premium-title">A little more structure</h2>
+        <p id="template-premium-copy">Premium access is a demo in this version. No payment will be taken.</p>
+        <div class="template-dialog__actions"><button class="button button--primary" id="premium-demo-confirm" type="button">Got it</button><button class="button button--secondary" id="premium-demo-cancel" type="button">Close</button></div>
+      </div>
+    </dialog>
+
+    <noscript><p class="templates-noscript">Turn on JavaScript to search, filter, and explore the template library.</p></noscript>
+  </body>
+</html>

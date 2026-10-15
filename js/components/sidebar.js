@@ -1,9 +1,11 @@
 import { CHUNKS, getCurrentChunkKey } from "../utils/chunks.js";
+import { getPeriodDisplay } from "../utils/day-preferences.js";
 
 const navigationItems = [
   { id: "dashboard", label: "Dashboard", href: "dashboard.html", icon: "⌂" },
   { id: "day", label: "DAY", href: "day.html", icon: "☼" },
   { id: "grow", label: "GROW", href: "grow.html", icon: "↗" },
+  { id: "templates", label: "Templates", href: "templates.html", icon: "▤" },
   { id: "insights", label: "Insights", href: "insights.html", icon: "▥", premium: true },
   { id: "focus", label: "FOCUS", href: "focus.html", icon: "◎" },
   { id: "settings", label: "Settings", href: "settings.html", icon: "⚙" },
@@ -35,6 +37,18 @@ function currentChunkMarkup() {
     </a>`;
 }
 
+function quickAccessMarkup() {
+  return `
+    <details class="app-sidebar__quick-access" open>
+      <summary><span class="quick-access__plus" aria-hidden="true">＋</span><span>Quick access</span><span class="quick-access__chevron" aria-hidden="true">⌄</span></summary>
+      <nav class="quick-access__links" aria-label="Quick access">
+        <a href="day.html?quickAdd=task"><span aria-hidden="true">＋</span><span>Add task</span></a>
+        <a href="grow.html?quickAdd=goal"><span aria-hidden="true">↗</span><span>Add goal</span></a>
+        <a href="grow.html?quickAdd=habit"><span aria-hidden="true">☼</span><span>Add habit</span></a>
+      </nav>
+    </details>`;
+}
+
 export function mountSidebar(container, activePage = "") {
   const links = navigationItems.map(({ id, label, href, icon, premium }) => {
     const link = `
@@ -54,6 +68,7 @@ export function mountSidebar(container, activePage = "") {
       ${brandMarkup()}
       <p class="app-sidebar__caption">YOUR SPACE</p>
       <nav class="sidebar-nav" aria-label="Main navigation">${links}</nav>
+      ${quickAccessMarkup()}
       <div class="app-sidebar__note">
         <span aria-hidden="true">✦</span>
         <p>Small steps count.</p>
@@ -62,15 +77,29 @@ export function mountSidebar(container, activePage = "") {
 
   const currentChunkLink = container.querySelector("#sidebar-current-chunk");
   const currentChunkLabel = container.querySelector("#sidebar-current-chunk-label");
+  const quickAccess = container.querySelector(".app-sidebar__quick-access");
+  const compactSidebar = window.matchMedia("(max-width: 760px)");
+
+  const syncQuickAccess = () => {
+    quickAccess.open = !compactSidebar.matches;
+  };
+
+  syncQuickAccess();
+  compactSidebar.addEventListener("change", syncQuickAccess);
 
   function syncCurrentChunk(chunkKey) {
     const validKey = Object.prototype.hasOwnProperty.call(CHUNKS, chunkKey) ? chunkKey : getCurrentChunkKey();
     currentChunkLink.href = `chunk.html?period=${validKey}`;
-    currentChunkLabel.textContent = CHUNKS[validKey].label;
-    currentChunkLink.setAttribute("aria-label", `Open current chunk: ${CHUNKS[validKey].label}`);
+    const label = getPeriodDisplay(validKey, CHUNKS[validKey].label);
+    currentChunkLabel.textContent = label;
+    currentChunkLink.setAttribute("aria-label", `Open current chunk: ${label}`);
   }
 
   syncCurrentChunk(getCurrentChunkKey());
+  document.addEventListener("chunked:daymodechange", () => syncCurrentChunk(getCurrentChunkKey()));
+  window.addEventListener("storage", (event) => {
+    if (event.key === "chunked-day-mode-v1") syncCurrentChunk(getCurrentChunkKey());
+  });
   document.addEventListener("chunked:currentchunkchange", (event) => {
     syncCurrentChunk(event.detail.key);
   });

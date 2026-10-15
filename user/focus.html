@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Choose what deserves your attention and decide on one useful next step.">
+    <title>FOCUS — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=2">
+    <link rel="stylesheet" href="../css/pages/focus.css?v=3">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/focus.js?v=3"></script>
+  </head>
+  <body class="app-page focus-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="focus"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content focus-content" id="main-content">
+          <header class="focus-header">
+            <div><p class="eyebrow">A little clarity</p><h1>FOCUS</h1><p class="focus-header__subtitle">Choose what deserves your attention right now.</p><p class="focus-header__support">You don't have to do everything at once.</p></div>
+          </header>
+
+          <section class="focus-current panel" aria-labelledby="focus-current-heading">
+            <div class="focus-section-heading"><div><p class="eyebrow">Start with what matters</p><h2 id="focus-current-heading">My current focus</h2></div><span class="focus-demo-label" id="focus-demo-label" hidden>Example goal</span></div>
+            <div class="focus-current__empty" id="focus-empty"><span class="focus-current__icon" aria-hidden="true">✦</span><div><h3>What matters most right now?</h3><p>Choose one focus to help you decide where to direct your energy.</p></div><button class="button button--primary" id="choose-focus-button" type="button">Choose a focus</button></div>
+            <div class="focus-current__selected" id="focus-selected" hidden>
+              <div><p class="eyebrow">Selected focus</p><h3 id="current-focus-title"></h3><p id="current-focus-description"></p><span class="focus-linked-goal" id="current-focus-linked" hidden></span><p class="focus-current__readiness" id="current-focus-readiness">Readiness not set yet</p></div>
+              <button class="button button--secondary" id="change-focus-button" type="button">Change focus</button>
+            </div>
+          </section>
+
+          <section class="focus-options panel" id="focus-options-section" aria-labelledby="focus-options-heading">
+            <div class="focus-section-heading"><div><p class="eyebrow">Choose your direction</p><h2 id="focus-options-heading" tabindex="-1">Focus options</h2></div><button class="button button--secondary" id="add-focus-button" type="button">＋ Create a focus</button></div>
+            <div class="focus-options__list" id="focus-options-list"></div>
+            <p class="focus-storage-note" id="focus-storage-note" role="status" aria-live="polite"></p>
+            <form class="focus-create-form" id="focus-create-form" hidden>
+              <h3>Create an independent focus</h3>
+              <label>Focus title<input name="title" maxlength="90" required placeholder="What would you like to focus on?"></label>
+              <label>Description <span class="focus-optional">(optional)</span><textarea name="description" rows="2" maxlength="240" placeholder="A little context, if it helps."></textarea></label>
+              <div class="focus-form-actions"><button class="button button--primary" type="submit">Save focus</button><button class="button button--secondary" id="cancel-create-focus" type="button">Cancel</button></div>
+            </form>
+            <div class="focus-no-options" id="focus-no-options" hidden><h3>Start with what matters to you.</h3><p>Choose an existing goal or create a simple priority for now.</p><a class="text-link" href="grow.html">Choose a GROW goal <span aria-hidden="true">→</span></a></div>
+          </section>
+
+          <div class="focus-workspace" id="focus-workspace" hidden>
+            <section class="focus-readiness panel" aria-labelledby="readiness-heading">
+              <div class="focus-section-heading"><div><p class="eyebrow">Your call, today</p><h2 id="readiness-heading">How ready do you feel to work on this?</h2></div></div>
+              <fieldset class="readiness-options"><legend class="visually-hidden">Choose your readiness</legend>
+                <label class="readiness-option readiness-option--ready"><input type="radio" name="readiness" value="ready"><span class="readiness-option__dot" aria-hidden="true"></span><span><strong>Ready</strong><small>I have enough clarity and resources to begin.</small></span></label>
+                <label class="readiness-option readiness-option--prepare"><input type="radio" name="readiness" value="prepare"><span class="readiness-option__dot" aria-hidden="true"></span><span><strong>Needs preparation</strong><small>A little setup could make the next step easier.</small></span></label>
+                <label class="readiness-option readiness-option--blocked"><input type="radio" name="readiness" value="blocked"><span class="readiness-option__dot" aria-hidden="true"></span><span><strong>Blocked</strong><small>A specific obstacle is in the way.</small></span></label>
+              </fieldset>
+              <p class="readiness-message" id="readiness-message" aria-live="polite">Choose the status that feels accurate to you. Nothing is selected for you.</p>
+              <label class="focus-explanation" for="readiness-explanation">What's affecting your readiness? <span class="focus-optional">(optional)</span><textarea id="readiness-explanation" rows="3" maxlength="500" placeholder="Describe a blocker, missing resource, or something you need to prepare."></textarea></label>
+              <div class="focus-readiness__actions"><button class="button button--secondary" id="save-readiness-note" type="button">Save note</button><span id="readiness-note-status" role="status" aria-live="polite"></span></div>
+            </section>
+
+            <section class="focus-next-step panel" aria-labelledby="next-step-heading">
+              <div class="focus-section-heading"><div><p class="eyebrow">A gentle suggestion</p><h2 id="next-step-heading">One possible next step</h2></div></div>
+              <label for="next-step-input">Your next step <span class="focus-optional">(optional)</span></label>
+              <textarea id="next-step-input" rows="3" maxlength="300" placeholder="For example: Spend 20 minutes reviewing one JavaScript concept."></textarea>
+              <label class="focus-duration" for="next-step-duration">Estimated time <span class="focus-optional">(optional)</span><input id="next-step-duration" type="text" maxlength="40" placeholder="e.g. 20 minutes"></label>
+              <div class="focus-next-step__actions"><button class="button button--primary" id="save-next-step" type="button">Save next step</button><span id="next-step-status" role="status" aria-live="polite"></span></div>
+              <p class="focus-next-step__note">This is only a suggestion. It won’t create a DAY task unless you choose to do that later.</p>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

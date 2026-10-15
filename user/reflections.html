@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Browse your private reflections and revisit the progress you have made.">
+    <title>Your reflections — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap">
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=9">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/goals.css?v=3">
+    <link rel="stylesheet" href="../css/pages/reflections.css?v=2">
+    <script type="module" src="../js/app.js?v=5"></script>
+    <script type="module" src="../js/pages/reflections.js?v=2"></script>
+  </head>
+  <body class="app-page reflections-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="insights"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content goals-content reflections-content" id="main-content">
+          <a class="text-link goals-back" href="insights.html">← Back to Insights</a>
+          <header class="goals-header">
+            <div><p class="eyebrow">Just for you</p><h1>Your reflections</h1><p>A quiet place to look back at what helped you move forward.</p></div>
+          </header>
+          <section class="goals-browser panel" aria-labelledby="reflection-archive-title">
+            <div class="panel-heading goals-browser__heading">
+              <div><p class="eyebrow">Saved on this device</p><h2 id="reflection-archive-title">Reflection archive</h2></div>
+              <label class="goals-search"><span class="visually-hidden">Search reflections</span><span class="goals-search__icon" aria-hidden="true">⌕</span><input id="reflections-search" type="search" placeholder="Search reflections" autocomplete="off"></label>
+            </div>
+            <p class="goals-results-count" id="reflections-count" aria-live="polite"></p>
+            <div class="reflections-list" id="reflections-list" aria-live="polite"></div>
+            <div class="goals-empty" id="reflections-empty" hidden><span class="grow-empty__icon" aria-hidden="true">✦</span><h3 id="reflections-empty-title">No reflections yet.</h3><p id="reflections-empty-copy">When you save a reflection in Insights, it will appear here.</p><a class="button button--secondary" href="insights.html">Go to Insights</a></div>
+            <nav class="goals-pagination" id="reflections-pagination" aria-label="Reflection pages" hidden><button class="goals-pagination__button" id="reflections-previous" type="button" aria-label="Previous page" disabled>←</button><div class="goals-pagination__pages" id="reflections-page-buttons"></div><button class="goals-pagination__button" id="reflections-next" type="button" aria-label="Next page">→</button></nav>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

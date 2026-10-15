@@ -2,6 +2,11 @@
   max-width: 78rem;
 }
 
+.settings-sections {
+  display: grid;
+  gap: var(--space-5);
+}
+
 .settings-intro {
   max-width: 42rem;
   margin-bottom: var(--space-7);
@@ -48,6 +53,195 @@
 .settings-section__heading p {
   margin-bottom: 0;
   font-size: var(--text-sm);
+}
+
+.settings-subheading {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-base);
+}
+
+.settings-form {
+  display: grid;
+  max-width: 42rem;
+  gap: var(--space-4);
+}
+
+.profile-settings__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.profile-settings__avatar {
+  display: grid;
+  width: 3.5rem;
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.profile-settings__name,
+.profile-settings__note {
+  margin: 0;
+}
+
+.profile-settings__name {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.profile-settings__note,
+.settings-field small,
+.settings-choice small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.settings-field {
+  display: grid;
+  min-width: 0;
+  gap: 0.45rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.settings-field > label {
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.settings-field input,
+.settings-field select {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  font-weight: 400;
+  transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.settings-field input[readonly] {
+  background: var(--color-surface-soft);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.settings-field input:focus-visible,
+.settings-field select:focus-visible {
+  outline: 0;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent);
+}
+
+.settings-field--short {
+  max-width: 24rem;
+}
+
+.settings-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.settings-status,
+.settings-help {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.settings-actions .settings-status {
+  margin: 0;
+}
+
+.settings-status:empty {
+  display: none;
+}
+
+.settings-preferences,
+.settings-radio-group {
+  display: grid;
+  max-width: 52rem;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.settings-radio-group legend {
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.settings-choice {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+}
+
+.settings-choice:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+}
+
+.settings-choice > span {
+  min-width: 0;
+}
+
+.settings-choice strong {
+  display: block;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.settings-choice input {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.settings-choice input:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 38%, transparent);
+  outline-offset: 3px;
+}
+
+.settings-choice:has(input:checked) {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent-soft) 42%, var(--color-bg));
+}
+
+#reset-demo-settings {
+  margin-top: var(--space-4);
 }
 
 .settings-section__heading .theme-current {
