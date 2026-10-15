@@ -68,6 +68,15 @@
     height: 1.1rem;
     place-items: center;
     border-radius: 50%;
+    font-size: 0;
+  }
+
+  .chunk-row--current .chunk-row__status::after {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--color-accent-strong);
+    content: "";
   }
 
   .chunk-row--current .chunk-row__status::before,
