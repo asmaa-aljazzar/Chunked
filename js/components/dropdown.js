@@ -24,7 +24,7 @@ export function enhanceSelect(select) {
 
   if (wrappingLabel) {
     if (!wrappingLabel.id) wrappingLabel.id = `dropdown-label-${++nextDropdownId}`;
-    wrappingLabel.after(wrapper);
+    wrappingLabel.append(wrapper);
   } else {
     select.before(wrapper);
   }

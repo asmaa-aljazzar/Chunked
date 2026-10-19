@@ -1,4 +1,10 @@
 import { applyTheme, getActiveMode, getActiveThemeKey } from "../../js/utils/theme.js";
+import { getDemoSession, signOutDemo } from "../../js/utils/demo-auth.js?v=2";
+
+const adminSession = getDemoSession();
+if (adminSession?.role !== "admin") {
+  window.location.replace("../user/login.html");
+} else {
 
 const STORAGE_KEY = "chunked-admin-templates-demo-v1";
 const CATEGORY_STORAGE_KEY = "chunked-admin-categories-demo-v1";
@@ -203,6 +209,10 @@ function safeImage(value) {
   } catch { return ""; }
 }
 
+function templateIcon(category) {
+  return category === "DAY" ? "☼" : category === "GROW" ? "↗" : category === "FOCUS" ? "◎" : "✦";
+}
+
 function renderTemplates() {
   const filtered = getFilteredTemplates();
   const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -213,6 +223,7 @@ function renderTemplates() {
   records.forEach((item) => {
     const row = document.createElement("tr");
     const mainCell = document.createElement("td");
+    mainCell.dataset.label = "Template";
     const content = document.createElement("div");
     content.className = "admin-template-cell";
     const art = document.createElement("span");
@@ -223,8 +234,16 @@ function renderTemplates() {
       image.src = imageUrl;
       image.alt = "";
       image.loading = "lazy";
+      image.addEventListener("error", () => {
+        image.remove();
+        art.textContent = templateIcon(item.category);
+        art.classList.add("is-fallback");
+      }, { once: true });
       art.append(image);
-    } else art.textContent = item.category === "DAY" ? "☼" : item.category === "GROW" ? "↗" : "✦";
+    } else {
+      art.textContent = templateIcon(item.category);
+      art.classList.add("is-fallback");
+    }
     const copy = document.createElement("span");
     copy.className = "admin-template-cell__copy";
     const title = document.createElement("strong");
@@ -237,20 +256,25 @@ function renderTemplates() {
     row.append(mainCell);
 
     const category = document.createElement("td");
+    category.dataset.label = "Category";
     category.textContent = item.category;
     row.append(category);
     const access = document.createElement("td");
+    access.dataset.label = "Access";
     access.append(badge(item.access === "premium" ? `Premium · $${Number(item.price || 0).toFixed(2)}` : "Free", item.access));
     row.append(access);
     const status = document.createElement("td");
+    status.dataset.label = "Status";
     const labels = { published: "Published", draft: "Draft", review: "Pending review", archived: "Archived" };
     status.append(badge(labels[item.status] || "Draft", item.status));
     row.append(status);
     const updated = document.createElement("td");
+    updated.dataset.label = "Updated";
     const date = new Date(`${item.updatedAt || ""}T12:00:00`);
     updated.textContent = Number.isNaN(date.getTime()) ? "—" : new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" }).format(date);
     row.append(updated);
     const actionsCell = document.createElement("td");
+    actionsCell.dataset.label = "Actions";
     const actions = document.createElement("div");
     actions.className = "admin-row-actions";
     actions.append(actionButton("Preview", "preview", item.id), actionButton("Edit", "edit", item.id));
@@ -344,6 +368,21 @@ function appendPreview(template) {
   status.textContent = `Status: ${template.status || "draft"} · Creator: ${template.creator || "Alex Morgan"}`;
   const contents = document.createElement("p");
   contents.textContent = template.contents ? `Includes: ${template.contents}` : "Template details will appear here.";
+  const imageUrl = safeImage(template.image);
+  if (imageUrl) {
+    const image = document.createElement("img");
+    image.className = "admin-template-preview__image";
+    image.src = imageUrl;
+    image.alt = "";
+    image.addEventListener("error", () => {
+      const fallback = document.createElement("div");
+      fallback.className = "admin-template-preview__fallback";
+      fallback.setAttribute("aria-hidden", "true");
+      fallback.textContent = templateIcon(template.category);
+      image.replaceWith(fallback);
+    }, { once: true });
+    preview.append(image);
+  }
   preview.append(chips, title, description, status, contents);
   form.querySelector(".admin-dialog__actions").before(preview);
 }
@@ -551,5 +590,17 @@ templateRows.addEventListener("click", (event) => {
 });
 
 document.querySelector("#admin-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date());
+const adminName = adminSession.name || "Demo Admin";
+const adminInitials = adminName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toLocaleUpperCase();
+document.querySelector("#admin-session-name").textContent = adminName;
+document.querySelector("#admin-topbar-name").textContent = adminName;
+document.querySelector("#admin-session-initials").textContent = adminInitials || "DA";
+document.querySelector("#admin-topbar-initials").textContent = adminInitials || "DA";
+document.querySelector("#admin-sign-out").addEventListener("click", (event) => {
+  event.preventDefault();
+  signOutDemo();
+  window.location.assign("../user/login.html");
+});
 renderSavedDemoItems();
 renderTemplates();
+}

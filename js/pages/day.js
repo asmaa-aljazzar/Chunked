@@ -418,6 +418,8 @@ function localDateKey() {
 
 render();
 
+document.querySelector("#ai-add-task")?.addEventListener("click", () => openTaskDialog(selectedPeriod || "unscheduled"));
+
 if (new URLSearchParams(window.location.search).get("quickAdd") === "task") {
   window.history.replaceState(null, "", window.location.pathname);
   openTaskDialog("unscheduled");

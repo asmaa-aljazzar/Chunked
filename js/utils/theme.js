@@ -8,6 +8,15 @@ export const THEMES = [
   { key: "gothic", label: "Gothic", group: "Style", mode: "dark", description: "Deep tones, muted gold, and serif headings." },
   { key: "ramadan", label: "Ramadan", group: "Occasion", mode: "dark", description: "Midnight blue with a golden accent." },
   { key: "eid", label: "Eid", group: "Occasion", mode: "light", description: "A soft festive palette with berry accents." },
+  { key: "lavender", label: "Lavender", group: "More themes", mode: "light", description: "Soft violet tones for a calm, creative space." },
+  { key: "ivory", label: "Ivory", group: "More themes", mode: "light", description: "Warm paper neutrals with a quiet, classic feel." },
+  { key: "sage", label: "Sage", group: "More themes", mode: "light", description: "Muted greens inspired by a slower pace." },
+  { key: "graphite", label: "Graphite", group: "More themes", mode: "light", description: "Clean grayscale with a crisp slate accent." },
+  { key: "midnight", label: "Midnight", group: "More themes", mode: "light", description: "Cool blue tones for a focused workspace." },
+  { key: "forest", label: "Forest", group: "More themes", mode: "light", description: "Grounded greens with a natural contrast." },
+  { key: "gothic-classic", label: "Gothic Classic", group: "More themes", mode: "light", description: "Muted plum, parchment, and vintage warmth." },
+  { key: "nocturne", label: "Nocturne", group: "More themes", mode: "light", description: "Deep indigo tones with a gentle violet glow." },
+  { key: "rose-noir", label: "Rose Noir", group: "More themes", mode: "light", description: "Soft rose accents with a dark, romantic palette." },
 ];
 
 const DEFAULT_THEME = "light";

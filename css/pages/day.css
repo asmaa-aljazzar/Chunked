@@ -29,6 +29,23 @@
   color: var(--color-text-muted);
 }
 
+.ai-suggestion-strip {
+  display: grid;
+  grid-template-columns: minmax(11rem, .8fr) repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--space-3);
+  padding: 1rem;
+}
+.ai-suggestion-strip__intro { align-self: center; }
+.ai-suggestion-strip__intro .eyebrow { margin: 0 0 .2rem; }
+.ai-suggestion-strip__intro h2 { margin: 0; font-size: var(--text-lg); }
+.ai-suggestion-strip__intro > p:last-child { margin: .25rem 0 0; color: var(--color-text-muted); font-size: var(--text-xs); }
+.ai-suggestion-card { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .35rem .65rem; min-width: 0; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); padding: .75rem; }
+.ai-suggestion-card > span { grid-row: span 2; color: var(--color-accent-strong); font-size: 1.15rem; }
+.ai-suggestion-card h3 { margin: 0; font-size: var(--text-sm); }
+.ai-suggestion-card p { margin: 0; color: var(--color-text-muted); font-size: var(--text-xs); line-height: 1.4; }
+.ai-suggestion-card .button { grid-column: 2; justify-self: start; min-height: 2.2rem; padding: .4rem .7rem; font-size: var(--text-xs); }
+
 .day-header__greeting {
   margin-top: 0.3rem;
   font-size: var(--text-sm);
@@ -536,6 +553,9 @@
   .day-workspace {
     grid-template-columns: 1fr;
   }
+
+  .ai-suggestion-strip { grid-template-columns: 1fr; }
+  .ai-suggestion-strip__intro { padding: .25rem .25rem .4rem; }
 
   .day-current {
     gap: var(--space-4);

@@ -1,8 +1,10 @@
-import { mountSidebar } from "./components/sidebar.js?v=6";
-import { mountTopbar } from "./components/topbar.js?v=7";
-import { enhanceSelects } from "./components/dropdown.js?v=1";
+import { mountSidebar } from "./components/sidebar.js?v=9";
+import { mountTopbar } from "./components/topbar.js?v=9";
+import { enhanceSelects } from "./components/dropdown.js?v=2";
 import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "./utils/language.js?v=3";
-import { getProfile } from "./utils/profile.js?v=1";
+import { getProfile, saveProfile } from "./utils/profile.js?v=1";
+import { normalizeThemeForPlan, syncPlanPresentation } from "./utils/subscription.js?v=3";
+import { getDemoSession } from "./utils/demo-auth.js?v=2";
 
 applyLanguage(getLanguage(), { persist: false });
 
@@ -33,7 +35,17 @@ setDateFieldMinimums();
 
 const sidebarRoot = document.querySelector("#app-nav");
 
+normalizeThemeForPlan();
+
 if (sidebarRoot) {
+  const session = getDemoSession();
+  if (!session) {
+    window.location.replace("login.html");
+  } else if (session.role === "admin") {
+    window.location.replace("../admin/dashboard.html");
+  } else if (getProfile().displayName === "Demo User") {
+    saveProfile({ displayName: session.name, email: session.email });
+  }
   mountSidebar(sidebarRoot, sidebarRoot.dataset.activePage);
 }
 
@@ -42,6 +54,8 @@ const topbarRoot = document.querySelector("#app-topbar");
 if (topbarRoot) {
   mountTopbar(topbarRoot);
 }
+
+syncPlanPresentation();
 
 function syncProfilePageContent(profile = getProfile()) {
   document.querySelectorAll("[data-profile-name]").forEach((element) => { element.textContent = profile.displayName; });
@@ -102,6 +116,12 @@ function scanControls(root) {
 }
 
 scanControls(document);
+document.querySelectorAll("dialog").forEach((dialog) => {
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog && dialog.open) dialog.close();
+  });
+});
+
 new MutationObserver((records) => {
   records.forEach((record) => record.addedNodes.forEach((node) => {
     if (node instanceof Element) {

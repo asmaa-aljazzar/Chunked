@@ -1,3 +1,5 @@
+import { isPremium } from "../utils/subscription.js?v=3";
+
 const TASKS_KEY = "chunked-day-tasks-v1";
 const GOALS_KEY = "chunked-grow-goals-v1";
 const HABITS_KEY = "chunked-grow-habits-v1";
@@ -19,7 +21,24 @@ const reflectionAdd = document.querySelector("#reflection-add");
 const reflectionCancel = document.querySelector("#reflection-cancel");
 const reflectionLatest = document.querySelector("#reflection-latest");
 const reflectionEmpty = document.querySelector("#reflection-empty");
+const protectedInsights = document.querySelector("#insights-protected");
+const protectedContent = document.querySelector("#insights-protected-content");
+const insightsLockCard = document.querySelector("#insights-lock-card");
 let editingReflectionId = null;
+
+function syncInsightAccess() {
+  const premium = isPremium();
+  protectedInsights.dataset.plan = premium ? "premium" : "free";
+  protectedContent.inert = !premium;
+  protectedContent.setAttribute("aria-hidden", String(!premium));
+  insightsLockCard.hidden = premium;
+}
+
+syncInsightAccess();
+document.addEventListener("chunked:planchange", syncInsightAccess);
+window.addEventListener("storage", (event) => {
+  if (event.key === "chunked-demo-plan-v1") syncInsightAccess();
+});
 
 function readRecords(key) {
   try {

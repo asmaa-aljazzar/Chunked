@@ -10,6 +10,11 @@
 .focus-header h1 { margin: 0 0 .25rem; font-family: "Patrick Hand", var(--font-body); font-size: clamp(2.2rem, 3.4vw, 2.85rem); font-weight: 400; line-height: 1.1; }
 .focus-header__subtitle { margin: 0; color: var(--color-text); font-size: var(--text-lg); }
 .focus-header__support { margin: .35rem 0 0; color: var(--color-text-muted); }
+.focus-ai-suggestion { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: 1rem 1.2rem; }
+.focus-ai-suggestion__icon { display: grid; width: 2.7rem; height: 2.7rem; place-items: center; border-radius: var(--radius-md); background: var(--color-accent-soft); color: var(--color-accent-strong); font-size: 1.25rem; }
+.focus-ai-suggestion .eyebrow { margin: 0 0 .2rem; }
+.focus-ai-suggestion h2 { margin: 0; font-size: var(--text-base); }
+.focus-ai-suggestion p:last-child { margin: .2rem 0 0; color: var(--color-text-muted); font-size: var(--text-sm); }
 .focus-current,
 .focus-options,
 .focus-readiness,
@@ -98,6 +103,8 @@
   .focus-current__empty .button { margin-inline-start: 4.2rem; }
   .focus-current__selected { align-items: flex-start; flex-direction: column; }
   .focus-section-heading { align-items: flex-start; }
+  .focus-ai-suggestion { grid-template-columns: auto minmax(0, 1fr); }
+  .focus-ai-suggestion .button { grid-column: 2; justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) {
   .focus-option,

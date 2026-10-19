@@ -9,15 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/tokens.css">
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css?v=11">
+    <link rel="stylesheet" href="../css/components.css?v=16">
     <link rel="stylesheet" href="../css/animations.css">
-    <link rel="stylesheet" href="../css/pages/dashboard.css?v=4">
-    <link rel="stylesheet" href="../css/pages/insights.css?v=9">
-    <script type="module" src="../js/app.js?v=7"></script>
-    <script type="module" src="../js/pages/insights.js?v=9"></script>
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=5">
+    <link rel="stylesheet" href="../css/pages/insights.css?v=11">
+    <script type="module" src="../js/app.js?v=15"></script>
+    <script type="module" src="../js/pages/insights.js?v=11"></script>
   </head>
   <body class="app-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -33,7 +33,7 @@
               <p>A little reflection on what you’ve been building.</p>
             </div>
             <div class="insights-header-actions">
-              <span class="premium-badge insights-premium-badge"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m2 5 3.1 2.2L8 2l2.9 5.2L14 5l-1.2 8H3.2L2 5Z"/><path d="M3.3 11h9.4"/></svg>Premium</span>
+              <span class="premium-badge insights-premium-badge" data-premium-upsell><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m2 5 3.1 2.2L8 2l2.9 5.2L14 5l-1.2 8H3.2L2 5Z"/><path d="M3.3 11h9.4"/></svg>Premium</span>
               <div class="insights-range-control">
                 <label id="insights-range-label" for="insights-range">Show</label>
                 <select id="insights-range" name="range">
@@ -44,6 +44,15 @@
             </div>
           </header>
 
+          <div class="insights-protected" id="insights-protected">
+            <section class="insights-lock-card" id="insights-lock-card" aria-labelledby="insights-lock-title" hidden>
+              <span class="insights-lock-card__icon" aria-hidden="true">⌑</span>
+              <p class="eyebrow">Premium insights</p>
+              <h2 id="insights-lock-title">Your patterns are waiting to be discovered.</h2>
+              <p>Unlock weekly trends, goal progress, and habit consistency in one calm view.</p>
+              <a class="button button--primary" href="plans.html">Explore Premium</a>
+            </section>
+            <div class="insights-protected__content" id="insights-protected-content">
           <p class="insights-data-note" id="insights-data-note" hidden></p>
 
           <section class="insights-section" aria-labelledby="day-insights-title">
@@ -96,6 +105,8 @@
               <a class="text-link reflection-archive-link" href="reflections.html">View all reflections <span aria-hidden="true">→</span></a>
             </div>
           </section>
+            </div>
+          </div>
         </main>
       </div>
     </div>

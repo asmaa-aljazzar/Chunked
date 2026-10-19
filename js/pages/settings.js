@@ -1,7 +1,8 @@
-import { applyTheme, getActiveMode, getActiveThemeKey, THEMES } from "../utils/theme.js";
+import { applyTheme, getActiveMode, getActiveThemeKey, THEMES } from "../utils/theme.js?v=2";
 import { applyLanguage, getLanguage, LANGUAGE_STORAGE_KEY } from "../utils/language.js?v=3";
 import { getProfile, saveProfile, PROFILE_STORAGE_KEY } from "../utils/profile.js";
 import { DAY_MODE_STORAGE_KEY, getDayMode } from "../utils/day-preferences.js";
+import { isPremium, isPremiumTheme } from "../utils/subscription.js?v=3";
 
 const themeOptions = document.querySelector("#theme-options");
 const currentThemeLabel = document.querySelector("#theme-current");
@@ -27,8 +28,7 @@ const notificationStatus = document.querySelector("#notification-settings-status
 const resetButton = document.querySelector("#reset-demo-settings");
 const resetStatus = document.querySelector("#reset-settings-status");
 const SETTINGS_PREFERENCES_KEY = "chunked-settings-preferences-v1";
-const groupOrder = ["Base", "Seasonal", "Style", "Occasion"];
-const premiumThemeKeys = new Set(["autumn", "summer", "spring", "winter"]);
+const groupOrder = ["Base", "Seasonal", "Style", "Occasion", "More themes"];
 
 function readSettingsPreferences() {
   try {
@@ -84,9 +84,10 @@ function createThemeOption(theme, selectedTheme) {
   title.className = "theme-option__title";
   title.append(name);
 
-  if (premiumThemeKeys.has(theme.key)) {
+  if (isPremiumTheme(theme.key) && !isPremium()) {
     const premiumBadge = document.createElement("span");
     premiumBadge.className = "premium-badge";
+    premiumBadge.dataset.premiumUpsell = "";
     premiumBadge.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m2 5 3.1 2.2L8 2l2.9 5.2L14 5l-1.2 8H3.2L2 5Z"/><path d="M3.3 11h9.4"/></svg><span>Premium</span>';
     title.append(premiumBadge);
   }
@@ -128,6 +129,10 @@ function renderThemeOptions(selectedTheme) {
 }
 
 function selectTheme(themeKey) {
+  if (isPremiumTheme(themeKey) && !isPremium()) {
+    window.location.href = "plans.html?return=settings#appearance";
+    return;
+  }
   const theme = applyTheme(themeKey);
   themeOptions.querySelectorAll("[data-theme-key]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeKey === theme.key));
@@ -154,6 +159,10 @@ const activeTheme = getActiveThemeKey();
 const initialTheme = THEMES.find((theme) => theme.key === activeTheme) ?? THEMES[0];
 renderThemeOptions(initialTheme.key);
 updateCurrentTheme({ ...initialTheme, mode: getActiveMode() });
+document.addEventListener("chunked:planchange", () => renderThemeOptions(getActiveThemeKey()));
+window.addEventListener("storage", (event) => {
+  if (event.key === "chunked-demo-plan-v1") renderThemeOptions(getActiveThemeKey());
+});
 
 const profile = getProfile();
 profileNameInput.value = profile.displayName;

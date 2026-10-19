@@ -1,4 +1,6 @@
 const SAVED_KEY = "chunked-saved-templates-v1";
+const CART_KEY = "chunked-template-cart-v1";
+const OWNED_KEY = "chunked-owned-templates-v1";
 
 const templates = [
   {
@@ -18,8 +20,8 @@ const templates = [
     name: "Study Week",
     description: "A flexible study rhythm with focused sessions, review, and rest built in.",
     category: "study",
-    access: "free",
-    price: 0,
+    access: "paid",
+    price: 1.99,
     icon: "✎",
     previewTitle: "This week’s study rhythm",
     previewRows: ["Read one short chapter", "Review yesterday’s notes", "Take a proper break"],
@@ -30,8 +32,8 @@ const templates = [
     name: "Gentle Morning Routine",
     description: "Start with a few easy habits that help the morning feel more settled.",
     category: "habits",
-    access: "free",
-    price: 0,
+    access: "paid",
+    price: 1.49,
     icon: "☀",
     previewTitle: "A softer start",
     previewRows: ["Drink some water", "Open the curtains", "Pick one intention"],
@@ -42,7 +44,7 @@ const templates = [
     name: "Weekly Goal Planner",
     description: "Turn a meaningful goal into a small set of steps you can revisit each week.",
     category: "grow",
-    access: "premium",
+    access: "paid",
     price: 2.99,
     icon: "↗",
     previewTitle: "One goal, small steps",
@@ -54,8 +56,8 @@ const templates = [
     name: "Daily Focus Plan",
     description: "Choose a focus, check what you need, and make the next step feel clear.",
     category: "focus",
-    access: "free",
-    price: 0,
+    access: "paid",
+    price: 1.49,
     icon: "◎",
     previewTitle: "My focus for this chunk",
     previewRows: ["Pick one thing to work on", "Check what I need", "Choose a next step"],
@@ -66,7 +68,7 @@ const templates = [
     name: "Habit Builder",
     description: "Begin with a few repeatable habits and a schedule that fits your week.",
     category: "habits",
-    access: "premium",
+    access: "paid",
     price: 1.99,
     icon: "◷",
     previewTitle: "A habit that fits my week",
@@ -78,8 +80,8 @@ const templates = [
     name: "A Kinder Workweek",
     description: "Organize work into clear priorities, focused blocks, and realistic breaks.",
     category: "work",
-    access: "free",
-    price: 0,
+    access: "paid",
+    price: 1.99,
     icon: "▤",
     previewTitle: "A kinder workweek",
     previewRows: ["Name the key outcomes", "Group similar work", "Keep a little margin"],
@@ -90,7 +92,7 @@ const templates = [
     name: "Self-Care Reset",
     description: "Make a little room for rest and care without turning it into another checklist.",
     category: "self-care",
-    access: "premium",
+    access: "paid",
     price: 2.49,
     icon: "✦",
     previewTitle: "A small reset for me",
@@ -112,7 +114,6 @@ const savedCount = document.querySelector("#saved-template-count");
 const savedResultCount = document.querySelector("#saved-results-count");
 const savedEmpty = document.querySelector("#saved-template-empty");
 const detailsDialog = document.querySelector("#template-details-dialog");
-const premiumDialog = document.querySelector("#template-premium-dialog");
 const detailActions = document.querySelector("#template-detail-actions");
 const detailStatus = document.querySelector("#template-detail-status");
 const savedTab = document.querySelector("#saved-templates-tab");
@@ -121,6 +122,35 @@ let activeCategory = "all";
 let activeAccess = accessSelect.value;
 let selectedTemplate = null;
 let savedIds = loadSavedIds();
+let ownedIds = loadIdList(OWNED_KEY);
+
+function loadIdList(key) {
+  try {
+    const stored = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(stored) ? stored.filter((id) => typeof id === "string") : [];
+  } catch { return []; }
+}
+
+function hasTemplateAccess(template) {
+  return template.access === "free" || ownedIds.includes(template.id);
+}
+
+function updateCartBadge() {
+  let count = 0;
+  try { count = JSON.parse(localStorage.getItem(CART_KEY) || "[]").length; } catch { count = 0; }
+  const badge = document.querySelector("#template-cart-count");
+  badge.textContent = String(count);
+  badge.setAttribute("aria-label", `${count} ${count === 1 ? "item" : "items"} in cart`);
+}
+
+function addToCart(template) {
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch { cart = []; }
+  if (!Array.isArray(cart)) cart = [];
+  if (!cart.some((item) => item.id === template.id)) cart.push({ id: template.id, name: template.name, price: template.price });
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  window.location.href = "cart.html";
+}
 
 function loadSavedIds() {
   try {
@@ -172,8 +202,8 @@ function createTemplateCard(template) {
   category.className = "template-card__category";
   category.textContent = categoryName(template.category);
   const access = document.createElement("span");
-  access.className = `template-card__access${template.access === "premium" ? " template-card__access--premium" : ""}`;
-  access.textContent = template.access === "premium" ? "Premium" : "Free";
+  access.className = `template-card__access${template.access === "paid" ? " template-card__access--paid" : ""}`;
+  access.textContent = ownedIds.includes(template.id) ? "Owned" : template.access === "paid" ? "Paid" : "Free";
   meta.append(category, access);
 
   const title = document.createElement("h2");
@@ -183,14 +213,19 @@ function createTemplateCard(template) {
   description.textContent = template.description;
   const price = document.createElement("p");
   price.className = "template-card__price";
-  price.textContent = template.access === "premium" ? `$${template.price.toFixed(2)} · Demo price` : "Free";
+  price.textContent = template.access === "free" ? "Free sample" : hasTemplateAccess(template) ? "Ready to print" : `$${template.price.toFixed(2)} · Demo price`;
 
   const actions = document.createElement("div");
   actions.className = "template-card__actions";
-  actions.append(
-    makeButton("Preview printable", "button button--primary", () => openDetails(template)),
-    makeButton(savedIds.includes(template.id) ? "Remove" : "Save", "button button--secondary", () => toggleSaved(template)),
-  );
+  actions.append(makeButton("Preview printable", "button button--secondary", () => openDetails(template)));
+  if (template.access === "paid" && !hasTemplateAccess(template)) {
+    actions.append(makeButton("Add to cart", "button button--primary", () => addToCart(template)));
+  } else {
+    actions.append(makeButton("Print / Save PDF", "button button--primary", () => printTemplate(template)));
+    if (template.access === "free") {
+      actions.append(makeButton(savedIds.includes(template.id) ? "Remove saved" : "Save", "button button--secondary", () => toggleSaved(template)));
+    }
+  }
   body.append(meta, title, description, price, actions);
   card.append(preview, body);
   return card;
@@ -248,10 +283,11 @@ function renderMarketplace() {
 }
 
 function renderSaved() {
-  const saved = savedIds.map((id) => templates.find((template) => template.id === id)).filter(Boolean);
+  const freeSavedIds = savedIds.filter((id) => templates.some((template) => template.id === id && template.access === "free"));
+  const saved = [...new Set([...freeSavedIds, ...ownedIds])].map((id) => templates.find((template) => template.id === id)).filter(Boolean);
   savedGrid.replaceChildren(...saved.map(createTemplateCard));
   savedEmpty.hidden = saved.length > 0;
-  savedResultCount.textContent = `${saved.length} saved ${saved.length === 1 ? "template" : "templates"}`;
+  savedResultCount.textContent = `${saved.length} ${saved.length === 1 ? "template" : "templates"} in your library`;
   savedCount.textContent = String(saved.length);
   savedCount.hidden = saved.length === 0;
 }
@@ -278,7 +314,8 @@ function openDetails(template) {
   const detailPreview = document.querySelector("#template-detail-preview");
   detailPreview.dataset.category = template.category;
   detailPreview.replaceChildren(createPreviewSheet(template));
-  document.querySelector("#template-detail-access").textContent = template.access === "premium" ? `Premium · $${template.price.toFixed(2)} (demo price)` : "Free template";
+  const detailAccess = document.querySelector("#template-detail-access");
+  detailAccess.textContent = template.access === "free" ? "Free sample printable" : ownedIds.includes(template.id) ? "Purchased · ready to print" : `Paid printable · $${template.price.toFixed(2)} (demo price)`;
   const itemList = document.querySelector("#template-detail-items");
   itemList.replaceChildren(...template.items.map((item) => {
     const li = document.createElement("li");
@@ -301,17 +338,23 @@ function openDetails(template) {
 
   detailStatus.textContent = "";
   detailActions.replaceChildren();
-  detailActions.append(makeButton(savedIds.includes(template.id) ? "Remove from My templates" : "Save template", "button button--secondary", () => toggleSaved(template, true)));
-  if (template.access === "free") {
+  if (hasTemplateAccess(template)) {
+    if (template.access === "free") {
+      detailActions.append(makeButton(savedIds.includes(template.id) ? "Remove from My templates" : "Save template", "button button--secondary", () => toggleSaved(template, true)));
+    }
     detailActions.append(makeButton("Print / Save as PDF", "button button--primary", () => printTemplate(template)));
   } else {
-    detailActions.append(makeButton("Get Premium", "button button--primary", () => {
-      document.querySelector("#template-premium-copy").textContent = `“${template.name}” is marked as premium at a demo price of $${template.price.toFixed(2)}. No payment will be taken.`;
-      premiumDialog.showModal();
-    }));
+    detailActions.append(makeButton("Add to cart", "button button--primary", () => addToCart(template)));
   }
   detailsDialog.showModal();
 }
+
+detailsDialog.addEventListener("click", (event) => {
+  if (event.target !== detailsDialog) return;
+  const bounds = detailsDialog.getBoundingClientRect();
+  const clickedOutside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+  if (clickedOutside) detailsDialog.close();
+});
 
 function toggleSaved(template, updateDetails = false) {
   const isSaved = savedIds.includes(template.id);
@@ -450,8 +493,11 @@ savedTab.addEventListener("click", () => setActiveTab(true));
 document.querySelector("#back-to-marketplace").addEventListener("click", () => setActiveTab(false));
 document.querySelectorAll("[data-show-marketplace]").forEach((button) => button.addEventListener("click", () => setActiveTab(false)));
 
-document.querySelector("#premium-demo-confirm").addEventListener("click", () => premiumDialog.close());
-document.querySelector("#premium-demo-cancel").addEventListener("click", () => premiumDialog.close());
+window.addEventListener("storage", (event) => {
+  if (event.key === OWNED_KEY) { ownedIds = loadIdList(OWNED_KEY); renderMarketplace(); renderSaved(); }
+  if (event.key === CART_KEY) updateCartBadge();
+});
 
 renderMarketplace();
 renderSaved();
+updateCartBadge();

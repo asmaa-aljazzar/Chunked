@@ -263,6 +263,16 @@ body {
   text-align: center;
 }
 
+.demo-accounts { display: grid; gap: .6rem; margin-top: var(--space-5); border-top: 1px solid var(--color-border); padding-top: var(--space-4); }
+.demo-accounts > div .eyebrow { margin: 0 0 .15rem; }
+.demo-accounts h3 { margin: 0; font-size: var(--text-base); }
+.demo-account { display: flex; align-items: center; justify-content: space-between; gap: .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); padding: .65rem .75rem; }
+.demo-account > div { display: grid; min-width: 0; gap: .12rem; }
+.demo-account strong { font-size: var(--text-sm); }
+.demo-account code { color: var(--color-text-muted); font-family: var(--font-body); font-size: var(--text-xs); overflow-wrap: anywhere; }
+.demo-account .button { min-height: 2.35rem; flex: 0 0 auto; padding: .4rem .7rem; font-size: var(--text-xs); }
+.demo-accounts__note { margin: 0; font-size: var(--text-xs); }
+
 .auth-footer {
   padding-block: var(--space-4);
   color: var(--color-text-muted);

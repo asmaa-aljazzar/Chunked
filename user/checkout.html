@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Complete your Chunked Premium plan selection.">
+    <title>Checkout — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
+    <link rel="stylesheet" href="../css/components.css?v=16">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/checkout.css?v=2">
+    <script type="module" src="../js/pages/checkout.js?v=4"></script>
+  </head>
+  <body class="checkout-page">
+    <a class="skip-link" href="#checkout-form">Skip to checkout</a>
+    <header class="checkout-header">
+      <a class="brand" href="../index.html" aria-label="Chunked home">
+        <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+        <span class="brand__name">Chunked</span>
+      </a>
+      <a class="checkout-back" href="plans.html">← <span>Back to plans</span></a>
+    </header>
+
+    <main class="checkout-layout" id="main-content">
+      <section class="checkout-form-panel" aria-labelledby="checkout-title">
+        <div class="checkout-heading">
+          <p class="eyebrow">Premium membership</p>
+          <h1 id="checkout-title">Checkout</h1>
+          <p>Enter your billing details to continue.</p>
+        </div>
+
+        <form id="checkout-form" class="payment-form">
+          <section class="payment-section" aria-labelledby="contact-title">
+            <h2 id="contact-title">Contact information</h2>
+            <div class="payment-field">
+              <label for="billing-email">Email address</label>
+              <input id="billing-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+          </section>
+
+          <section class="payment-section" aria-labelledby="payment-title">
+            <div class="payment-section__heading">
+              <h2 id="payment-title">Payment method</h2>
+              <span class="payment-secure" aria-label="Secure checkout">⌑ Secure</span>
+            </div>
+            <div class="payment-method" aria-label="Selected payment method: card">
+              <span class="payment-method__radio" aria-hidden="true"></span>
+              <span>Credit or debit card</span>
+              <span class="payment-method__brands" aria-hidden="true">VISA&nbsp; · &nbsp;Mastercard</span>
+            </div>
+
+            <div class="payment-fields">
+              <div class="payment-field">
+                <label for="card-name">Name on card</label>
+                <input id="card-name" name="card-name" autocomplete="cc-name" placeholder="Full name" required>
+              </div>
+              <div class="payment-field">
+                <label for="card-number">Card number</label>
+                <input id="card-number" name="card-number" inputmode="numeric" autocomplete="cc-number" placeholder="1234  5678  9012  3456" maxlength="23" required>
+              </div>
+              <div class="payment-fields__row">
+                <div class="payment-field">
+                  <label for="card-expiry">Expiration date</label>
+                  <input id="card-expiry" name="card-expiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required>
+                </div>
+                <div class="payment-field">
+                  <label for="card-cvc">Security code</label>
+                  <input id="card-cvc" name="card-cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <label class="billing-consent"><input class="chunked-check" type="checkbox" required><span>I agree to the subscription terms and billing policy.</span></label>
+          <p class="checkout-status" id="checkout-status" role="status" aria-live="polite" hidden></p>
+          <button class="button button--primary checkout-submit" type="submit"><span>Continue to payment</span><span aria-hidden="true">→</span></button>
+          <p class="checkout-note">For this demonstration, completing checkout unlocks Premium in this browser. Card details are not sent or saved.</p>
+        </form>
+        <section class="checkout-success" id="checkout-success" hidden aria-labelledby="checkout-success-title">
+          <span class="checkout-success__mark" aria-hidden="true">✓</span>
+          <p class="eyebrow">You’re all set</p>
+          <h2 id="checkout-success-title">Premium is ready.</h2>
+          <p>Your workspace now includes Premium access on this browser.</p>
+          <a class="button button--primary" id="checkout-success-link" href="dashboard.html">Continue to Premium <span aria-hidden="true">→</span></a>
+          <a class="checkout-success__secondary" id="checkout-success-secondary" href="settings.html#appearance">Choose a Premium theme</a>
+        </section>
+      </section>
+
+      <aside class="order-panel" aria-labelledby="order-title">
+        <p class="eyebrow">Order summary</p>
+        <h2 id="order-title">Chunked Premium</h2>
+        <p class="order-panel__description">More room for reflection, personalization, and steady progress.</p>
+        <div class="order-plan">
+          <span class="order-plan__icon" aria-hidden="true">✦</span>
+          <div><strong>Premium plan</strong><span id="order-billing">Monthly billing</span></div>
+          <a href="plans.html" class="order-plan__change">Change</a>
+        </div>
+        <dl class="order-totals">
+          <div><dt>Subtotal</dt><dd id="order-subtotal">To be announced</dd></div>
+          <div><dt>Tax</dt><dd>Calculated at payment</dd></div>
+          <div class="order-totals__total"><dt>Total due today</dt><dd id="order-total">To be announced</dd></div>
+        </dl>
+        <p class="order-panel__renewal" id="order-renewal">Your subscription renews monthly. Cancel any time.</p>
+        <div class="order-panel__secure"><span aria-hidden="true">⌑</span><span>Card details are never stored in your Chunked account.</span></div>
+      </aside>
+    </main>
+
+    <footer class="checkout-footer"><span>© 2026 Chunked</span><span>Questions? <a href="mailto:support@chunked.app">Contact support</a></span></footer>
+  </body>
+</html>

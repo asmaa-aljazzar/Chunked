@@ -10,14 +10,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/tokens.css">
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css?v=11">
+    <link rel="stylesheet" href="../css/components.css?v=16">
     <link rel="stylesheet" href="../css/animations.css">
-    <link rel="stylesheet" href="../css/pages/dashboard.css?v=4">
-    <link rel="stylesheet" href="../css/pages/day.css?v=4">
-    <script type="module" src="../js/app.js?v=7"></script>
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=5">
+    <link rel="stylesheet" href="../css/pages/day.css?v=5">
+    <script type="module" src="../js/app.js?v=15"></script>
     <script type="module" src="../js/pages/day.js?v=2"></script>
   </head>
   <body class="app-page day-page">
@@ -40,6 +40,12 @@
               <span aria-hidden="true">＋</span> Add task
             </button>
           </header>
+
+          <section class="ai-suggestion-strip panel" aria-labelledby="day-ai-suggestions-title">
+            <div class="ai-suggestion-strip__intro"><p class="eyebrow">A little help, when you want it</p><h2 id="day-ai-suggestions-title">AI suggestions</h2><p>Optional ideas to keep today manageable.</p></div>
+            <article class="ai-suggestion-card"><span aria-hidden="true">＋</span><div><h3>Add one small task</h3><p>Capture a task while it’s on your mind.</p></div><button class="button button--secondary" id="ai-add-task" type="button">Add task</button></article>
+            <article class="ai-suggestion-card"><span aria-hidden="true">✦</span><div><h3>Make room in your list</h3><p>Ask for help choosing what can wait.</p></div><a class="button button--secondary" href="ai.html?prompt=Help%20me%20decide%20what%20can%20wait%20from%20my%20task%20list.">Review tasks</a></article>
+          </section>
 
           <section class="day-current panel" aria-labelledby="day-current-title">
             <div>

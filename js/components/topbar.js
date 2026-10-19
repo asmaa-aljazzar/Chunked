@@ -1,6 +1,7 @@
-import { applyTheme, getActiveMode, getActiveThemeKey, toggleThemeMode } from "../utils/theme.js";
+import { applyTheme, getActiveMode, getActiveThemeKey, toggleThemeMode } from "../utils/theme.js?v=2";
 import { getLanguage, toggleLanguage } from "../utils/language.js?v=3";
 import { getProfile } from "../utils/profile.js";
+import { signOutDemo } from "../utils/demo-auth.js?v=2";
 
 const sunIcon = `
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -81,6 +82,7 @@ export function mountTopbar(container) {
   const accountMenuWrap = container.querySelector("#account-menu-wrap");
   const accountMenuButton = container.querySelector("#account-menu-toggle");
   const accountMenu = container.querySelector("#account-menu");
+  const logoutLink = container.querySelector(".account-menu__link--logout");
   const sidebarStorageKey = "chunked-sidebar-hidden";
 
   function setSidebarVisible(isVisible, persist = true) {
@@ -170,6 +172,12 @@ export function mountTopbar(container) {
   accountMenuButton.addEventListener("click", () => {
     setNotificationsOpen(false);
     setAccountMenuOpen(accountMenu.hidden);
+  });
+
+  logoutLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    signOutDemo();
+    window.location.assign("login.html");
   });
 
   notificationClose.addEventListener("click", () => setNotificationsOpen(false));

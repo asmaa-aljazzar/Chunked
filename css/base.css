@@ -4,18 +4,52 @@
   box-sizing: border-box;
 }
 
+*[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 1rem);
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) var(--color-surface-soft);
+  -ms-overflow-style: auto;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) var(--color-surface-soft);
+}
+
+*::-webkit-scrollbar {
+  width: .65rem;
+  height: .65rem;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--color-surface-soft);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-surface-soft);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent) 72%, var(--color-text-muted));
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-strong);
+}
+
+/* Keep scroll interaction while removing browser-specific scrollbar chrome site-wide. */
+html,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 body {

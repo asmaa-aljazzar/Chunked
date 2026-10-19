@@ -10,13 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/tokens.css">
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css?v=11">
+    <link rel="stylesheet" href="../css/components.css?v=16">
     <link rel="stylesheet" href="../css/animations.css">
-    <link rel="stylesheet" href="../css/pages/login.css">
-    <script type="module" src="../js/pages/login.js"></script>
+    <link rel="stylesheet" href="../css/pages/login.css?v=2">
+    <script type="module" src="../js/pages/login.js?v=2"></script>
   </head>
   <body>
     <a class="skip-link" href="#login-form">Skip to sign in</a>
@@ -71,7 +71,12 @@
         </form>
 
         <p class="auth-switch">New to Chunked? <a href="signup.html">Create an account</a></p>
-        <p class="auth-demo-note">Sign-in is not connected yet. This page will not send or save your details.</p>
+        <section class="demo-accounts" aria-labelledby="demo-accounts-title">
+          <div><p class="eyebrow">Try the prototype</p><h3 id="demo-accounts-title">Demo accounts</h3></div>
+          <article class="demo-account"><div><strong>Admin</strong><code>admin@example.com</code><code>admin123</code></div><button class="button button--secondary" type="button" data-demo-login="admin">Use admin</button></article>
+          <article class="demo-account"><div><strong>User</strong><code>user@example.com</code><code>user123</code></div><button class="button button--secondary" type="button" data-demo-login="user">Use user</button></article>
+          <p class="demo-accounts__note">Public demo access. This browser stores only the active demo session; this is not secure account authentication.</p>
+        </section>
       </section>
     </main>
 

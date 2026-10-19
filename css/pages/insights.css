@@ -5,6 +5,17 @@
   padding-block-end: var(--space-8);
 }
 
+.insights-protected { position: relative; min-width: 0; }
+.insights-protected__content { transition: filter 220ms ease, opacity 220ms ease; }
+.insights-protected[data-plan="free"] .insights-protected__content { filter: blur(5px); opacity: .48; pointer-events: none; user-select: none; }
+.insights-lock-card { position: sticky; z-index: 4; top: 1rem; display: grid; width: min(34rem, calc(100% - 2rem)); justify-items: center; gap: .55rem; margin: 1rem auto -12rem; border: 1px solid var(--color-border); border-radius: var(--radius-xl); background: color-mix(in srgb, var(--color-surface) 94%, transparent); box-shadow: var(--shadow-float), var(--shadow-neon); padding: clamp(1.25rem, 3vw, 2rem); text-align: center; backdrop-filter: blur(14px); }
+.insights-lock-card[hidden] { display: none !important; }
+.insights-lock-card__icon { display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border-radius: 50%; background: var(--color-accent-soft); color: var(--color-accent-strong); font-size: 1.3rem; }
+.insights-lock-card .eyebrow,.insights-lock-card h2,.insights-lock-card p { margin: 0; }
+.insights-lock-card h2 { max-width: 25ch; font-size: var(--text-xl); }
+.insights-lock-card p:not(.eyebrow) { max-width: 38ch; color: var(--color-text-muted); font-size: var(--text-sm); }
+.insights-lock-card .button { margin-top: .4rem; }
+
 .insights-intro,
 .insights-section__heading {
   display: flex;
@@ -124,7 +135,7 @@
 .insights-task-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-4);
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .insight-card,
@@ -181,6 +192,18 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.insights-content > .insights-protected,
+.insights-protected__content,
+.insights-protected__content > .insights-section,
+.insights-protected__content > .insights-columns {
+  min-width: 0;
+}
+
+.insights-protected__content {
+  display: grid;
   gap: var(--space-5);
 }
 

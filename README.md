@@ -8,21 +8,35 @@ This repository currently contains a responsive frontend prototype built with HT
 
 ## Project links
 
-- **Figma product design:** [Complete Chunked Product Design](https://www.figma.com/make/xeK6qXd9XsPCiseZCgg2zI/Complete-Chunked-Product-Design?fullscreen=1&t=iJrxCoTWeAVJrH9j-1&code-node-id=0-6)
+- **Figma product design:** [Chunked — Wireframe & Mockup](https://www.figma.com/design/ydE2X6w8L3Y8s7fOn6dAfz/Chunked-%E2%80%94-Wireframe---Mockup?node-id=0-1&t=rBI6eHn4BWGGWjuY-1)
 - **MVP database diagram (PDF):** [View or download the ER diagram](database/Chunked-mvp.pdf)
 - **MVP database diagram source:** [DBML source](database/chunked_mvp.dbml)
+
+## Demo login
+
+Use these public demo credentials on the [login page](https://asmaa-aljazzar.github.io/Chunked/user/login.html):
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | `admin@example.com` | `admin123` |
+| User | `user@example.com` | `user123` |
+
+Demo sign-in stores the active demo session in the browser's `localStorage`; the profile is stored separately. The credential values are public in the frontend code, so this is for exploring the prototype only; it is not secure authentication and must not be used for real accounts or sensitive data. Anyone can use these demo credentials on GitHub Pages. Each visitor's browser has its own local session and app data, which are not shared with other visitors or synced across devices.
 
 The PDF is included in the repository under `database/`. The DBML source can be imported into [dbdiagram.io](https://dbdiagram.io) if you want to edit or export the diagram.
 
 ## Features in the frontend prototype
 
 - Public landing page with product overview, themes, and plan information.
-- User-facing pages for Dashboard, DAY, the current chunk, GROW, goals, focus, Insights, reflections, templates, profile, and settings.
+- User-facing pages for Dashboard, DAY, the current chunk, GROW, goals, focus, Insights, reflections, templates, plans, checkout, profile, and settings.
 - Admin workspace with sample user and plan metrics, template management, categories, subscriptions, transactions, announcements, AI usage aggregates, reports, audit examples, and settings.
+- Public demo login with separate user and admin destinations; Community is marked as coming soon.
+- AI chat with starter suggestions, sample replies, a daily free/premium reply allowance, and a conversation history saved per demo account in the current browser.
 - Responsive layouts, theme choices, shared navigation components, and small interface animations.
-- Demo interactions that save selected changes in the current browser using `localStorage`.
+- Demo interactions that save selected changes in the current browser using `localStorage`, including profile settings, AI usage, and AI chat messages. AI conversations remain available after a refresh in the same browser, but do not sync across devices or browsers.
+- The checkout demo activates a local Premium entitlement so paid screens and themes can be explored. Payment details are never sent or retained; payment processing is not connected.
 
-All names, account records, activity, payments, and metrics shown in the prototype are fictional. Demo accounts in the SQL seed use `.example.test` email addresses and invalid password placeholders; they cannot sign in.
+All names, account records, activity, payments, and metrics shown in the prototype are fictional. The demo login above is separate from the SQL seed data and does not connect to the database.
 
 ## Run locally
 
@@ -152,6 +166,7 @@ The included SQL contains fictional data only. Do not commit real passwords, gen
 ## Current limitations and next backend step
 
 - This is a frontend-only prototype; the login and signup pages are not connected to server authentication.
+- AI replies are sample responses; the chat is not connected to an AI service. Daily usage limits and conversation history are stored locally in the browser.
 - Admin template edits and the current Admin demo category/announcement additions are stored in this browser, not MySQL.
 - The MVP SQL data model is in place, but the PHP backend and database connection are not implemented.
 - The next backend step is to build PHP endpoints using prepared statements, add session-based authentication and server-side role checks, then connect user and Admin pages to those endpoints.

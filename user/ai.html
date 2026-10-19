@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Talk through your tasks and find a manageable next step.">
+    <title>AI chat — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=16">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=5">
+    <link rel="stylesheet" href="../css/pages/ai.css?v=10">
+    <script type="module" src="../js/app.js?v=16"></script>
+    <script type="module" src="../js/pages/ai.js?v=10"></script>
+  </head>
+  <body class="app-page ai-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="ai"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content ai-content" id="main-content">
+          <header class="ai-header"><div><p class="eyebrow">Think it through, one step at a time</p><h1>AI chat</h1><p>Talk through your plans and find a next step that feels manageable.</p></div><section class="ai-usage ai-usage--header" aria-label="Daily AI usage"><div class="ai-usage__heading"><div><strong>Today's AI usage</strong><p id="ai-usage-detail">0 of 5 replies used today</p></div><span class="ai-usage__plan" id="ai-usage-plan">Free</span></div><div class="ai-usage__track" id="ai-usage-progress" role="progressbar" aria-label="AI replies used today" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span></span></div><p class="ai-usage__reset" id="ai-usage-reset">Usage resets at midnight in your local time.</p><p class="ai-usage__limit" id="ai-usage-limit" role="status" aria-live="polite" hidden><span id="ai-usage-limit-text">Daily limit reached.</span> <a href="plans.html">Explore Premium (30 replies/day)</a></p></section></header>
+          <div class="ai-layout">
+            <section class="ai-chat panel" aria-labelledby="ai-chat-title">
+              <div class="ai-chat__heading"><div><p class="eyebrow">Your conversation</p><h2 id="ai-chat-title">What would help right now?</h2></div></div>
+              <div class="ai-messages" id="ai-messages" role="log" aria-live="polite" aria-relevant="additions text">
+                <article class="ai-message ai-message--assistant"><span class="ai-message__avatar" aria-hidden="true">✦</span><p>Hi. Tell me what’s on your mind, and we can make it feel a little clearer.</p></article>
+              </div>
+              <form class="ai-composer" id="ai-composer">
+                <label for="ai-prompt">Message the AI assistant</label>
+                <textarea id="ai-prompt" rows="1" maxlength="1000" placeholder="Write what you’d like help with…" required></textarea>
+                <button class="button button--primary" type="submit"><span id="ai-send-label">Send</span> <span aria-hidden="true">→</span></button>
+              </form>
+            </section>
+            <aside class="ai-suggestions panel" aria-labelledby="ai-suggestions-title">
+              <p class="eyebrow">A place to start</p><h2 id="ai-suggestions-title">Suggestions</h2><p class="ai-suggestions__intro">Choose a prompt or write your own.</p>
+              <div class="ai-suggestions__list">
+                <button type="button" data-prompt="Help me decide which task matters most today."><span aria-hidden="true">◎</span><span><strong>Choose a priority</strong><small>Find one task to start with.</small></span><span aria-hidden="true">→</span></button>
+                <button type="button" data-prompt="Help me decide what can wait from my task list."><span aria-hidden="true">−</span><span><strong>Make room in my list</strong><small>Think through what can wait.</small></span><span aria-hidden="true">→</span></button>
+                <button type="button" data-prompt="Help me decide whether I am ready to switch my current focus."><span aria-hidden="true">↗</span><span><strong>Review my focus</strong><small>Consider whether to stay or switch.</small></span><span aria-hidden="true">→</span></button>
+                <button type="button" data-prompt="Help me turn a big task into a small first step."><span aria-hidden="true">✦</span><span><strong>Shrink a big task</strong><small>Find a practical first step.</small></span><span aria-hidden="true">→</span></button>
+              </div>
+              <section class="ai-premium-note" data-premium-upsell aria-label="Premium AI allowance">
+                <p><strong>Premium:</strong> 30 AI replies per day</p>
+                <a href="plans.html">Explore Premium</a>
+              </section>
+            </aside>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

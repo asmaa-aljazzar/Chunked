@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f3">
+    <meta name="description" content="Compare Chunked plans and choose the plan that fits your routine.">
+    <title>Plans — Chunked</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tokens.css?v=2">
+    <link rel="stylesheet" href="../css/base.css?v=5">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css?v=16">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/pages/dashboard.css?v=5">
+    <link rel="stylesheet" href="../css/pages/plans.css">
+    <script type="module" src="../js/app.js?v=15"></script>
+    <script type="module" src="../js/pages/plans.js?v=4"></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="app-shell">
+      <div id="app-nav" data-active-page="plans"></div>
+      <div class="app-main">
+        <div id="app-topbar"></div>
+        <main class="dashboard-content plans-content" id="main-content">
+          <header class="plans-intro">
+            <div>
+              <p class="eyebrow">Choose what supports you</p>
+              <h1>Your Chunked plan</h1>
+              <p>Start with the essentials. Add more room when it feels right.</p>
+            </div>
+            <span class="plans-demo-badge">Simple plans · switch whenever you need</span>
+          </header>
+
+          <section class="plans-current panel" aria-labelledby="current-plan-title">
+            <div>
+              <p class="eyebrow">Your account</p>
+              <h2 id="current-plan-title">Current plan</h2>
+              <p id="current-plan-copy">You’re currently on the Free plan.</p>
+            </div>
+            <span class="plans-current__badge" id="current-plan-badge">Free</span>
+          </section>
+
+          <section class="plans-billing" aria-labelledby="billing-title">
+            <div class="plans-section-heading">
+              <div>
+                <p class="eyebrow">Plans</p>
+                <h2 id="billing-title">A little more room, if you want it.</h2>
+              </div>
+              <div class="plans-cadence" role="group" aria-label="Choose a billing period">
+                <button type="button" data-cadence="monthly" aria-pressed="true">Monthly</button>
+                <button type="button" data-cadence="yearly" aria-pressed="false">Yearly</button>
+              </div>
+            </div>
+
+            <div class="plans-grid">
+              <article class="plan-choice">
+                <div>
+                  <span class="plan-choice__icon" aria-hidden="true">◌</span>
+                  <p class="eyebrow">A thoughtful place to begin</p>
+                  <h3>Free</h3>
+                  <p class="plan-choice__price">Free <span>forever</span></p>
+                  <p class="plan-choice__description">A calm foundation for planning your day and building steady routines.</p>
+                  <ul class="plan-choice__features">
+                    <li>Plan your day in chunks</li>
+                    <li>Track goals and simple habits</li>
+                    <li>Choose a daily focus</li>
+                    <li>Core themes and daily planning</li>
+                  </ul>
+                </div>
+                <button class="button button--secondary" id="continue-free" type="button">Continue with Free</button>
+              </article>
+
+              <article class="plan-choice plan-choice--premium">
+                <div>
+                  <span class="plan-choice__icon" aria-hidden="true">✦</span>
+                  <p class="eyebrow">For a little more room</p>
+                  <h3>Premium</h3>
+                  <p class="plan-choice__price" id="premium-price">Premium <span>monthly billing</span></p>
+                  <p class="plan-choice__description">More ways to reflect, personalize your space, and shape your routines.</p>
+                  <ul class="plan-choice__features">
+                    <li>Personal insights and weekly patterns</li>
+                    <li>Premium printable templates</li>
+                    <li>More theme choices</li>
+                    <li>Future premium tools as they arrive</li>
+                  </ul>
+                </div>
+                <a class="button button--primary" id="review-premium" href="checkout.html?billing=monthly">Choose Premium</a>
+              </article>
+            </div>
+          </section>
+
+          <p class="plans-status" id="plans-status" role="status" aria-live="polite"></p>
+          <p class="plans-footnote">Premium pricing and billing details will be announced soon.</p>
+        </main>
+      </div>
+    </div>
+
+  </body>
+</html>

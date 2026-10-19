@@ -8,6 +8,9 @@ const navigationItems = [
   { id: "templates", label: "Templates", href: "templates.html", icon: "▤" },
   { id: "insights", label: "Insights", href: "insights.html", icon: "▥", premium: true },
   { id: "focus", label: "FOCUS", href: "focus.html", icon: "◎" },
+  { id: "ai", label: "AI chat", href: "ai.html", icon: "✦" },
+  { id: "community", label: "Community", href: "community.html", icon: "◇", comingSoon: true },
+  { id: "plans", label: "Plans", href: "plans.html", icon: "✦" },
   { id: "settings", label: "Settings", href: "settings.html", icon: "⚙" },
 ];
 
@@ -21,7 +24,7 @@ function brandMarkup() {
   return `
     <a class="brand app-sidebar__brand" href="index.html" aria-label="Chunked home">
       <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
-      <span class="brand__name">Chunked</span>
+      <span class="brand__wordmark"><span class="brand__plan-label" data-premium-label hidden>Premium</span><span class="brand__name">Chunked</span></span>
     </a>`;
 }
 
@@ -50,13 +53,14 @@ function quickAccessMarkup() {
 }
 
 export function mountSidebar(container, activePage = "") {
-  const links = navigationItems.map(({ id, label, href, icon, premium }) => {
+  const links = navigationItems.map(({ id, label, href, icon, premium, comingSoon }) => {
     const link = `
-      <a class="sidebar-link${id === activePage ? " is-active" : ""}${premium ? " sidebar-link--premium" : ""}" href="${href}"${id === activePage ? ' aria-current="page"' : ""}${premium ? ' aria-label="Insights, Premium feature" title="Premium feature"' : ""}>
+      <a class="sidebar-link${id === activePage ? " is-active" : ""}${premium ? " sidebar-link--premium" : ""}" href="${href}"${id === activePage ? ' aria-current="page"' : ""}${premium ? ' aria-label="Insights, Premium feature" title="Premium feature"' : comingSoon ? ' title="Coming soon"' : ""}>
         <span class="sidebar-link__icon" aria-hidden="true">${icon}</span>
         <span class="sidebar-link__label-wrap">
           <span class="sidebar-link__label">${label}</span>
-          ${premium ? `<span class="sidebar-link__premium" aria-hidden="true">${premiumCrown}</span>` : ""}
+          ${comingSoon ? '<span class="sidebar-link__status">Soon</span>' : ""}
+          ${premium ? `<span class="sidebar-link__premium" data-premium-upsell aria-hidden="true">${premiumCrown}</span>` : ""}
         </span>
       </a>`;
 
